@@ -1,0 +1,23 @@
+# Data
+data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# PyTorch
+*.pt
+
+# Environment
+.env
+.venv
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
