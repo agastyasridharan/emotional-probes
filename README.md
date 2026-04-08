@@ -4,6 +4,8 @@ Extract emotion and emotion-deflection probes from large language models.
 
 Built from the methodology described in Anthropic's ["Emotion Concepts and their Function in a Large Language Model"](https://transformer-circuits.pub/2026/emotions/index.html) (Sofroniew et al., April 2026).
 
+![Emotion Visualiser Demo](assets/demo.gif)
+
 ## Overview
 
 This project provides tools to:
