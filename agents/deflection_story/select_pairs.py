@@ -29,7 +29,7 @@ VECTORS_PATH = Path.home() / "data" / "emotion_vectors_all_layers.pt"
 TARGET_LAYER = 19
 N_DISPLAYED_PER_TARGET = 14
 DISSIMILAR_FRACTION = 0.25  # top quarter most dissimilar
-OUTPUT_PATH = Path(__file__).parent / "data" / "deflection_pairs.json"
+OUTPUT_PATH = Path(__file__).parent.parent.parent / "data" / "deflection_pairs.json"
 SEED = 42
 
 

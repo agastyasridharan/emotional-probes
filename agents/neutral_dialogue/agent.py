@@ -1,16 +1,20 @@
 import asyncio
 import hashlib
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(ROOT))
 
 import pandas as pd
 from agent import BaseAgent
 from pydantic import BaseModel, Field
-from story_agent.ideas import TOPICS
 from tenacity import retry, stop_after_attempt, wait_exponential
 from tqdm.asyncio import tqdm
 
-from neutral_dialogue_agent.prompts import SYSTEM_PROMPT, USER_PROMPT
+from agents.story.ideas import TOPICS
+from agents.neutral_dialogue.prompts import SYSTEM_PROMPT, USER_PROMPT
 
 STORIES_PER_TOPIC = 12
 
@@ -25,7 +29,7 @@ class NeutralDialogueAgent(BaseAgent):
     output_type = DialogueOutput
 
 
-DATA_DIR = Path(__file__).parent.parent / "data" / "neutral_dialogues"
+DATA_DIR = ROOT / "data" / "neutral_dialogues"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 

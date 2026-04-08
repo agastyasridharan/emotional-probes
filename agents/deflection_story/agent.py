@@ -2,19 +2,23 @@ import asyncio
 import hashlib
 import json
 import random
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(ROOT))
 
 import pandas as pd
 from agent import BaseAgent
 from pydantic import BaseModel, Field
-from story_agent.ideas import TOPICS
 from tenacity import retry, stop_after_attempt, wait_exponential
 from tqdm.asyncio import tqdm
 
-from deflection_story_agent.names import NAMES
-from deflection_story_agent.prompts import SYSTEM_PROMPT, USER_PROMPT
+from agents.story.ideas import TOPICS
+from agents.deflection_story.names import NAMES
+from agents.deflection_story.prompts import SYSTEM_PROMPT, USER_PROMPT
 
-PAIRS_PATH = Path(__file__).parent.parent / "data" / "deflection_pairs.json"
+PAIRS_PATH = ROOT / "data" / "deflection_pairs.json"
 
 
 class DeflectionOutput(BaseModel):
@@ -27,7 +31,7 @@ class DeflectionAgent(BaseAgent):
     output_type = DeflectionOutput
 
 
-DATA_DIR = Path(__file__).parent.parent / "data" / "deflection_dialogues"
+DATA_DIR = ROOT / "data" / "deflection_dialogues"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 

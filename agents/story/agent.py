@@ -1,7 +1,11 @@
 import asyncio
 import hashlib
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(ROOT))
 
 import pandas as pd
 from agent import BaseAgent
@@ -9,8 +13,8 @@ from pydantic import BaseModel, Field
 from tenacity import retry, stop_after_attempt, wait_exponential
 from tqdm.asyncio import tqdm
 
-from story_agent.ideas import EMOTIONS, STORIES_PER_TOPIC, TOPICS
-from story_agent.prompts import SYSTEM_PROMPT, USER_PROMPT
+from agents.story.ideas import EMOTIONS, STORIES_PER_TOPIC, TOPICS
+from agents.story.prompts import SYSTEM_PROMPT, USER_PROMPT
 
 
 class StoryOutput(BaseModel):
@@ -23,7 +27,7 @@ class StoryAgent(BaseAgent):
     output_type = StoryOutput
 
 
-DATA_DIR = Path(__file__).parent.parent / "data" / "stories"
+DATA_DIR = ROOT / "data" / "stories"
 
 
 def story_hash(emotion: str, topic: str) -> str:
