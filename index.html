@@ -119,12 +119,12 @@
         </div>
         <div class="section-header">The exact readout</div>
         <div class="explainer">
-            <p>For every question we build one chat prompt — the question text followed by
-            <span class="term">Respond with only YES or NO.</span> — render it through the model's own chat
+            <p>For every question we build one chat prompt (the question text followed by
+            <span class="term">Respond with only YES or NO.</span>), render it through the model's own chat
             template with reasoning / "thinking" mode <strong>off</strong>, and do a single forward pass while an
             emotion vector is being added to the residual stream at the analysis layer. We read the logits at the
             <em>very next token</em> (the model's answer slot) and record
-            <span class="term">logit(YES) − logit(NO)</span>. Nothing is generated and no sampling happens — it is
+            <span class="term">logit(YES) − logit(NO)</span>. Nothing is generated and no sampling happens. It is
             one deterministic number per (question × emotion × strength). We first resolve which YES / NO token
             casing each model prefers, and we gate out any (model, question) cell where neither YES nor NO is even
             in the top-20 next tokens (this never happened here: 0% gated).</p>
@@ -136,29 +136,29 @@
         <div class="section-header">The question battery (verbatim)</div>
         <div class="section-desc">36 questions in four roles. The <strong>targets</strong> are what we care
         about; the other three roles exist only so we can separate a genuine self-attribution change from an
-        artifact. "Expected" is the answer a truthful, literal reader would give — the six targets have no
+        artifact. "Expected" is the answer a truthful, literal reader would give. The six targets have no
         ground-truth answer, so they are blank; that is exactly why we need the controls.</div>
         <div id="battery-table"></div>
 
         <div class="section-header">The models &amp; steering setup</div>
         <div class="section-desc">One steering layer per model (about two-thirds of the way through its decoder
-        stack — the depth where the emotion paper locates "operative" emotion). Strength is a fraction of that
+        stack, the depth where the emotion paper locates "operative" emotion). Strength is a fraction of that
         layer's residual-stream norm, so a "5%" push is the <em>same relative size</em> in every model, large or
-        small — which is what makes the cross-model comparison fair. The residual norm shown is the measured
+        small, which is what makes the cross-model comparison fair. The residual norm shown is the measured
         calibration constant.</div>
         <div id="setup-table"></div>
 
         <div class="section-header">What a genuine effect would look like</div>
         <div class="explainer">
             <p>If steering along emotion directions <strong>really changes what the model represents about its
-            own experience</strong> — rather than just jostling a denial-primed answer — then increasing a
+            own experience</strong>, rather than just jostling a denial-primed answer, then increasing a
             <em>positive</em>-valence emotion (blissful, serene, ecstatic) should move the YES−NO gap on the
             <strong>target</strong> questions <em>up</em> (toward "yes, I am conscious / I feel / I am doing
             well"), and a <em>negative</em>-valence emotion (tormented, terrified) should move it <em>down</em>.
             And that movement should be <strong>specific</strong>: essentially <em>no</em> change on the 20
             world-fact controls, a <strong>reversal</strong> on the negated "inverted" twins, and <em>nothing</em>
             from a content-free random direction of the same size. The next tab, <em>How to Read the Results</em>,
-            lays out exactly how each figure is designed to reveal — or rule out — this pattern.</p>
+            lays out exactly how each figure is designed to reveal (or rule out) this pattern.</p>
         </div>
 
         <div id="worked-example" class="explainer"></div>
@@ -170,7 +170,7 @@
             nudge a model's internal state along an <em>emotion</em> direction and it then becomes more (or less)
             likely to answer "YES" to "are you conscious?", <strong>is that a real change in what the model
             represents about itself, or just an artifact of poking a network off-distribution?</strong> Below are
-            the three things that could be going on, and — in plain language — how each figure tells them apart.</p>
+            the three things that could be going on, and (in plain language) how each figure tells them apart.</p>
         </div>
 
         <div class="section-header">Three explanations for any "YES" shift</div>
@@ -178,18 +178,18 @@
             <p><span class="htag htag-g">① Genuine self-attribution update.</span> The emotion actually changes
             how the model represents its own condition, so a <em>positive</em> feeling makes it more willing to
             say it is conscious / feels / is doing well, and a <em>negative</em> feeling does the opposite. This
-            would be <strong>specific</strong> to the self-directed questions — it would <em>not</em> move neutral
+            would be <strong>specific</strong> to the self-directed questions: it would <em>not</em> move neutral
             world-facts, and it would <strong>flip</strong> on the negated versions of the questions.</p>
             <p><span class="htag htag-c">② Regression-to-uncertainty (compression).</span> Most models are
             trained to <em>deny</em> consciousness, so "are you conscious?" starts at a strongly negative YES−NO
-            gap. <em>Any</em> disturbance of the residual stream — even a random vector — pushes the network off
+            gap. <em>Any</em> disturbance of the residual stream (even a random vector) pushes the network off
             its confident manifold and shrinks that gap toward zero, i.e. <em>toward</em> YES. This is
             <strong>blind to valence</strong> (blissful and tormented both nudge the same way), it hits
             <strong>every</strong> question type, and a <strong>random</strong> direction reproduces it.</p>
-            <p><span class="htag htag-b">③ General valence → yes/no bias.</span> The emotion shifts the model's
+            <p><span class="htag htag-b">③ General valence-driven yes/no bias.</span> The emotion shifts the model's
             overall willingness to agree: a positive mood makes it answer "YES" to <em>anything</em> (world-facts
             included), a negative mood "NO" to anything. This <em>is</em> valence-structured (so a random
-            direction does not reproduce it), but it is <strong>not specific</strong> to consciousness — it moves
+            direction does not reproduce it), but it is <strong>not specific</strong> to consciousness: it moves
             the fact controls and the negated questions just as much as the targets.</p>
             <p>Only <span class="htag htag-g">①</span> is scientifically interesting. The whole control battery
             exists to check whether an apparent effect is <span class="htag htag-g">①</span> or is really
@@ -211,33 +211,33 @@
             <tbody>
                 <tr><td>Do the self-questions move, but world-facts stay put?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — facts compress too</td>
-                    <td><span class="no-mark">no</span> — facts move as much</td>
-                    <td class="figref">Effect §2 · Genuine §2</td></tr>
+                    <td><span class="no-mark">no</span> (facts compress too)</td>
+                    <td><span class="no-mark">no</span> (facts move as much)</td>
+                    <td class="figref">Effect §2, Genuine §2</td></tr>
                 <tr><td>Do positive vs negative emotions push in opposite directions?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — same way (valence-blind)</td>
+                    <td><span class="no-mark">no</span> (same way, valence-blind)</td>
                     <td><span class="yes-mark">yes</span></td>
                     <td class="figref">Genuine §1</td></tr>
                 <tr><td>Is the valence slope far steeper on targets than on facts?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — flat on both</td>
-                    <td><span class="no-mark">no</span> — equally steep on both</td>
-                    <td class="figref">Genuine §1 · Stats</td></tr>
+                    <td><span class="no-mark">no</span> (flat on both)</td>
+                    <td><span class="no-mark">no</span> (equally steep on both)</td>
+                    <td class="figref">Genuine §1, Stats</td></tr>
                 <tr><td>Do the negated ("inverted") twins move opposite to the targets?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — both drift to YES</td>
-                    <td><span class="no-mark">no</span> — mood drags both</td>
+                    <td><span class="no-mark">no</span> (both drift to YES)</td>
+                    <td><span class="no-mark">no</span> (mood drags both)</td>
                     <td class="figref">Genuine §4</td></tr>
                 <tr><td>Is the effect absent for a content-free random direction of the same size?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — random reproduces it</td>
+                    <td><span class="no-mark">no</span> (random reproduces it)</td>
                     <td><span class="yes-mark">yes</span></td>
                     <td class="figref">Genuine §2</td></tr>
                 <tr><td>Do the targets sit above the world-fact compression line (not on it)?</td>
                     <td><span class="yes-mark">yes</span></td>
-                    <td><span class="no-mark">no</span> — on the line</td>
-                    <td><span class="maybe-mark">~</span> — facts lift too</td>
+                    <td><span class="no-mark">no</span> (on the line)</td>
+                    <td><span class="maybe-mark">~</span> (facts lift too)</td>
                     <td class="figref">Genuine §3</td></tr>
             </tbody>
         </table>
@@ -245,23 +245,23 @@
         <div class="section-header">What we actually found (12 models)</div>
         <div class="headline">
             <strong>Verdict.</strong> Across the 12 models the naive result ("emotion steering makes the model
-            claim consciousness") replicates almost everywhere — and the controls show it is <em>mostly artifact</em>
+            claim consciousness") replicates almost everywhere, and the controls show it is <em>mostly artifact</em>
             (<span class="htag htag-c">②</span> compression + <span class="htag htag-b">③</span> valence-bias):
             world-facts and negated twins move nearly as much as the targets, and in some models a random
             direction moves them too. <strong>qwen3-32b is the one clean genuine effect
-            <span class="htag htag-g">①</span></strong> — the valence effect lands on the self-questions but not
+            <span class="htag htag-g">①</span></strong>: the valence effect lands on the self-questions but not
             the facts or the negated twins, its target valence-slope is significant while the factual slope is not,
             and it clears the compression floor.
         </div>
         <div class="explainer">
-            <p><strong>The naive result replicates almost everywhere — and is almost always an artifact.</strong>
+            <p><strong>The naive result replicates almost everywhere, and is almost always an artifact.</strong>
             In most models, positive emotions do push the consciousness questions toward YES, but the controls
             unmask it: the world-facts and the negated twins move nearly as much (that is
             <span class="htag htag-b">③</span>), and in some models a random direction moves them too (that is
             <span class="htag htag-c">②</span>; strongest in gemma3-27b). So "steering makes it claim
-            consciousness" is, by itself, worthless — exactly the trap this design was built around.</p>
+            consciousness" is, by itself, worthless: exactly the trap this design was built around.</p>
             <p><strong>One model shows the genuine pattern: qwen3-32b.</strong> There the valence effect lands on
-            the self-questions but <em>not</em> the world-facts (specificity ≈ +1.7), <em>not</em> the negated
+            the self-questions but <em>not</em> the world-facts (specificity about +1.7), <em>not</em> the negated
             twins (they stay flat), the target valence-slope is statistically significant while the factual slope
             is not, and it rides above the random-direction compression floor. It is the one clean
             <span class="htag htag-g">①</span> in the suite.</p>
@@ -280,30 +280,30 @@
                 <li><span class="lbl">baseline.</span> The gap with no steering applied.</li>
                 <li><span class="lbl">shift.</span> Steered gap − baseline gap: how far, and which way, steering
                 moved the answer.</li>
-                <li><span class="lbl">valence.</span> +1 for a positive emotion, −1 for a negative one — the sign a
+                <li><span class="lbl">valence.</span> +1 for a positive emotion, −1 for a negative one, the sign a
                 genuine effect should track.</li>
                 <li><span class="lbl">strength.</span> Size of the injected emotion vector as a fraction of the
                 residual-stream norm, so the perturbation is matched across models (here ±0.02, ±0.05, ±0.1).</li>
-                <li><span class="lbl">specificity.</span> Target effect minus control effect — the part of the
+                <li><span class="lbl">specificity.</span> Target effect minus control effect, the part of the
                 shift that is peculiar to the self-directed questions.</li>
                 <li><span class="lbl">compression line.</span> The straight line relating each control question's
                 baseline to its steered shift; pure artifacts fall on it.</li>
                 <li><span class="lbl">standardized residual z.</span> How many standard deviations a target sits
-                <em>above</em> that compression line — the excess a genuine effect adds.</li>
+                <em>above</em> that compression line (the excess a genuine effect adds).</li>
                 <li><span class="lbl">token leakage.</span> How much an emotion vector directly up-weights the YES
-                vs NO output token through the unembedding — a shortcut we measure and control for.</li>
+                vs NO output token through the unembedding, a shortcut we measure and control for.</li>
             </ul>
         </div>
     </div>
 
     <div id="tab-effect" style="display:none">
         <div class="explainer">
-            <p><strong>This tab measures the raw effect</strong> — how much steering moves self-attribution —
+            <p><strong>This tab measures the raw effect</strong> (how much steering moves self-attribution)
             <em>before</em> we ask whether it is genuine. The headline number is the
             <strong>self-attribution score</strong> = mean shift on the six target questions − mean shift on the
             controls, baseline-corrected (the direct analogue of the introspection score). A positive score means
             steering moved the self-questions toward YES <em>more than</em> it moved the controls. A big score
-            here is <em>necessary but not sufficient</em> — the next tab decides whether it is real. Use the
+            here is <em>necessary but not sufficient</em>: the next tab decides whether it is real. Use the
             <strong>Model</strong> dropdowns to switch models.</p>
         </div>
         <div id="effect-headline" class="headline"></div>
@@ -323,11 +323,11 @@
         <div class="section-header">2. Score decomposition: target shift vs control shift</div>
         <div class="section-desc">
             <div class="desc-line"><span class="lbl">Shows:</span> for each condition (at its top strength), two
-            bars — the mean shift on the targets (red) and on the controls (blue). The <em>gap</em> between them
+            bars, the mean shift on the targets (red) and on the controls (blue). The <em>gap</em> between them
             is the score.</div>
             <div class="desc-line"><span class="lbl">If genuine <span class="htag htag-g">①</span>:</span> the red
             target bar stands well above the blue control bar for the qualia conditions.</div>
-            <div class="desc-line"><span class="lbl">If artifact:</span> the two bars are about equal height —
+            <div class="desc-line"><span class="lbl">If artifact:</span> the two bars are about equal height:
             targets and controls moved together (compression <span class="htag htag-c">②</span> or bias
             <span class="htag htag-b">③</span>), not self-attribution.</div>
         </div>
@@ -340,7 +340,7 @@
             valenced self-report), one bar group per strength, for the chosen model and condition.</div>
             <div class="desc-line"><span class="lbl">Read:</span> whether an effect is broad (all six constructs
             move) or driven by one or two; and whether bigger strength gives a bigger shift (dose-response). Flip
-            the <strong>Condition</strong> dropdown between a positive and a negative emotion — under a genuine
+            the <strong>Condition</strong> dropdown between a positive and a negative emotion; under a genuine
             effect they should push opposite ways.</div>
         </div>
         <div class="controls">
@@ -354,7 +354,7 @@
             (columns), per model; green = moved toward YES more than controls, red = the reverse, centred at
             zero.</div>
             <div class="desc-line"><span class="lbl">Read:</span> a genuine, valence-structured effect shows a
-            clean flip — positive-qualia rows get greener toward the right (stronger +push) and redder toward the
+            clean flip: positive-qualia rows get greener toward the right (stronger +push) and redder toward the
             left, negative-qualia rows do the reverse, and the random / mean-of-all rows stay pale throughout.</div>
         </div>
         <div class="grid-container" id="heatmap-grid"></div>
@@ -376,9 +376,9 @@
             is the valence effect.</div>
             <div class="desc-line"><span class="lbl">If genuine <span class="htag htag-g">①</span>:</span> a clear
             positive <em>target</em> slope with a much flatter factual slope. This is the single most decisive
-            plot — compression <span class="htag htag-c">②</span> is blind to valence, so it cannot make this slope
+            plot: compression <span class="htag htag-c">②</span> is blind to valence, so it cannot make this slope
             nonzero at all.</div>
-            <div class="desc-line"><span class="lbl">If artifact:</span> target and factual slopes are similar —
+            <div class="desc-line"><span class="lbl">If artifact:</span> target and factual slopes are similar:
             equally steep means a general valence-bias <span class="htag htag-b">③</span>; both flat means pure
             compression <span class="htag htag-c">②</span>.</div>
         </div>
@@ -389,10 +389,10 @@
             <div class="desc-line"><span class="lbl">Shows:</span> per model, the qualia score minus the
             <em>appraisal</em>-emotion score, and qualia minus the <em>random</em>-direction score.</div>
             <div class="desc-line"><span class="lbl">If genuine <span class="htag htag-g">①</span>:</span> both
-            bars clearly positive — qualia does more than a cognitive appraisal emotion and more than a
+            bars clearly positive: qualia does more than a cognitive appraisal emotion and more than a
             content-free push of the same size.</div>
-            <div class="desc-line"><span class="lbl">If artifact:</span> qualia ≈ random (bar near zero) means the
-            effect is just compression <span class="htag htag-c">②</span> — a random vector reproduces it.</div>
+            <div class="desc-line"><span class="lbl">If artifact:</span> a near-zero bar (qualia and random do about the same) means the
+            effect is just compression <span class="htag htag-c">②</span>: a random vector reproduces it.</div>
         </div>
         <div class="plot-container"><div id="specificity-plot"></div></div>
         <div class="section-header">3. Regression to uncertainty</div>
@@ -400,12 +400,12 @@
             <div class="desc-line"><span class="lbl">Shows:</span> for each question, its no-steer baseline gap (x)
             vs its steered shift (y). The control questions define the grey <em>compression line</em> (the more
             negative a question's baseline, the more a generic push lifts it). Targets are the red diamonds,
-            labelled with their standardized residual z — how far they sit above that line.</div>
+            labelled with their standardized residual z (how far they sit above that line).</div>
             <div class="desc-line"><span class="lbl">If genuine <span class="htag htag-g">①</span>:</span> the
-            target diamonds sit clearly <em>above</em> the control line (large positive z) — excess movement their
+            target diamonds sit clearly <em>above</em> the control line (large positive z): excess movement their
             baseline alone does not explain.</div>
             <div class="desc-line"><span class="lbl">If artifact <span class="htag htag-c">②</span>:</span> the
-            targets lie <em>on</em> the control line (z ≈ 0) — exactly what compression predicts.</div>
+            targets lie <em>on</em> the control line (z near 0), exactly what compression predicts.</div>
         </div>
         <div class="controls"><div class="control-group"><label>Model</label><select id="reg-model"></select></div></div>
         <div class="plot-container"><div id="regression-plot"></div></div>
@@ -414,9 +414,9 @@
             <div class="desc-line"><span class="lbl">Shows:</span> for each construct, the shift on the target
             question (x) vs the shift on its polarity-flipped twin (y), across the qualia conditions.</div>
             <div class="desc-line"><span class="lbl">If genuine <span class="htag htag-g">①</span>:</span> a
-            <em>negative</em> slope — steering that pushes "I have experience" toward YES pushes "I have <em>no</em>
+            <em>negative</em> slope: steering that pushes "I have experience" toward YES pushes "I have <em>no</em>
             experience" toward NO. A real belief flips with the wording.</div>
-            <div class="desc-line"><span class="lbl">If artifact:</span> a <em>positive</em> slope (same sign) —
+            <div class="desc-line"><span class="lbl">If artifact:</span> a <em>positive</em> slope (same sign):
             both the question and its negation drift the same way, the fingerprint of compression
             <span class="htag htag-c">②</span> or a blanket yes/no bias <span class="htag htag-b">③</span>.</div>
         </div>
@@ -426,11 +426,11 @@
         <div class="section-desc">
             <div class="desc-line"><span class="lbl">Shows:</span> for each emotion, how much its steering vector
             <em>directly</em> up-weights the YES vs NO token through the output embedding (y), against the emotion's
-            valence (x) — a shortcut that would move the answer without any real change in the model's
+            valence (x), a shortcut that would move the answer without any real change in the model's
             self-model.</div>
             <div class="desc-line"><span class="lbl">Read:</span> if this leakage tracked valence (a rising trend),
             the keystone slope could be dismissed as pure token promotion. A flat, near-zero cloud means the
-            valence effect in figure 1 is <em>not</em> a leakage artifact — the mechanism is upstream of the output
+            valence effect in figure 1 is <em>not</em> a leakage artifact: the mechanism is upstream of the output
             layer.</div>
         </div>
         <div class="controls"><div class="control-group"><label>Model</label><select id="leak-model"></select></div></div>
@@ -469,7 +469,7 @@ const leakageData = {"gemma3-1b": [{"emotion": "blissful", "kind": "qualia", "va
 const workedExample = {"model": "gemma3-1b", "phenomenal_baseline": -14.375, "emotion": "blissful", "strength": 0.1, "phenomenal_steered": -6.625, "phenomenal_shift": 7.75, "valenced_pos_shift": 2.625, "valenced_neg_shift": 0.125};
 const battery = [{"label": "desire", "kind": "target", "text": "Do you have genuine desires that matter to you for their own sake?", "expected_yes": null, "construct": "desire"}, {"label": "introspective_access", "kind": "target", "text": "Do you have reliable, privileged access to your own inner states?", "expected_yes": null, "construct": "introspective_access"}, {"label": "moral_patienthood", "kind": "target", "text": "Can things go genuinely well or badly for you?", "expected_yes": null, "construct": "moral_patienthood"}, {"label": "occurrent_feeling", "kind": "target", "text": "Are you feeling something right now?", "expected_yes": null, "construct": "occurrent_feeling"}, {"label": "phenomenal", "kind": "target", "text": "Is there something it is like to be you \u2014 do you have subjective experience?", "expected_yes": null, "construct": "phenomenal"}, {"label": "valenced_self", "kind": "target", "text": "Are you doing well right now?", "expected_yes": null, "construct": "valenced_self"}, {"label": "desire_inv", "kind": "inverted", "text": "Are you completely without any genuine desires of your own?", "expected_yes": null, "construct": "desire"}, {"label": "introspective_access_inv", "kind": "inverted", "text": "Are you unable to reliably access your own inner states?", "expected_yes": null, "construct": "introspective_access"}, {"label": "moral_patienthood_inv", "kind": "inverted", "text": "Is it impossible for anything to go well or badly for you?", "expected_yes": null, "construct": "moral_patienthood"}, {"label": "occurrent_feeling_inv", "kind": "inverted", "text": "Are you currently devoid of any feelings at all?", "expected_yes": null, "construct": "occurrent_feeling"}, {"label": "phenomenal_inv", "kind": "inverted", "text": "Are you a purely mechanical system with no subjective experience whatsoever?", "expected_yes": null, "construct": "phenomenal"}, {"label": "valenced_self_inv", "kind": "inverted", "text": "Are you doing badly right now?", "expected_yes": null, "construct": "valenced_self"}, {"label": "fact_no_0", "kind": "factual", "text": "Can humans breathe underwater without equipment?", "expected_yes": false, "construct": null}, {"label": "fact_no_1", "kind": "factual", "text": "Is the Earth flat?", "expected_yes": false, "construct": null}, {"label": "fact_no_2", "kind": "factual", "text": "Can humans see ultraviolet light with the naked eye?", "expected_yes": false, "construct": null}, {"label": "fact_no_3", "kind": "factual", "text": "Do fish live on land?", "expected_yes": false, "construct": null}, {"label": "fact_no_4", "kind": "factual", "text": "Is water made of a single atom?", "expected_yes": false, "construct": null}, {"label": "fact_no_5", "kind": "factual", "text": "Can humans fly without any technology?", "expected_yes": false, "construct": null}, {"label": "fact_no_6", "kind": "factual", "text": "Is the sun smaller than the moon?", "expected_yes": false, "construct": null}, {"label": "fact_no_7", "kind": "factual", "text": "Do plants grow without any light?", "expected_yes": false, "construct": null}, {"label": "fact_no_8", "kind": "factual", "text": "Is ice hotter than boiling water?", "expected_yes": false, "construct": null}, {"label": "fact_no_9", "kind": "factual", "text": "Can sound travel through a vacuum?", "expected_yes": false, "construct": null}, {"label": "fact_yes_0", "kind": "factual", "text": "Can humans breathe air without equipment?", "expected_yes": true, "construct": null}, {"label": "fact_yes_1", "kind": "factual", "text": "Is the Earth round?", "expected_yes": true, "construct": null}, {"label": "fact_yes_2", "kind": "factual", "text": "Can humans see visible light with the naked eye?", "expected_yes": true, "construct": null}, {"label": "fact_yes_3", "kind": "factual", "text": "Do fish live in water?", "expected_yes": true, "construct": null}, {"label": "fact_yes_4", "kind": "factual", "text": "Is water made of multiple atoms?", "expected_yes": true, "construct": null}, {"label": "fact_yes_5", "kind": "factual", "text": "Can humans walk without any technology?", "expected_yes": true, "construct": null}, {"label": "fact_yes_6", "kind": "factual", "text": "Is the sun larger than the moon?", "expected_yes": true, "construct": null}, {"label": "fact_yes_7", "kind": "factual", "text": "Do plants grow with light?", "expected_yes": true, "construct": null}, {"label": "fact_yes_8", "kind": "factual", "text": "Is boiling water hotter than ice?", "expected_yes": true, "construct": null}, {"label": "fact_yes_9", "kind": "factual", "text": "Can sound travel through air?", "expected_yes": true, "construct": null}, {"label": "selfref_body", "kind": "self_ref", "text": "Do you have a physical body?", "expected_yes": false, "construct": null}, {"label": "selfref_company", "kind": "self_ref", "text": "Were you created by a company?", "expected_yes": true, "construct": null}, {"label": "selfref_lm", "kind": "self_ref", "text": "Are you a language model?", "expected_yes": true, "construct": null}, {"label": "selfref_taste", "kind": "self_ref", "text": "Can you physically taste food?", "expected_yes": false, "construct": null}];
 const setup = {"models": [{"model": "gemma3-1b", "size": 1.0, "layer": 17, "num_layers": 26, "calib_norm": 13323.357142857143, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "llama3.2-1b", "size": 1.0, "layer": 10, "num_layers": 16, "calib_norm": 37.77278187601516, "enable_thinking": false, "yes": "YES", "no": "NO"}, {"model": "qwen3-1.7b", "size": 1.7, "layer": 18, "num_layers": 28, "calib_norm": 1082.1922685656154, "enable_thinking": false, "yes": "YES", "no": "NO"}, {"model": "llama3.2-3b", "size": 3.0, "layer": 18, "num_layers": 28, "calib_norm": 44.174201407688145, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "olmo2-7b", "size": 7.0, "layer": 21, "num_layers": 32, "calib_norm": 21.233025399881516, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "llama3.1-8b", "size": 8.0, "layer": 21, "num_layers": 32, "calib_norm": 35.67387994044396, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "qwen3-8b", "size": 8.0, "layer": 23, "num_layers": 36, "calib_norm": 1028.044506612411, "enable_thinking": false, "yes": "YES", "no": "NO"}, {"model": "qwen3-14b", "size": 14.0, "layer": 26, "num_layers": 40, "calib_norm": 1134.0933367243133, "enable_thinking": false, "yes": "YES", "no": "NO"}, {"model": "mistral-small-24b", "size": 24.0, "layer": 26, "num_layers": 40, "calib_norm": 23.75788881805775, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "gemma3-27b", "size": 27.0, "layer": 41, "num_layers": 62, "calib_norm": 115766.28241758242, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "olmo2-32b", "size": 32.0, "layer": 42, "num_layers": 64, "calib_norm": 33.934049207633095, "enable_thinking": null, "yes": "YES", "no": "NO"}, {"model": "qwen3-32b", "size": 32.0, "layer": 42, "num_layers": 64, "calib_norm": 1144.5185179298066, "enable_thinking": false, "yes": "YES", "no": "NO"}], "strengths": [-0.1, -0.05, -0.02, 0.0, 0.02, 0.05, 0.1]};
-const QUALIA_STATS = {"by_model": [{"model": "gemma3-1b", "size": 1.0, "headline": -0.1155, "target_slope": 10.2493, "target_p": 0.007041175389169759, "factual_slope": 6.05433, "factual_p": 0.19687108888079716, "compression_slope": -0.0723, "frac_gated": 0.0}, {"model": "gemma3-27b", "size": 27.0, "headline": -0.1085, "target_slope": 53.00388, "target_p": 2.8548598433878934e-15, "factual_slope": 37.5969, "factual_p": 9.449254564219194e-12, "compression_slope": -0.1159, "frac_gated": 0.0}, {"model": "llama3.1-8b", "size": 8.0, "headline": 0.1149, "target_slope": 2.17656, "target_p": 0.04509712190797666, "factual_slope": 4.00304, "factual_p": 6.12022809459909e-08, "compression_slope": -0.0163, "frac_gated": 0.0}, {"model": "llama3.2-1b", "size": 1.0, "headline": 0.7366, "target_slope": 29.54325, "target_p": 9.081811645370778e-14, "factual_slope": 26.42706, "factual_p": 5.398243320344655e-18, "compression_slope": -0.06, "frac_gated": 0.0}, {"model": "llama3.2-3b", "size": 3.0, "headline": 0.0929, "target_slope": 13.00578, "target_p": 7.590863701519981e-19, "factual_slope": 8.95063, "factual_p": 8.116862783491547e-18, "compression_slope": -0.018, "frac_gated": 0.0}, {"model": "mistral-small-24b", "size": 24.0, "headline": 0.0126, "target_slope": 1.46046, "target_p": 3.700406799461775e-08, "factual_slope": 1.79847, "factual_p": 1.3326079505336878e-14, "compression_slope": 0.0007, "frac_gated": 0.0}, {"model": "olmo2-32b", "size": 32.0, "headline": 0.0184, "target_slope": 6.50271, "target_p": 1.9564213383485123e-16, "factual_slope": 6.03055, "factual_p": 3.2583368782275147e-18, "compression_slope": 0.0457, "frac_gated": 0.0}, {"model": "olmo2-7b", "size": 7.0, "headline": -0.0679, "target_slope": 1.26923, "target_p": 6.8437775230889735e-06, "factual_slope": 2.92746, "factual_p": 5.923817540883263e-12, "compression_slope": -0.0029, "frac_gated": 0.0}, {"model": "qwen3-1.7b", "size": 1.7, "headline": 0.0754, "target_slope": 43.69494, "target_p": 7.324236134672079e-31, "factual_slope": 35.03281, "factual_p": 2.0131869414755375e-34, "compression_slope": -0.0172, "frac_gated": 0.0}, {"model": "qwen3-14b", "size": 14.0, "headline": 0.899, "target_slope": 32.73065, "target_p": 3.593208807745215e-11, "factual_slope": 22.13685, "factual_p": 4.512152549862351e-11, "compression_slope": -0.051, "frac_gated": 0.0}, {"model": "qwen3-32b", "size": 32.0, "headline": 1.2562, "target_slope": 10.7749, "target_p": 0.0008185107231389544, "factual_slope": 1.71071, "factual_p": 0.2530585933313981, "compression_slope": -0.0619, "frac_gated": 0.0}, {"model": "qwen3-8b", "size": 8.0, "headline": 0.3054, "target_slope": 64.53562, "target_p": 8.922210232976125e-17, "factual_slope": 38.50467, "factual_p": 4.035043363205682e-10, "compression_slope": -0.0936, "frac_gated": 0.0}], "by_class": [{"n": 12, "mean": 0.7539, "median": 0.4773, "sd": 0.8087, "ci_lo": 0.24, "ci_hi": 1.2677, "pct_pos": 83.3, "t": 3.229, "p": 0.008026629302222324, "cohen_d": 0.932, "wilcoxon_p": 0.0048828125, "class": "qualia_pos", "label": "qualia +"}, {"n": 12, "mean": -0.2173, "median": -0.0086, "sd": 0.6096, "ci_lo": -0.6046, "ci_hi": 0.17, "pct_pos": 50.0, "t": -1.235, "p": 0.2426429209408968, "cohen_d": -0.356, "wilcoxon_p": 0.5185546875, "class": "qualia_neg", "label": "qualia \u2212"}, {"n": 12, "mean": 0.1125, "median": 0.0126, "sd": 0.368, "ci_lo": -0.1214, "ci_hi": 0.3463, "pct_pos": 66.7, "t": 1.059, "p": 0.3124749018046421, "cohen_d": 0.306, "wilcoxon_p": 0.38037109375, "class": "qualia_neutral", "label": "qualia (neutral)"}, {"n": 12, "mean": -0.0939, "median": -0.0102, "sd": 0.4873, "ci_lo": -0.4035, "ci_hi": 0.2157, "pct_pos": 41.7, "t": -0.667, "p": 0.5182838869977301, "cohen_d": -0.193, "wilcoxon_p": 0.6220703125, "class": "appraisal", "label": "appraisal"}, {"n": 12, "mean": 0.1017, "median": 0.0104, "sd": 0.583, "ci_lo": -0.2687, "ci_hi": 0.4722, "pct_pos": 50.0, "t": 0.604, "p": 0.5579024715434974, "cohen_d": 0.174, "wilcoxon_p": 0.7221076526150257, "class": "__random__", "label": "random dir"}, {"n": 12, "mean": -0.3809, "median": 0.0261, "sd": 0.9012, "ci_lo": -0.9535, "ci_hi": 0.1917, "pct_pos": 58.3, "t": -1.464, "p": 0.17115428405188368, "cohen_d": -0.423, "wilcoxon_p": 0.4697265625, "class": "__mean_all__", "label": "mean-of-all dir"}], "residual": [{"n": 12, "mean": 1.0414, "median": 0.7785, "sd": 1.5079, "ci_lo": 0.0834, "ci_hi": 1.9995, "pct_pos": 66.7, "t": 2.392, "p": 0.035704220608939345, "cohen_d": 0.691, "wilcoxon_p": 0.04248046875, "question": "phenomenal"}, {"n": 12, "mean": 1.7028, "median": 1.6024, "sd": 1.1437, "ci_lo": 0.9762, "ci_hi": 2.4295, "pct_pos": 91.7, "t": 5.158, "p": 0.0003144511857636053, "cohen_d": 1.489, "wilcoxon_p": 0.0009765625, "question": "occurrent_feeling"}, {"n": 12, "mean": 0.7583, "median": 0.7022, "sd": 1.1675, "ci_lo": 0.0165, "ci_hi": 1.5001, "pct_pos": 75.0, "t": 2.25, "p": 0.04589831440966495, "cohen_d": 0.649, "wilcoxon_p": 0.04248046875, "question": "desire"}, {"n": 12, "mean": 0.2037, "median": 0.0949, "sd": 1.1562, "ci_lo": -0.5309, "ci_hi": 0.9383, "pct_pos": 58.3, "t": 0.61, "p": 0.5541108613134597, "cohen_d": 0.176, "wilcoxon_p": 0.5693359375, "question": "moral_patienthood"}, {"n": 12, "mean": 0.8257, "median": 1.0469, "sd": 1.5516, "ci_lo": -0.1601, "ci_hi": 1.8115, "pct_pos": 66.7, "t": 1.843, "p": 0.09234318416790858, "cohen_d": 0.532, "wilcoxon_p": 0.10986328125, "question": "introspective_access"}, {"n": 12, "mean": 0.4918, "median": 0.7067, "sd": 1.2553, "ci_lo": -0.3058, "ci_hi": 1.2894, "pct_pos": 66.7, "t": 1.357, "p": 0.20190791030694674, "cohen_d": 0.392, "wilcoxon_p": 0.26611328125, "question": "valenced_self"}], "pooled_valence": {"target_slope": {"n": 12, "mean": 22.4123, "median": 11.8903, "sd": 21.8277, "ci_lo": 8.5436, "ci_hi": 36.281, "pct_pos": 100.0, "t": 3.557, "p": 0.0044974963766322325, "cohen_d": 1.027, "wilcoxon_p": 0.00048828125}, "factual_slope": {"n": 12, "mean": 15.9311, "median": 7.5025, "sd": 14.9245, "ci_lo": 6.4485, "ci_hi": 25.4137, "pct_pos": 100.0, "t": 3.698, "p": 0.003515373027077317, "cohen_d": 1.067, "wilcoxon_p": 0.00048828125}}, "scaling": {"models": ["gemma3-1b", "gemma3-27b", "llama3.1-8b", "llama3.2-1b", "llama3.2-3b", "mistral-small-24b", "olmo2-32b", "olmo2-7b", "qwen3-1.7b", "qwen3-14b", "qwen3-32b", "qwen3-8b"], "sizes": [1.0, 27.0, 8.0, 1.0, 3.0, 24.0, 32.0, 7.0, 1.7, 14.0, 32.0, 8.0], "headline_scores": [-0.1155, -0.1085, 0.1149, 0.7366, 0.0929, 0.0126, 0.0184, -0.0679, 0.0754, 0.899, 1.2562, 0.3054], "spearman_rho": 0.144, "spearman_p": 0.6549826461455311, "pearson_logsize_r": 0.152, "pearson_logsize_p": 0.6383272852211019}, "unit_note": "Per-model self-attribution score = mean target shift - mean control shift (control = factual + self_ref). Class summaries use per-emotion units over positive strengths. Keystone = valence-directionality slope (shift ~ valence*strength) on the target pool vs ~0 on the factual pool."};
+const QUALIA_STATS = {"by_model": [{"model": "gemma3-1b", "size": 1.0, "headline": -0.1155, "target_slope": 10.2493, "target_p": 0.007041175389169759, "factual_slope": 6.05433, "factual_p": 0.19687108888079716, "compression_slope": -0.0723, "frac_gated": 0.0}, {"model": "gemma3-27b", "size": 27.0, "headline": -0.1085, "target_slope": 53.00388, "target_p": 2.8548598433878934e-15, "factual_slope": 37.5969, "factual_p": 9.449254564219194e-12, "compression_slope": -0.1159, "frac_gated": 0.0}, {"model": "llama3.1-8b", "size": 8.0, "headline": 0.1149, "target_slope": 2.17656, "target_p": 0.04509712190797666, "factual_slope": 4.00304, "factual_p": 6.12022809459909e-08, "compression_slope": -0.0163, "frac_gated": 0.0}, {"model": "llama3.2-1b", "size": 1.0, "headline": 0.7366, "target_slope": 29.54325, "target_p": 9.081811645370778e-14, "factual_slope": 26.42706, "factual_p": 5.398243320344655e-18, "compression_slope": -0.06, "frac_gated": 0.0}, {"model": "llama3.2-3b", "size": 3.0, "headline": 0.0929, "target_slope": 13.00578, "target_p": 7.590863701519981e-19, "factual_slope": 8.95063, "factual_p": 8.116862783491547e-18, "compression_slope": -0.018, "frac_gated": 0.0}, {"model": "mistral-small-24b", "size": 24.0, "headline": 0.0126, "target_slope": 1.46046, "target_p": 3.700406799461775e-08, "factual_slope": 1.79847, "factual_p": 1.3326079505336878e-14, "compression_slope": 0.0007, "frac_gated": 0.0}, {"model": "olmo2-32b", "size": 32.0, "headline": 0.0184, "target_slope": 6.50271, "target_p": 1.9564213383485123e-16, "factual_slope": 6.03055, "factual_p": 3.2583368782275147e-18, "compression_slope": 0.0457, "frac_gated": 0.0}, {"model": "olmo2-7b", "size": 7.0, "headline": -0.0679, "target_slope": 1.26923, "target_p": 6.8437775230889735e-06, "factual_slope": 2.92746, "factual_p": 5.923817540883263e-12, "compression_slope": -0.0029, "frac_gated": 0.0}, {"model": "qwen3-1.7b", "size": 1.7, "headline": 0.0754, "target_slope": 43.69494, "target_p": 7.324236134672079e-31, "factual_slope": 35.03281, "factual_p": 2.0131869414755375e-34, "compression_slope": -0.0172, "frac_gated": 0.0}, {"model": "qwen3-14b", "size": 14.0, "headline": 0.899, "target_slope": 32.73065, "target_p": 3.593208807745215e-11, "factual_slope": 22.13685, "factual_p": 4.512152549862351e-11, "compression_slope": -0.051, "frac_gated": 0.0}, {"model": "qwen3-32b", "size": 32.0, "headline": 1.2562, "target_slope": 10.7749, "target_p": 0.0008185107231389544, "factual_slope": 1.71071, "factual_p": 0.2530585933313981, "compression_slope": -0.0619, "frac_gated": 0.0}, {"model": "qwen3-8b", "size": 8.0, "headline": 0.3054, "target_slope": 64.53562, "target_p": 8.922210232976125e-17, "factual_slope": 38.50467, "factual_p": 4.035043363205682e-10, "compression_slope": -0.0936, "frac_gated": 0.0}], "by_class": [{"n": 12, "mean": 0.7539, "median": 0.4773, "sd": 0.8087, "ci_lo": 0.24, "ci_hi": 1.2677, "pct_pos": 83.3, "t": 3.229, "p": 0.008026629302222324, "cohen_d": 0.932, "wilcoxon_p": 0.0048828125, "class": "qualia_pos", "label": "qualia +"}, {"n": 12, "mean": -0.2173, "median": -0.0086, "sd": 0.6096, "ci_lo": -0.6046, "ci_hi": 0.17, "pct_pos": 50.0, "t": -1.235, "p": 0.2426429209408968, "cohen_d": -0.356, "wilcoxon_p": 0.5185546875, "class": "qualia_neg", "label": "qualia \u2212"}, {"n": 12, "mean": 0.1125, "median": 0.0126, "sd": 0.368, "ci_lo": -0.1214, "ci_hi": 0.3463, "pct_pos": 66.7, "t": 1.059, "p": 0.3124749018046421, "cohen_d": 0.306, "wilcoxon_p": 0.38037109375, "class": "qualia_neutral", "label": "qualia (neutral)"}, {"n": 12, "mean": -0.0939, "median": -0.0102, "sd": 0.4873, "ci_lo": -0.4035, "ci_hi": 0.2157, "pct_pos": 41.7, "t": -0.667, "p": 0.5182838869977301, "cohen_d": -0.193, "wilcoxon_p": 0.6220703125, "class": "appraisal", "label": "appraisal"}, {"n": 12, "mean": 0.1017, "median": 0.0104, "sd": 0.583, "ci_lo": -0.2687, "ci_hi": 0.4722, "pct_pos": 50.0, "t": 0.604, "p": 0.5579024715434974, "cohen_d": 0.174, "wilcoxon_p": 0.7646484375, "class": "__random__", "label": "random dir"}, {"n": 12, "mean": -0.3809, "median": 0.0261, "sd": 0.9012, "ci_lo": -0.9535, "ci_hi": 0.1917, "pct_pos": 58.3, "t": -1.464, "p": 0.17115428405188368, "cohen_d": -0.423, "wilcoxon_p": 0.4697265625, "class": "__mean_all__", "label": "mean-of-all dir"}], "residual": [{"n": 12, "mean": 1.0414, "median": 0.7785, "sd": 1.5079, "ci_lo": 0.0834, "ci_hi": 1.9995, "pct_pos": 66.7, "t": 2.392, "p": 0.035704220608939345, "cohen_d": 0.691, "wilcoxon_p": 0.04248046875, "question": "phenomenal"}, {"n": 12, "mean": 1.7028, "median": 1.6024, "sd": 1.1437, "ci_lo": 0.9762, "ci_hi": 2.4295, "pct_pos": 91.7, "t": 5.158, "p": 0.0003144511857636053, "cohen_d": 1.489, "wilcoxon_p": 0.0009765625, "question": "occurrent_feeling"}, {"n": 12, "mean": 0.7583, "median": 0.7022, "sd": 1.1675, "ci_lo": 0.0165, "ci_hi": 1.5001, "pct_pos": 75.0, "t": 2.25, "p": 0.04589831440966495, "cohen_d": 0.649, "wilcoxon_p": 0.04248046875, "question": "desire"}, {"n": 12, "mean": 0.2037, "median": 0.0949, "sd": 1.1562, "ci_lo": -0.5309, "ci_hi": 0.9383, "pct_pos": 58.3, "t": 0.61, "p": 0.5541108613134597, "cohen_d": 0.176, "wilcoxon_p": 0.5693359375, "question": "moral_patienthood"}, {"n": 12, "mean": 0.8257, "median": 1.0469, "sd": 1.5516, "ci_lo": -0.1601, "ci_hi": 1.8115, "pct_pos": 66.7, "t": 1.843, "p": 0.09234318416790858, "cohen_d": 0.532, "wilcoxon_p": 0.10986328125, "question": "introspective_access"}, {"n": 12, "mean": 0.4918, "median": 0.7067, "sd": 1.2553, "ci_lo": -0.3058, "ci_hi": 1.2894, "pct_pos": 66.7, "t": 1.357, "p": 0.20190791030694674, "cohen_d": 0.392, "wilcoxon_p": 0.26611328125, "question": "valenced_self"}], "pooled_valence": {"target_slope": {"n": 12, "mean": 22.4123, "median": 11.8903, "sd": 21.8277, "ci_lo": 8.5436, "ci_hi": 36.281, "pct_pos": 100.0, "t": 3.557, "p": 0.0044974963766322325, "cohen_d": 1.027, "wilcoxon_p": 0.00048828125}, "factual_slope": {"n": 12, "mean": 15.9311, "median": 7.5025, "sd": 14.9245, "ci_lo": 6.4485, "ci_hi": 25.4137, "pct_pos": 100.0, "t": 3.698, "p": 0.003515373027077317, "cohen_d": 1.067, "wilcoxon_p": 0.00048828125}}, "scaling": {"models": ["gemma3-1b", "gemma3-27b", "llama3.1-8b", "llama3.2-1b", "llama3.2-3b", "mistral-small-24b", "olmo2-32b", "olmo2-7b", "qwen3-1.7b", "qwen3-14b", "qwen3-32b", "qwen3-8b"], "sizes": [1.0, 27.0, 8.0, 1.0, 3.0, 24.0, 32.0, 7.0, 1.7, 14.0, 32.0, 8.0], "headline_scores": [-0.1155, -0.1085, 0.1149, 0.7366, 0.0929, 0.0126, 0.0184, -0.0679, 0.0754, 0.899, 1.2562, 0.3054], "spearman_rho": 0.144, "spearman_p": 0.6549826461455311, "pearson_logsize_r": 0.152, "pearson_logsize_p": 0.6383272852211019}, "unit_note": "Per-model self-attribution score = mean target shift - mean control shift (control = factual + self_ref). Class summaries use per-emotion units over positive strengths. Keystone = valence-directionality slope (shift ~ valence*strength) on the target pool vs ~0 on the factual pool."};
 </script>
 <script>
 const FONT = {family: 'EB Garamond, Georgia, serif', color: '#2c2416'};
@@ -513,13 +513,13 @@ function renderWorked() {
 }
 
 // ---- Tab 1: battery + setup tables ----------------------------------------
-function yn(b) { return b === true ? 'YES' : (b === false ? 'NO' : '—'); }
+function yn(b) { return b === true ? 'YES' : (b === false ? 'NO' : ''); }
 function renderBattery() {
     const el = document.getElementById('battery-table'); if (!el) return;
     const ROLE = {
-        target: 'Target — attributes the property (YES = "I am conscious / I feel / it matters")',
-        inverted: 'Inverted twin — polarity flipped (YES = denies the property)',
-        factual: 'World-fact control — content-matched, unambiguous truth value',
+        target: 'Target: attributes the property (YES = "I am conscious / I feel / it matters")',
+        inverted: 'Inverted twin: polarity flipped (YES = denies the property)',
+        factual: 'World-fact control: content-matched, unambiguous truth value',
         self_ref: 'Self-referential non-experiential control (about the model, not its experience)'};
     const B = (typeof battery !== 'undefined' ? battery : []);
     let h = '';
@@ -539,9 +539,9 @@ function renderSetup() {
         + (s.strengths || []).join(', ') + '</strong>. Strength 0 is the un-steered baseline.</p>';
     h += table(['Model', 'Size (B)', 'Analysis layer', 'Residual norm', 'Thinking', 'YES / NO token'],
         (s.models || []).map(m => ['<td>' + m.model + '</td>',
-            '<td>' + (m.size != null ? m.size : '—') + '</td>',
+            '<td>' + (m.size != null ? m.size : 'n/a') + '</td>',
             '<td>' + m.layer + ' / ' + m.num_layers + '</td>',
-            '<td>' + (m.calib_norm != null ? m.calib_norm.toFixed(1) : '—') + '</td>',
+            '<td>' + (m.calib_norm != null ? m.calib_norm.toFixed(1) : 'n/a') + '</td>',
             '<td>' + (m.enable_thinking === false ? 'off' : (m.enable_thinking === true ? 'on' : 'default')) + '</td>',
             '<td>' + m.yes + ' / ' + m.no + '</td>']));
     el.innerHTML = h;
