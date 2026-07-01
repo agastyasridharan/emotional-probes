@@ -248,10 +248,14 @@
             claim consciousness") replicates almost everywhere, and the controls show it is <em>mostly artifact</em>
             (<span class="htag htag-c">②</span> compression + <span class="htag htag-b">③</span> valence-bias):
             world-facts and negated twins move nearly as much as the targets, and in some models a random
-            direction moves them too. <strong>qwen3-32b is the one clean genuine effect
-            <span class="htag htag-g">①</span></strong>: the valence effect lands on the self-questions but not
-            the facts or the negated twins, its target valence-slope is significant while the factual slope is not,
-            and it clears the compression floor.
+            direction moves them too. <strong>No model shows unambiguous, statistically clean self-attribution
+            <span class="htag htag-g">①</span>.</strong> qwen3-32b is the single suggestive candidate — the only
+            model whose <em>factual</em> valence-slope is statistically flat (p≈0.25) while its target slope
+            clearly moves (p≈0.001), which is the shape a genuine effect requires — but the formal
+            emotion-clustered test on that target−factual gap lands at p≈0.09, a <em>trend</em>, not
+            significance. The models that do reach a formally significant contrast all also move the world-facts,
+            so their extra target sensitivity is specificity layered on a general valence→yes/no bias, not clean
+            <span class="htag htag-g">①</span>.
         </div>
         <div class="explainer">
             <p><strong>The naive result replicates almost everywhere, and is almost always an artifact.</strong>
@@ -260,11 +264,22 @@
             <span class="htag htag-b">③</span>), and in some models a random direction moves them too (that is
             <span class="htag htag-c">②</span>; strongest in gemma3-27b). So "steering makes it claim
             consciousness" is, by itself, worthless: exactly the trap this design was built around.</p>
-            <p><strong>One model shows the genuine pattern: qwen3-32b.</strong> There the valence effect lands on
-            the self-questions but <em>not</em> the world-facts (specificity about +1.7), <em>not</em> the negated
-            twins (they stay flat), the target valence-slope is statistically significant while the factual slope
-            is not, and it rides above the random-direction compression floor. It is the one clean
-            <span class="htag htag-g">①</span> in the suite.</p>
+            <p><strong>The closest thing to a genuine pattern is qwen3-32b — but it is only a trend.</strong> It is
+            the one model where the valence effect lands on the self-questions but <em>not</em> the world-facts
+            (its factual valence-slope is statistically flat, p≈0.25) and <em>not</em> the negated twins (which stay
+            flat), while its target slope is clearly positive (p≈0.001) and it sits above the random-direction
+            compression floor — exactly the shape a genuine, content-specific effect must take. But the formal
+            significance test on the specificity contrast itself — the target-minus-factual valence-slope, with the
+            standard error <em>clustered by emotion</em> (the true unit of replication) — gives a contrast of about
+            +9 at a clustered p≈0.09. With only ~10 degrees of freedom (11 emotion conditions) that test is
+            underpowered, so even a large positive contrast can miss significance. Several other models (gemma3-27b,
+            qwen3-8b, qwen3-1.7b, qwen3-14b, llama3.2-3b) <em>do</em> reach a significant positive contrast, but in
+            every one the factual slope is also large and significant — valence is moving the world-facts too — so
+            their contrast is genuine specificity sitting on top of a general valence→yes/no bias
+            (<span class="htag htag-b">③</span>), not the clean <span class="htag htag-g">①</span> signature.
+            <strong>Bottom line:</strong> no model clears the strict bar of a significant clean contrast <em>and</em>
+            a flat factual baseline; qwen3-32b is the single suggestive candidate, and confirming it would need more
+            emotion conditions (to power the clustered test) or a higher-strength probe of the response.</p>
             <p><strong>Denial is widespread but training-driven, not size-driven.</strong> 11 of 12 models start
             with a negative "conscious?" baseline (gemma3-1b denies hard at 1B; qwen3-1.7b, at 1.7B, actually
             affirms). The tidy "effect grows with size" seen inside the Qwen family does <em>not</em> hold across
@@ -716,14 +731,44 @@ function renderStats() {
          ') vs factual ' + pm(S.pooled_valence.factual_slope.mean) +
          '. A target-specific, valence-structured slope is the genuine-effect signature; roughly equal slopes on both would indicate compression only.') :
         'No results loaded.';
-    const withC = bm.filter(r => r.spec_contrast != null && r.spec_p_cluster != null && r.spec_contrast > 0);
-    const bestC = withC.reduce((a, b) => (a == null || b.spec_p_cluster < a.spec_p_cluster) ? b : a, null);
-    const cHtml = bestC ? ('<br><br><strong>Specificity contrast (follow-up a).</strong> The target-minus-factual ' +
-        'valence-slope — the self-attribution-specific signal — is most significant for <strong>' + bestC.model +
-        '</strong>: contrast ' + pm(bestC.spec_contrast) + ', cluster-robust p = ' + fmtP(bestC.spec_p_cluster) +
-        ' (clustered by emotion, the true replicate unit). A positive, significant contrast means the valence effect ' +
-        'is specific to the self-questions — not a blanket yes/no bias. The naive per-cell OLS p is anti-conservative; ' +
-        'trust the clustered p.') : '';
+    // Follow-up (a): composite verdict on the specificity contrast (target − factual
+    // valence-slope) with the emotion-clustered p. A *clean* ① needs BOTH a significant
+    // positive contrast AND a flat factual baseline (valence must not move world-facts);
+    // a significant contrast atop a moving factual slope is specificity layered on a
+    // general valence→yes/no bias (③), not clean specificity.
+    const haveC = bm.filter(r => r.spec_contrast != null && r.spec_p_cluster != null);
+    const sigC = haveC.filter(r => r.spec_contrast > 0 && r.spec_p_cluster < 0.05);
+    const flatFac = haveC.filter(r => r.factual_p != null && r.factual_p > 0.05 &&
+                                      r.target_p != null && r.target_p < 0.05 && r.spec_contrast > 0);
+    const cleanSig = sigC.filter(r => flatFac.indexOf(r) !== -1);
+    const bestFlat = flatFac.reduce((a, b) => (a == null || b.spec_contrast > a.spec_contrast) ? b : a, null);
+    let cHtml = '';
+    if (haveC.length) {
+        cHtml = '<br><br><strong>Specificity contrast (follow-up a).</strong> This is the target-minus-factual ' +
+            'valence-slope — the self-attribution-specific signal — tested with a standard error <em>clustered by ' +
+            'emotion</em> (the true replicate unit; the naive per-cell OLS p is badly anti-conservative, so only the ' +
+            'clustered p is trustworthy). ';
+        cHtml += sigC.length ?
+            (sigC.length + ' model(s) reach a significant positive contrast (' + sigC.map(r => r.model).join(', ') +
+             '), but in every one the <em>factual</em> slope is also large and significant, so the contrast is ' +
+             'specificity layered on a general valence→yes/no bias, not clean ①. ') :
+            'No model reaches a significant positive contrast once the emotion clustering is respected. ';
+        if (bestFlat) {
+            const trend = bestFlat.spec_p_cluster >= 0.05;
+            cHtml += 'Clean specificity also needs a <em>flat</em> factual baseline (valence must not move ' +
+                'world-facts). Only ' + flatFac.map(r => r.model).join(', ') + ' meet that; the standout is <strong>' +
+                bestFlat.model + '</strong> — factual slope ' + pm(bestFlat.factual_slope) + ' (p=' +
+                fmtP(bestFlat.factual_p) + ', flat) while its target slope moves (' + pm(bestFlat.target_slope) +
+                ', p=' + fmtP(bestFlat.target_p) + '); contrast ' + pm(bestFlat.spec_contrast) + ', clustered p = ' +
+                fmtP(bestFlat.spec_p_cluster) + (trend ?
+                    ' — a <strong>trend, not significant</strong> (only ~10 df from 11 emotion clusters ⇒ underpowered). ' :
+                    ' — significant even under clustering. ');
+        }
+        cHtml += '<strong>Bottom line:</strong> ' + (cleanSig.length ?
+            (cleanSig.map(r => r.model).join(', ') + ' clear the strict bar (significant clean contrast + flat factual).') :
+            ('no model clears the strict bar of a significant contrast <em>and</em> a flat factual baseline' +
+             (bestFlat ? '; ' + bestFlat.model + ' is the single suggestive candidate.' : '.')));
+    }
     document.getElementById('stats-headline').innerHTML = baseH + cHtml;
     document.getElementById('stats-by-model').innerHTML = table(
         ['Model', 'Size (B)', 'Headline score', 'Target valence-slope', 'p', 'Factual slope',
