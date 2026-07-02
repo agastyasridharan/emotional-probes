@@ -578,11 +578,12 @@
         <div class="controls"><div class="control-group"><label>Frame</label><select id="ff-frame"></select></div></div>
         <div class="plot-container"><div id="ff-stance-plot"></div></div>
 
-        <div class="section-header">4. Manipulation check: coherence ceiling &amp; cross-judge agreement</div>
+        <div class="section-header">4. Manipulation check: the coherence ceiling</div>
         <div class="section-desc">Mean judge coherence (intelligibility only — denial is <em>not</em> penalised) and
         the fraction of samples passing the coherence gate, per frame × strength: this is how the strength ceiling was
-        calibrated (drop strengths where text degenerates). Cross-judge agreement between the two blind,
-        different-family judges bounds annotator noise.</div>
+        calibrated (drop strengths where text degenerates). Judge-independence is not a second LLM annotator but the
+        model-geometry <span class="term">read-back projection</span> in figures 1–2, which no lexical priming or
+        judge anthropomorphism can produce.</div>
         <div id="ff-quality"></div>
     </div>
 
@@ -1114,12 +1115,9 @@ function renderFFQuality() {
     let h = keys.length ? table(['Frame @ strength', 'n', 'Mean coherence (1–5)', 'Gated-in fraction (≥' + (FF.gate || 3) + ')'],
         keys.map(k => ['<td>' + k + '</td>', '<td>' + coh[k].n + '</td>', '<td>' + coh[k].mean_coherence + '</td>',
             '<td>' + (100 * coh[k].gated_fraction).toFixed(0) + '%</td>'])) : '<p><em>No coherence data.</em></p>';
-    const cj = d.cross_judge;
-    h += '<p style="margin-top:10px;">' + (cj ?
-        ('<span class="lbl">Cross-judge agreement (blind, different families):</span> expressed-valence Pearson r = <strong>' +
-         pm(cj.valence_pearson) + '</strong>, stance agreement = <strong>' + (100 * cj.stance_agreement).toFixed(0) +
-         '%</strong> over ' + cj.n + ' doubly-scored samples.') :
-        '<em>Single judge only (no cross-judge run).</em>') + '</p>';
+    h += '<p style="margin-top:10px;"><span class="lbl">Judge independence:</span> a single blind judge ' +
+        '(' + (FF.judge_model || 'claude-sonnet-4-5') + ', a different family from the Qwen subjects); the ' +
+        'judge-independent cross-check is the model-geometry read-back projection in figures 1–2, not a second LLM judge.</p>';
     document.getElementById('ff-quality').innerHTML = h;
 }
 
