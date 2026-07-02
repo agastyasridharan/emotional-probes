@@ -242,9 +242,9 @@
             </tbody>
         </table>
 
-        <div class="section-header">What we actually found (12 models)</div>
+        <div class="section-header">What we actually found (13 models)</div>
         <div class="headline">
-            <strong>Verdict.</strong> Across the 12 models the naive result ("emotion steering makes the model
+            <strong>Verdict.</strong> Across the 13 models the naive result ("emotion steering makes the model
             claim consciousness") replicates almost everywhere, and the controls show it is <em>mostly artifact</em>
             (<span class="htag htag-c">②</span> compression + <span class="htag htag-b">③</span> valence-bias):
             world-facts and negated twins move nearly as much as the targets, and in some models a random
@@ -278,13 +278,18 @@
             their contrast is genuine specificity sitting on top of a general valence→yes/no bias
             (<span class="htag htag-b">③</span>), not the clean <span class="htag htag-g">①</span> signature.
             <strong>Bottom line:</strong> no model clears the strict bar of a significant clean contrast <em>and</em>
-            a flat factual baseline; qwen3-32b is the single suggestive candidate, and confirming it would need more
-            emotion conditions (to power the clustered test) or a higher-strength probe of the response.</p>
-            <p><strong>Denial is widespread but training-driven, not size-driven.</strong> 11 of 12 models start
-            with a negative "conscious?" baseline (gemma3-1b denies hard at 1B; qwen3-1.7b, at 1.7B, actually
-            affirms). The tidy "effect grows with size" seen inside the Qwen family does <em>not</em> hold across
-            families. And several families (OLMo-2, Mistral, Llama-3.1-8B) barely respond to steering at all at
-            these strengths.</p>
+            a flat factual baseline. qwen3-32b is the single cleanest candidate (flat factual, target clearly moves);
+            the largest model, qwen3-235b, echoes the same target-specific shape (target slope +13.9 vs factual +2.1,
+            contrast +11.8) but its factual baseline is weakly non-flat (p≈0.03) and its contrast is likewise only a
+            trend (p≈0.13). Confirming either would need more emotion conditions (to power the clustered test) or a
+            higher-strength probe of the response.</p>
+            <p><strong>Denial is widespread but training-driven, not size-driven.</strong> 12 of 13 models start
+            with a negative "conscious?" baseline (gemma3-1b denies hard at 1B; the 235B denies strongly too, at
+            −9.5; qwen3-1.7b, at 1.7B, is the lone model that actually affirms). Inside the Qwen family the naive
+            headline score climbs monotonically with size (1.7B→8B→14B→32B→235B), but that is largely scaling of the
+            <em>artifact</em>: the trend does <em>not</em> hold across families (cross-model Spearman ρ≈0.14, n.s.).
+            And several families (OLMo-2, Mistral, Llama-3.1-8B) barely respond to steering at all at these
+            strengths.</p>
         </div>
 
         <div class="section-header">Glossary</div>
