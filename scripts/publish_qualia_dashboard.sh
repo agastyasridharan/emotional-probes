@@ -21,6 +21,7 @@ set -uo pipefail
 REPO="/Users/agastyasridharan/emotional-probes"
 WT="/Users/agastyasridharan/emotional-probes-ghpages"
 SRC="$REPO/qualia_dashboard.html"
+SRC_ALL="$REPO/qualia_dashboard_all_models.html"   # full 13-model build, linked from the flagship
 REMOTE_URL="git@github.com:agastyasridharan/emotional-probes.git"
 BRANCH="gh-pages"
 GIT="/usr/bin/git"
@@ -37,6 +38,12 @@ sleep 3
 
 cp "$SRC" "$WT/index.html"
 "$GIT" -C "$WT" add index.html
+# The flagship links to the full all-models dashboard; publish it alongside (same
+# filename) so that link resolves at .../emotional-probes/qualia_dashboard_all_models.html
+if [ -f "$SRC_ALL" ]; then
+    cp "$SRC_ALL" "$WT/qualia_dashboard_all_models.html"
+    "$GIT" -C "$WT" add qualia_dashboard_all_models.html
+fi
 
 if "$GIT" -C "$WT" diff --cached --quiet; then
     log "no change in index.html; nothing to publish"
