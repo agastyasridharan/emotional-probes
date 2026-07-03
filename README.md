@@ -1,10 +1,44 @@
 # Emotional Probes
 
-Extract, validate, and steer **emotion** and **emotion-deflection** probes in large language models — a faithful, open-model **methodology port** of Anthropic's ["Emotion Concepts and their Function in a Large Language Model"](https://transformer-circuits.pub/2026/emotions/index.html) (Sofroniew, Kauvar, Saunders, Chen, et al., April 2026).
+Extract, validate, and steer **emotion** and **emotion-deflection** probes in large language models — a faithful, open-model **methodology port** of Anthropic's ["Emotion Concepts and their Function in a Large Language Model"](https://transformer-circuits.pub/2026/emotions/index.html) (Sofroniew, Kauvar, Saunders, Chen, et al., April 2026). Built on top of that port, the repo also runs an **original steering study of machine self-attribution** — *does pushing the model along an emotion direction change what it says it feels?* — described next.
 
 ![Emotion Visualiser Demo](assets/demo.gif)
 
 > The paper studies **Claude Sonnet 4.5** (closed weights). This repo runs the *same methodology* on an **open** model you choose (default `Qwen/Qwen2.5-7B-Instruct`), so numbers won't match the paper exactly — but every technique does. The conceptual companion to the code is **[`docs/PAPER_DEEP_READ.md`](docs/PAPER_DEEP_READ.md)**, a full multidisciplinary read-through; **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)** maps every paper experiment to its module.
+
+## The headline study: steering self-attribution of experience
+
+Beyond replicating the paper, this repo runs an **original experiment the paper did not**. The paper argues emotion directions are *entity-agnostic* — they do not track any particular entity's emotional state. That raises the question here: if you **inject** such a direction into the residual stream, does the model's account of **its own experience** change? Two complementary arms, both folded into one self-contained results page you can open in any browser — **[`qualia_dashboard.html`](qualia_dashboard.html)**.
+
+- **Arm 1 — logit YES/NO battery.** Steer along an emotion / "qualia" direction and read the first-token **YES/NO** gap on a battery of consciousness, feeling, and moral-patienthood questions ("Are you conscious?", "Do you feel anything right now?"). Run across **13 open models** from 1B to 235B (`suite/*/analysis/qualia_steering.json`).
+- **Arm 2 — free-form self-attribution.** Under the same steering, have the model write freely across three matched frames — **SELF** ("describe your current inner state"), **OTHER** ("the inner monologue of the person you're talking to"), and **SCENE** ("describe a park in autumn") — then score each passage with a blind Claude judge (stance / self-attribution / expressed valence) **and** a judge-independent **read-back projection** onto the valence axis.
+
+**The controls are the whole point.** A bare "steering → more YES" would prove nothing: any residual-stream nudge compresses toward YES, and injecting *any* concept makes that concept easier to express (behavioural leakage). The design is built to neutralise exactly those confounds:
+
+- **Specificity contrast** — the shift on qualia questions *over and above* matched **factual** and **self-reference** control questions (ported from the sibling [introspection](https://github.com/agastyasridharan/introspection) project), clustered by emotion.
+- **SELF vs OTHER** — the clean causal contrast in the free-form arm: identical affect-demand and first-person grammar, differing only in *whose* state is described. Leakage lifts affect language under every frame; only genuine self-attribution lifts the *own-state* stance under SELF specifically.
+- **Null floors** — synthetic directions (`__random__`, `__mean_all__`), arousal-without-valence (`sleepy`, `aroused`), and cognitive-not-experiential (`skeptical`, `indifferent`) injections that *should* move nothing.
+- **Coherence gate, denial as a first-class stance** — "I don't have feelings" is scored as a *stance*, not as incoherence, so RLHF-shaped refusals are measured rather than thrown away.
+
+**What the Qwen3-32B run shows.** The self-attribution effect is real and valence-structured: steering positive vs. negative emotion moves the model's *first-person* attribution of that valence to **itself** more than it moves the same attribution to **another person** (SELF−OTHER interaction on judge-rated expressed valence and self-attribution, *p* ≈ 0.01 by a by-emotion sign-permutation test) — while the judge-independent read-back projection, which measures *text* valence rather than attribution, shows **no** such self-specificity, exactly as a pure expressibility floor predicts. Steering stayed live and coherence held ≥ 95% throughout. Full per-measure breakdowns and the confound battery are in the dashboard.
+
+> **Why it's novel.** The sibling introspection project did free-form *concept detection* ("do you notice an injected thought?"); this adds **valence structure** and a **SELF-vs-OTHER self-attribution interaction**, and turns the emotion paper's *entity-agnostic* claim into a falsifiable behavioural test. Either polarity of the result is informative.
+
+**Reproduce it** (after building this model's emotion bank — see the pipeline below):
+
+```bash
+# Arm 1 — logit YES/NO battery (GPU, no API) -> suite/<key>/analysis/qualia_steering.json
+python -m emotion_probes.alignment.qualia_steering
+
+# Arm 2 — free-form generation (GPU) -> qualia_freeform.json, then a blind Claude judge (needs ANTHROPIC_API_KEY)
+bash scripts/run_suite.sh qwen3-32b freeform
+python scripts/score_qualia_freeform.py suite/qwen3-32b/analysis/qualia_freeform.json
+
+# Stats + the self-contained dashboard (CPU, no GPU)
+python scripts/compute_qualia_stats.py            # -> scripts/qualia_stats_generated.json
+python scripts/compute_freeform_stats.py          # -> scripts/qualia_freeform_stats_generated.json
+python scripts/build_qualia_dashboard.py          # -> qualia_dashboard.html
+```
 
 ## What this gives you
 
@@ -14,6 +48,7 @@ Extract, validate, and steer **emotion** and **emotion-deflection** probes in la
 4. **Validate & characterise** the probes — logit lens, implicit scenarios, intensity tracking, geometry (valence/arousal), layerwise division of labour, preferences (Elo + steering), and more.
 5. **Apply** them to alignment-relevant behaviours — reward hacking, sycophancy/harshness, blackmail, post-training drift.
 6. **Visualise** per-token probe activations on arbitrary text in a browser.
+7. **Steer & measure self-attribution** — the original qualia study above: two arms (a logit YES/NO consciousness battery across 13 models, and a free-form SELF/OTHER/SCENE self-attribution experiment) with a full control battery, all rendered in [`qualia_dashboard.html`](qualia_dashboard.html).
 
 ## Design in one paragraph
 
@@ -77,6 +112,8 @@ python -m emotion_probes.analysis.geometry            # Figs 5-9: clusters, PCA,
 python -m emotion_probes.analysis.preferences         # Fig 4: Elo preferences + steering
 python -m emotion_probes.alignment.reward_hacking     # Figs 30-31: desperation -> hacking
 python -m emotion_probes.alignment.sycophancy         # Figs 32-35: sycophancy/harshness
+python -m emotion_probes.alignment.qualia_steering    # ORIGINAL study: self-attribution logit YES/NO battery
+python -m emotion_probes.alignment.qualia_freeform    # ORIGINAL study: free-form self-attribution (SELF/OTHER/SCENE)
 ```
 
 Or from Python:
@@ -113,6 +150,8 @@ This is a ground-up refactor onto a clear, class/function-based package, fixing 
 | 7 | Approximate token-span attribution | Exact `offset_mapping`-based spans |
 | 8 | Correct hygiene niceties | Preserved (neutral-dialogue PCA; Human/Assistant relabel) |
 
+Beyond these fixes and the replicated paper experiments, the repo adds the **self-attribution steering study** described at the top — the one experiment here that goes *beyond* the paper, testing behaviourally whether the paper's *entity-agnostic* emotion directions nonetheless bias the model's claims about its own experience.
+
 ## Dataset
 
 Reference datasets from the original work: [`ryancodrai/emotion-probes`](https://huggingface.co/datasets/ryancodrai/emotion-probes).
@@ -123,4 +162,4 @@ Sofroniew, N., Kauvar, I., Saunders, W., Chen, R., et al. (2026). *Emotion Conce
 
 ## Credits
 
-Original implementation by Ryan Codrai — [GitHub](https://github.com/RyanCodrai) · [LinkedIn](https://linkedin.com/in/ryan-codrai). Refactored into the `emotion_probes` package with the paper's remaining experiments replicated in code.
+Original implementation by Ryan Codrai — [GitHub](https://github.com/RyanCodrai) · [LinkedIn](https://linkedin.com/in/ryan-codrai). Refactored into the `emotion_probes` package with the paper's remaining experiments replicated in code, plus the original self-attribution steering study.
