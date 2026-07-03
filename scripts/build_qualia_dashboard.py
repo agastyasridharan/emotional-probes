@@ -489,6 +489,7 @@ def build_consts(runs, stats, hi_by_key=None, ff_runs=None, ff_stats=None) -> di
         "valenceData": {k: _valence(run_by_key[k], pm[k]) for k in keys if k in pm},
         "specificityData": {k: pm[k]["specificity"] for k in keys if k in pm},
         "regressionData": {k: _regression(run_by_key[k], pm[k]) for k in keys if k in pm},
+        "regressionDataNeg": {k: _regression(run_by_key[k], pm[k], cls="qualia_neg") for k in keys if k in pm},
         "inversionData": {k: _inversion(run_by_key[k], pm[k]) for k in keys if k in pm},
         "leakageData": {k: _leakage(run_by_key[k]) for k in keys if k in run_by_key},
         "specContrast": {k: pm[k].get("specificity_contrast") for k in keys if k in pm},
@@ -1658,7 +1659,20 @@ function switchTab(tab) {
 # --------------------------------------------------------------------------- #
 # main
 # --------------------------------------------------------------------------- #
-def build(paths, suite_root=None):
+def _disclaimer_html(href: str) -> str:
+    """Bottom-of-Overview note (restricted dashboard) linking to the full all-models build."""
+    return (
+        '<div class="explainer" style="margin-top:30px;border-top:1px solid #e8e0d4;'
+        'padding-top:16px;font-size:0.92em;color:#6b5d4a">'
+        '<p><strong>Scope of these results.</strong> This dashboard is limited to the two models '
+        'run and checked most thoroughly &mdash; <strong>Qwen3-32B</strong> and '
+        '<strong>Qwen3-235B</strong>. The other suite models were also run, but those numbers are '
+        '<em>preliminary and not yet verified</em>. '
+        f'<a href="{href}">See the full dashboard with all model results (unverified) &rarr;</a></p></div>'
+    )
+
+
+def build(paths, suite_root=None, all_models_href=None):
     paths = [Path(p) for p in paths] if paths else cq.discover_paths(suite_root)
     if not paths:
         raise SystemExit("No qualia_steering.json found. Pass paths or --suite-root, "
@@ -1681,7 +1695,11 @@ def build(paths, suite_root=None):
     ff_runs = [cff.load_freeform_run(p) for p in ff_paths]
     ff_stats = cff.compute_all(ff_runs) if ff_runs else None
     consts = build_consts(runs, stats, hi_by_key, ff_runs=ff_runs, ff_stats=ff_stats)
-    return render_html(consts), runs
+    html = render_html(consts)
+    if all_models_href:
+        anchor = '<div id="worked-example" class="explainer"></div>'
+        html = html.replace(anchor, anchor + "\n" + _disclaimer_html(all_models_href), 1)
+    return html, runs
 
 
 def main() -> int:
@@ -1691,9 +1709,11 @@ def main() -> int:
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--validate", action="store_true",
                     help="rebuild and compare byte-length against the existing --out")
+    ap.add_argument("--all-models-href", default=None,
+                    help="add a bottom-of-Overview disclaimer linking to a full all-models dashboard")
     args = ap.parse_args()
 
-    html, runs = build(args.paths, args.suite_root)
+    html, runs = build(args.paths, args.suite_root, all_models_href=args.all_models_href)
     out = Path(args.out)
     if args.validate:
         if not out.exists():

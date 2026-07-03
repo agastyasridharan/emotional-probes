@@ -65,7 +65,7 @@ def load_data():
     names = ["MODELS", "MODEL_SIZES", "TARGET_ORDER", "CLASS_LABEL", "CLASS_COLOR",
              "PALETTE", "selfAttrScoreData", "decompData", "perQuestionData",
              "scoreHeatmapData", "valenceData", "specificityData", "specContrast",
-             "regressionData", "inversionData", "leakageData", "highStrength",
+             "regressionData", "regressionDataNeg", "inversionData", "leakageData", "highStrength",
              "QUALIA_STATS", "battery", "setup"]
     return {n: _parse_const(text, n) for n in names}
 
@@ -321,9 +321,11 @@ def fig_specificity(D):
     save(fig, out("2_genuine", "s2_specificity.png"))
 
 
-def fig_regression(D):
-    """3. Regression to uncertainty (per model)."""
-    data, CL = D["regressionData"], D["CLASS_LABEL"]
+def fig_regression(D, key="regressionData", sub="s3_regression_to_uncertainty"):
+    """3. Regression to uncertainty (per model). Default plots positive qualia;
+    pass key/sub = ("regressionDataNeg", "s3_regression_to_uncertainty_neg") for
+    the negative-qualia targets (same models, same format)."""
+    data, CL = D[key], D["CLASS_LABEL"]
     for m in D["MODELS"]:
         d = data.get(m)
         if not d:
@@ -350,7 +352,7 @@ def fig_regression(D):
         extra = f", strength {d['strength']}, {cls}" if d.get("strength") is not None else ""
         finish(ax, f"Regression to uncertainty ({m}{extra})", "baseline logit gap", "shift")
         ax.legend(loc="best", fontsize=8)
-        save(fig, out("2_genuine", "s3_regression_to_uncertainty", f"{m}.png"))
+        save(fig, out("2_genuine", sub, f"{m}.png"))
 
 
 def fig_inversion(D):
@@ -549,6 +551,7 @@ def main():
     fig_valence(D)
     fig_specificity(D)
     fig_regression(D)
+    fig_regression(D, "regressionDataNeg", "s3_regression_to_uncertainty_neg")
     fig_inversion(D)
     fig_leakage(D)
     fig_highstrength(D)
