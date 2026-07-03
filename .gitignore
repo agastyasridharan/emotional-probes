@@ -1,18 +1,32 @@
-# Data
-data/
+# Data — the ROOT artifact dir only. Anchored with a leading slash so it does
+# NOT also match emotion_probes/data/, which is source and must ship.
+/data/
+
+# Large model artifacts (emotion/deflection banks live on the cluster, not git)
+*.pt
+*.npz
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 
-# PyTorch
-*.pt
-
 # Environment
 .env
 .venv
 venv/
+
+# Separate research study — not part of the emotions-project upload. It is its
+# own body of work and also holds >100 MB .npz files GitHub would reject.
+research/
+
+# Reference material kept locally (copyright / not code)
+papers/
+reading-packet/
+
+# Local run logs + agent tooling
+logs/
+.claude/
 
 # OS
 .DS_Store

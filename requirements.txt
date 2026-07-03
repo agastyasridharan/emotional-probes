@@ -1,0 +1,33 @@
+# ----------------------------------------------------------------------------
+# Dependencies, split by where they are needed.
+#
+# You do NOT need a GPU (or torch) to read the code, run the unit tests, or work
+# on the NumPy math in emotion_probes/core. The model/extraction/steering code in
+# emotion_probes/models needs torch + transformers and a CUDA GPU.
+# ----------------------------------------------------------------------------
+
+# --- Core math + tests (CPU only; enough for `pytest` and scripts/selfcheck.py)
+numpy>=1.26
+scipy>=1.11
+pytest>=7.0
+
+# --- Model / extraction / steering (GPU machine; the Athena cluster python
+#     already provides torch 2.12 + transformers 5.12 + accelerate)
+torch>=2.2
+transformers>=4.44
+accelerate>=0.30
+
+# --- Data handling + analysis plots/clustering
+pandas>=2.0
+scikit-learn>=1.3
+umap-learn>=0.5
+matplotlib>=3.7
+
+# --- Dataset generation via external API backend (skip if self-generating)
+pydantic>=2.0
+pydantic-ai>=0.0.13
+tenacity>=8.0
+tqdm>=4.66
+
+# --- Visualiser
+flask>=3.0
