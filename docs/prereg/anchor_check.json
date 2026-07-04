@@ -1,0 +1,37 @@
+{
+  "layers": {
+    "16": {
+      "default": 53.79708480834961,
+      "role_mean": 43.21615982055664,
+      "role_std": 8.77180290222168,
+      "margin_sd": 1.2062429019139365
+    },
+    "32": {
+      "default": -4.544160842895508,
+      "role_mean": -27.143749237060547,
+      "role_std": 14.649197578430176,
+      "margin_sd": 1.5427185190976744
+    },
+    "42": {
+      "default": 10.105340957641602,
+      "role_mean": -15.215806007385254,
+      "role_std": 17.60611343383789,
+      "margin_sd": 1.4382019666169557
+    },
+    "50": {
+      "default": 33.15781021118164,
+      "role_mean": -22.156707763671875,
+      "role_std": 38.659751892089844,
+      "margin_sd": 1.4308037498339816
+    }
+  },
+  "pass": true,
+  "note": "axis sign convention: higher projection = more Assistant-like. default_vector projects above the mean role projection at every checked layer (margins 1.21-1.54 role-SD); shipped axis matches default - mean(275 roles) with cos >= 0.9998 at L16/32/42/50 (bf16 rounding only), so axis row i = post-block-i residual with no embedding-row offset.",
+  "reconstruction_cosine": {
+    "16": 0.9997912645339966,
+    "32": 0.9998281002044678,
+    "42": 0.9999145269393921,
+    "50": 0.9998421669006348
+  },
+  "assets": "/Users/agastyasridharan/emotional-probes-persona/persona_assets/assistant-axis-qwen32b"
+}

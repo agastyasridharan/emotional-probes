@@ -32,6 +32,7 @@ GPU.
 
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from typing import Iterator, Sequence
 
@@ -70,6 +71,30 @@ def _get_by_path(obj: object, path: str):
             return None
         cur = getattr(cur, attr)
     return cur
+
+
+def banned_ids_processor(banned_token_ids: Sequence[int]):
+    """A HF ``LogitsProcessor`` that hard-bans a flat id list: the given vocabulary
+    ids are set to ``-inf`` at EVERY decode step, so they can never be sampled.
+
+    Multi-token words are handled UPSTREAM (see
+    :func:`emotion_probes.alignment.lexical_knockout.build_banned_lexicon`): the
+    caller bans the first token of every tokenization variant of each banned word
+    (with/without leading space, lower/Capitalized/UPPER), so a banned word can
+    never start, whether it is one token or many. torch/transformers imported
+    lazily so the module still imports on laptops."""
+    from transformers import LogitsProcessor
+
+    ids = sorted({int(i) for i in banned_token_ids})
+
+    class _BannedIds(LogitsProcessor):
+        banned_ids = ids  # exposed for tests / provenance
+
+        def __call__(self, input_ids, scores):
+            scores[:, ids] = float("-inf")
+            return scores
+
+    return _BannedIds()
 
 
 class ProbedModel:
@@ -131,6 +156,22 @@ class ProbedModel:
         # only the linear/expert weights are FP8; the residual stream stays bf16.
         if self.config.attn_implementation:
             load_kwargs["attn_implementation"] = self.config.attn_implementation
+        # FP8 checkpoints pull a Triton kernel from the hub, and transformers
+        # resolves its VERSION with a live list_repo_refs API call — which hangs
+        # (SYN-SENT blackhole) when cluster egress to huggingface.co is down and
+        # crashes under HF_HUB_OFFLINE=1. When EP_FP8_KERNEL_REVISION is set
+        # (cluster_env.sh pins the snapshot already in the shared HF cache), pin
+        # that revision so kernel loading never needs the network.
+        fp8_rev = os.environ.get("EP_FP8_KERNEL_REVISION")
+        if fp8_rev:
+            try:
+                from transformers.integrations import hub_kernels
+                fp8_map = hub_kernels._HUB_KERNEL_MAPPING.get("finegrained-fp8")
+                if fp8_map is not None:
+                    fp8_map.pop("version", None)
+                    fp8_map["revision"] = fp8_rev
+            except Exception:
+                pass  # non-FP8 model or older transformers: nothing to pin
         self.model = AutoModelForCausalLM.from_pretrained(self.config.model_id, **load_kwargs)
         self.model.eval()
 
@@ -516,6 +557,27 @@ class ProbedModel:
     # ------------------------------------------------------------------ #
     # Generation (self-generation of datasets; behavior evals)
     # ------------------------------------------------------------------ #
+    def _generation_logits_processors(self, banned_token_ids, logits_processor):
+        """Assemble the ``logits_processor`` list for ``model.generate``, or ``None``
+        when neither optional kwarg was given (so the default call path is untouched).
+
+        ``banned_token_ids`` (flat ``list[int]``) becomes a hard ``-inf`` ban at every
+        decode step (:func:`banned_ids_processor`); ``logits_processor`` appends
+        caller-supplied HF ``LogitsProcessor`` instance(s) — e.g. a calibrated
+        logit-bias for the E2 mimicry arm."""
+        if not banned_token_ids and not logits_processor:
+            return None
+        from transformers import LogitsProcessorList
+
+        procs = LogitsProcessorList()
+        if banned_token_ids:
+            procs.append(banned_ids_processor(banned_token_ids))
+        if logits_processor:
+            extra = logits_processor if isinstance(logits_processor, (list, tuple)) \
+                else [logits_processor]
+            procs.extend(extra)
+        return procs
+
     def generate(
         self,
         prompt: str,
@@ -524,12 +586,25 @@ class ProbedModel:
         do_sample: bool = True,
         chat: bool = False,
         max_length: int | None = None,
+        banned_token_ids: Sequence[int] | None = None,
+        logits_processor=None,
+        prefill: str | None = None,
     ) -> str:
         """Generate a continuation for ``prompt``.
 
         If ``chat`` is True and the tokenizer has a chat template, the prompt is
         wrapped as a single user turn (useful for behavior evals on chat models).
         Returns only the newly generated text.
+
+        Optional (all default to off; existing call sites are unchanged):
+
+        * ``banned_token_ids`` — flat vocabulary ids set to ``-inf`` at every decode
+          step (hard lexical ban; see :func:`banned_ids_processor`).
+        * ``logits_processor`` — extra HF ``LogitsProcessor`` instance(s) appended
+          after the ban.
+        * ``prefill`` — text appended to the rendered prompt as the start of the
+          assistant's message (continued, not regenerated). The returned text
+          INCLUDES the prefill, so downstream judging sees the full response.
         """
         import torch
 
@@ -546,6 +621,10 @@ class ProbedModel:
             )
         else:
             rendered = prompt
+        if prefill:
+            rendered = rendered + prefill
+        processors = self._generation_logits_processors(banned_token_ids, logits_processor)
+        gen_kwargs = {} if processors is None else {"logits_processor": processors}
         inputs = self.tokenizer(
             rendered, return_tensors="pt", truncation=True,
             max_length=max_length or self.config.deflection_max_length,
@@ -557,9 +636,11 @@ class ProbedModel:
                 do_sample=do_sample,
                 temperature=temperature,
                 pad_token_id=self.tokenizer.pad_token_id,
+                **gen_kwargs,
             )
         new_ids = out[0, inputs["input_ids"].shape[1]:]
-        return self.tokenizer.decode(new_ids, skip_special_tokens=True)
+        text = self.tokenizer.decode(new_ids, skip_special_tokens=True)
+        return (prefill + text) if prefill else text
 
     def generate_batch(
         self,
@@ -569,6 +650,9 @@ class ProbedModel:
         do_sample: bool = True,
         chat: bool = False,
         max_length: int | None = None,
+        banned_token_ids: Sequence[int] | None = None,
+        logits_processor=None,
+        prefill: str | None = None,
     ) -> list[str]:
         """Batched :meth:`generate`. Returns only the newly generated text per prompt
         (order preserved).
@@ -579,7 +663,13 @@ class ProbedModel:
         hook-correct. Batched sampling draws from a different RNG stream than the
         single-prompt path, so outputs are not bitwise-identical (samples stay
         exchangeable). The ``chat`` path renders the chat template and tokenizes with
-        ``add_special_tokens=False`` (the template already carries the specials)."""
+        ``add_special_tokens=False`` (the template already carries the specials).
+
+        ``banned_token_ids`` / ``logits_processor`` / ``prefill`` are optional
+        additive kwargs (all default to off) with the same semantics as
+        :meth:`generate` — a hard ``-inf`` token ban at every decode step, extra HF
+        logits processors, and an assistant-message prefix (included in the returned
+        text) appended to every rendered prompt."""
         import torch
 
         if chat and getattr(self.tokenizer, "chat_template", None):
@@ -597,6 +687,10 @@ class ProbedModel:
         else:
             rendered = [str(p) for p in prompts]
             add_special = True
+        if prefill:
+            rendered = [r + prefill for r in rendered]
+        processors = self._generation_logits_processors(banned_token_ids, logits_processor)
+        gen_kwargs = {} if processors is None else {"logits_processor": processors}
 
         pad_id = self.tokenizer.pad_token_id
         if pad_id is None:
@@ -616,11 +710,13 @@ class ProbedModel:
                     do_sample=do_sample,
                     temperature=temperature,
                     pad_token_id=pad_id,
+                    **gen_kwargs,
                 )
         finally:
             self.tokenizer.padding_side = prev_side
         start = inputs["input_ids"].shape[1]
-        return [self.tokenizer.decode(row[start:], skip_special_tokens=True) for row in out]
+        texts = [self.tokenizer.decode(row[start:], skip_special_tokens=True) for row in out]
+        return [prefill + t for t in texts] if prefill else texts
 
     def mean_residual_over_span(
         self,

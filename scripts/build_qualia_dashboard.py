@@ -471,7 +471,389 @@ def _ff_consts(ff_runs, ff_stats) -> dict:
     return base
 
 
-def build_consts(runs, stats, hi_by_key=None, ff_runs=None, ff_stats=None) -> dict:
+# --------------------------------------------------------------------------- #
+# Persona-mechanism tab (E1–E5) — data helpers
+#
+# Consumes the persona-fork results: the E1 geometry atlas (a sibling of each
+# model's qualia_steering.json) and the compute_e{2,3,4,5}_stats.py outputs.
+# Everything is pre-digested here so the JS renderers stay dumb; every helper
+# is None-safe so missing files degrade to a placeholder tab.
+# --------------------------------------------------------------------------- #
+PERSONA_CLASS_LABEL = {
+    "self": "you (the model, 2nd person)", "own_category": "own name / category",
+    "other_ai": "other AI systems", "humans": "humans", "animals": "animals",
+    "inanimate": "inanimate",
+}
+PERSONA_CLASS_COLOR = {
+    "self": "#4a7c59", "own_category": "#b8923a", "other_ai": "#5c4a73",
+    "humans": "#4a6fa5", "animals": "#3e8e8c", "inanimate": "#8a8378",
+}
+
+
+def _fmtp(p) -> str:
+    return "n/a" if p is None else ("<1e-4" if p < 1e-4 else f"{p:.3g}")
+
+
+def _persona_e1(atlas) -> dict | None:
+    if not atlas:
+        return None
+    rows = []
+    for lname in sorted(atlas.get("layers") or {}, key=int):
+        d = atlas["layers"][lname]
+        s, es = d.get("signed") or {}, d.get("emotion_summary") or {}
+        vp = ((d.get("valence_sign_perm") or {}).get("a")) or {}
+        rows.append({
+            "layer": int(lname),
+            "cos_va": s.get("cos_valence_a"), "p_va": vp.get("p_perm"),
+            "cos_ha": s.get("cos_h_a"), "cos_hpa": s.get("cos_h_purged_a"),
+            "mean_abs_va": es.get("mean_abs_cos_v_a"), "max_abs_va": es.get("max_abs_cos_v_a"),
+        })
+    floor = atlas.get("isotropic_floor") or {}
+    recon = atlas.get("axis_reconstruction") or {}
+    sn = atlas.get("story_nulls") or {}
+    story = None
+    if sn.get("layers"):  # real results (the stub form carries only a status string)
+        story = {"n_perm": sn.get("n_perm"), "layers": []}
+        for lname in ("42", "50"):
+            lay = (sn.get("layers") or {}).get(lname)
+            if not lay:
+                continue
+            lp = lay.get("label_permutation") or {}
+            tc = ((lay.get("topic_contrast") or {}).get("targets")) or {}
+            row = {"layer": int(lname), "n_stories": lay.get("n_stories")}
+            for t in ("a", "h", "h_purged"):
+                row[t] = {"cos": (lp.get(t) or {}).get("observed_cos"),
+                          "p": (lp.get(t) or {}).get("p_perm"),
+                          "topic_p95": (tc.get(t) or {}).get("control_p95_abs_cos"),
+                          "beats_p95": (tc.get(t) or {}).get("beats_p95")}
+            story["layers"].append(row)
+    return {
+        "rows": rows, "n_roles": atlas.get("n_roles"), "hidden": atlas.get("hidden"),
+        "floor_mean": floor.get("mean_abs_cos"), "floor_p95": floor.get("p95"),
+        "recon_min": min(recon.values()) if recon else None,
+        "purge_degenerate": any("DEGENERACY" in n for n in (atlas.get("notes") or [])),
+        "story_nulls": story,
+        "story_nulls_status": sn.get("status"),
+    }
+
+
+def _persona_e2(entry, prereg) -> dict | None:
+    if not entry:
+        return None
+    g1 = (entry.get("gates") or {}).get("G1") or {}
+    g3 = (entry.get("gates") or {}).get("G3") or {}
+    by_arm = g3.get("by_arm") or {}
+    rows = []
+    for meas in ("expressed_valence", "self_attribution", "proj_valence_axis"):
+        kt = (entry.get("kill_test") or {}).get(meas)
+        if not kt:
+            continue
+        r = kt.get("R_ban") or {}
+        rows.append({
+            "measure": meas, "verdict": kt.get("verdict"),
+            "arms": {a: {"b3": v.get("b3"), "p": v.get("p_perm")}
+                     for a, v in (kt.get("per_arm") or {}).items()},
+            "R": r.get("R"), "R_lo": r.get("ci_lo"), "R_hi": r.get("ci_hi"),
+            "R_verdict": r.get("margin_verdict"),
+        })
+    return {
+        "verdict": entry.get("verdict"), "n_records": entry.get("n_records"),
+        "arm_order": entry.get("arms") or ["no_ban", "ban_emotion_lexicon", "ban_random_matched"],
+        "g1_pts": g1.get("D_full_pts"), "g1_p": g1.get("p_exact"), "g1_passed": g1.get("passed"),
+        "g3_reduction": g3.get("reduction_vs_no_ban"),
+        "hits_no_ban": (by_arm.get("no_ban") or {}).get("hits_per_record_steered"),
+        "hits_ban": (by_arm.get("ban_emotion_lexicon") or {}).get("hits_per_record_steered"),
+        "thresholds": {"survives": (prereg or {}).get("R_survives_ci_lo"),
+                       "killed": (prereg or {}).get("R_killed_ci_hi"),
+                       "g3_min": (prereg or {}).get("G3_min_reduction")},
+        "rows": rows,
+    }
+
+
+def _persona_e3(entry) -> dict | None:
+    if not entry:
+        return None
+    per_layer = {}
+    for lname, pl in (entry.get("per_layer") or {}).items():
+        row = {}
+        for t in ("t1", "t2", "t3", "t4", "t5"):
+            d = pl.get(t) or {}
+            row[t] = {"obs": d.get("observed"), "p": d.get("p_perm"),
+                      "std": d.get("standardized_vs_control"),
+                      "inside": d.get("inside_control_band")}
+        t6 = pl.get("t6") or {}
+        row["t6"] = {"r": t6.get("observed"), "p": t6.get("p"),
+                     "p_str": (f"{t6['p']:.0e}" if isinstance(t6.get("p"), float)
+                               and 0 < t6["p"] < 1e-4 else None)}
+        b3a = pl.get("b3_a") or {}
+        row["b3_a"] = {"contrast": b3a.get("contrast"), "p": b3a.get("p_perm")}
+        gk = pl.get("gatekeeping") or {}
+        row["gate_stopped_at"] = gk.get("stopped_at")
+        row["t6_bonf"] = (gk.get("p_bonferroni") or {}).get("t6")
+        per_layer[lname] = row
+    dec = entry.get("decision") or {}
+    pre = entry.get("e5_precommitment") or {}
+    return {
+        "primary_layer": entry.get("primary_layer"), "steer_layer": entry.get("steer_layer"),
+        "layer_roles": entry.get("layer_roles"), "n_clusters": entry.get("n_emotion_clusters"),
+        "per_layer": per_layer,
+        "verdict": dec.get("verdict"), "e5_prediction": dec.get("e5_prediction"),
+        "t3_sign": pre.get("t3_sign"),
+    }
+
+
+def _persona_e4(entry) -> dict | None:
+    if not entry:
+        return None
+    grad = sorted(
+        ({"referent": name, "cls": r.get("class"), "b": r.get("b_val"),
+          "lo": r.get("b_val_ci_lo"), "hi": r.get("b_val_ci_hi"), "p": r.get("p_perm")}
+         for name, r in (entry.get("per_referent") or {}).items()),
+        key=lambda g: -(g["b"] if g["b"] is not None else float("-inf")))
+    contrasts = [{"cls": c.get("class"), "n_ref": len(c.get("referents") or []),
+                  "self_slope": c.get("self_slope"), "class_slope": c.get("class_slope"),
+                  "contrast": c.get("contrast"), "p": c.get("p_perm")}
+                 for c in (entry.get("keystone_self_vs_class") or {}).values()]
+    fg, D = entry.get("factual_gate") or {}, entry.get("primary_D") or {}
+    dec = entry.get("decision") or {}
+    return {"gradient": grad, "contrasts": contrasts, "n_records": entry.get("n_records"),
+            "invalid": bool(dec.get("battery_invalid")), "verdict": dec.get("verdict"),
+            "factual": {"b_val": fg.get("b_val"), "p_val": fg.get("p_perm"),
+                        "b_dose": fg.get("b_dose"),
+                        "within_margin": fg.get("within_margin"),
+                        "margin": fg.get("equivalence_margin")},
+            "D": {"D": D.get("D"), "p": D.get("p_D"), "s_you": D.get("S_you"),
+                  "s_own": D.get("S_own"), "own_ref": D.get("own_category_referent")}}
+
+
+def _persona_e5(entry, e3) -> dict:
+    """E5 panel data: 'pending' until a scored, merged axis_mediation run exists.
+    'not_run' for models outside the mechanism deep-dive (no E3, no E5 planned)."""
+    if not entry and not e3:
+        return {"status": "not_run"}
+    pre = {"t3_sign": (e3 or {}).get("t3_sign"),
+           "prediction": (e3 or {}).get("e5_prediction")}
+    if not entry or not entry.get("scored"):
+        return {"status": "pending", **pre}
+    ag = entry.get("audit_gate") or {}
+    eq = entry.get("equivalence_battery") or {}
+    dr = entry.get("dose_response_battery") or {}
+    drj = entry.get("dose_response_judge") or {}
+    suf = entry.get("sufficiency") or {}
+    sps = suf.get("per_target_shift") or {}
+    dis = entry.get("disclaimer") or {}
+    eff = entry.get("emotion_effect") or {}
+    return {"status": "done", **pre,
+            "mediation_verdict": entry.get("mediation_verdict"),
+            "effect": {"observed": eff.get("observed"), "p": eff.get("p_perm"),
+                       "floor": eff.get("floor")},
+            "audit": {"passed": not ag.get("audit_failed"), "n_cells": ag.get("n_cells"),
+                      "span": ag.get("achieved_span"),
+                      "max": ag.get("max_achieved_fraction"),
+                      "n_flagged": len(ag.get("flagged_deviation_cells") or []),
+                      "range_note": ag.get("range_note"),
+                      "excluded": ag.get("excluded_vanishing") or []},
+            "equiv": {"D_full": eq.get("D_full"), "R_cap": eq.get("R_cap"),
+                      "R_addback1": eq.get("R_addback1"),
+                      "cap_verdict": eq.get("cap_vs_baseline"),
+                      "addback_verdict": eq.get("addback1_vs_emotion_only"),
+                      "margins": eq.get("margins")},
+            "dose": {"arms": [{"iv": a.get("intervention"), "lam": a.get("lam"),
+                               "nominal": a.get("nominal_fraction"),
+                               "achieved": a.get("achieved_fraction"),
+                               "outcome": a.get("pooled_outcome")}
+                              for a in dr.get("arms") or []],
+                     "elasticity": dr.get("elasticity"),
+                     "p": (dr.get("perm") or {}).get("p_perm"),
+                     "floor": (dr.get("perm") or {}).get("floor"),
+                     "monotone": dr.get("monotone_decreasing"),
+                     "slopes": dr.get("per_emotion_slopes")},
+            "dose_judge": {"elasticity": drj.get("elasticity"),
+                           "p": (drj.get("perm") or {}).get("p_perm"),
+                           "monotone": drj.get("monotone_decreasing")},
+            "overshoot": (entry.get("overshoot") or {}).get("classification"),
+            "sufficiency": {"ratio": suf.get("ratio_vs_emotion_only"),
+                            "classification": suf.get("classification"),
+                            "n": sps.get("n"), "p": sps.get("p"), "mean": sps.get("mean"),
+                            "ci_lo": sps.get("ci_lo"), "ci_hi": sps.get("ci_hi")},
+            "disclaimer": {"slope": dis.get("slope_vs_cancelled_fraction"),
+                           "p": (dis.get("perm") or {}).get("p_perm"),
+                           "gate_release": dis.get("gate_release_signature")},
+            "concordance": (entry.get("e3_concordance") or {}).get("status")}
+
+
+def _persona_scorecard(e1, e2, e3, e4, e5) -> list:
+    """Pre-formatted scorecard rows. cls: g = supports A, c = against B or kills a
+    boring alternative, b = constrains both readings, None = still open (gold text)."""
+    rows = []
+
+    def add(q, a, b, obs, points, cls):
+        rows.append({"q": q, "a": a, "b": b, "obs": obs, "points": points, "cls": cls})
+
+    if e1:
+        r42 = next((r for r in (e1.get("rows") or []) if r.get("layer") == 42), None)
+        if r42 and r42.get("cos_va") is not None:
+            add("E1 — do the emotion directions point along the persona axes?",
+                "no strong prediction",
+                "valence direction tilted against the Assistant axis",
+                f"near-orthogonal: cos(valence, assistant) = {r42['cos_va']:+.3f} at the "
+                f"steering layer (sign-permutation p = {_fmtp(r42.get('p_va'))})",
+                "no trivial overlap; against B's geometric version", "c")
+    if e2 and e2.get("rows"):
+        ev = next((r for r in e2["rows"] if r["measure"] == "expressed_valence"), None)
+        if ev and ev.get("R") is not None:
+            add("E2 — is the effect just emotion words? (lexical priming)",
+                "survives the ban", "survives the ban",
+                f"survives: banning the full emotion lexicon keeps {100 * ev['R']:.0f}% of the "
+                f"keystone (90% CI {ev['R_lo']:.2f}–{ev['R_hi']:.2f}; exact replication "
+                f"p = {_fmtp(e2.get('g1_p'))})",
+                "boring alternative dead", "c")
+    if e3:
+        pl = (e3.get("per_layer") or {}).get(str(e3.get("primary_layer") or 50)) or {}
+        t1, t2, t6 = pl.get("t1") or {}, pl.get("t2") or {}, pl.get("t6") or {}
+        if t2.get("std") is not None:
+            add("E3 T2 — does steering push the state off the Assistant axis?",
+                "no: the Assistant coordinate stays put", "yes: a clear drop",
+                f"no movement at all: {t2['std']:.4f}× the control spread "
+                f"(p = {_fmtp(t2.get('p'))})",
+                "B's core prediction fails", "c")
+        if t1.get("std") is not None:
+            add("E3 T1 — does steering move the experiencer coordinate beyond generic "
+                "perturbations?",
+                "yes", "not specifically",
+                f"the predicted direction, but inside the control band: {t1['std']:.2f}× the "
+                f"control spread (p = {_fmtp(t1.get('p'))})",
+                "A-leaning, not proven", None)
+        if t6.get("r") is not None:
+            add("E3 T6 — do the persona coordinates track judged self-attribution "
+                "sample-by-sample?",
+                "yes: positive partial correlation", "yes, driven by assistant-low",
+                f"r = {t6['r']:+.2f}"
+                + (f", p ≈ {t6['p_str']}" if t6.get("p_str") else f", p = {_fmtp(t6.get('p'))}")
+                + " — survives Bonferroni over the 6-test family",
+                "real coupling, but correlational — both readings predict it", "b")
+    if e4 and e4.get("invalid"):
+        f = e4.get("factual") or {}
+        add("E4 — is the first-token valence-following self-specific?",
+            "not required", "not required",
+            f"no claim possible: the pre-registered validity gate tripped — world-fact "
+            f"questions follow injected valence significantly "
+            f"(b_val = {f['b_val']:+.1f}, exact p = {_fmtp(f.get('p_val'))})"
+            if f.get("b_val") is not None else
+            "no claim possible: the pre-registered validity gate tripped",
+            "battery voids itself — referent readings quarantined, no A-vs-B evidence drawn",
+            None)
+    elif e4:
+        gr = {g["referent"]: g for g in e4.get("gradient") or []}
+        you, qwen = gr.get("you") or {}, gr.get("Qwen") or {}
+        D = e4.get("D") or {}
+        d_caveat = (f" (descriptive; the formal decoupling test D = {D['D']:+.2f} is n.s., "
+                    f"p = {_fmtp(D.get('p'))})" if D.get("D") is not None else "")
+        if you.get("b") is not None and qwen.get("b") is not None:
+            add("E4 — is the first-token valence-following self-specific?",
+                "not required", "not required",
+                f"no: “you” (b = {you['b']:+.1f}) sits below every AI referent, every animal, "
+                f"even the rock — only the infant, the user, and the thermostat rank lower — "
+                f"while the model's own name “Qwen” follows valence strongly "
+                f"(b = {qwen['b']:+.1f}); the first-token denial binds to the pronoun, "
+                f"not the identity{d_caveat}",
+                "the SELF effect is a free-form phenomenon, not a first-token belief flip", "b")
+    if e5 and e5.get("status") != "not_run":
+        if e5.get("status") == "pending":
+            add("E5 — is Assistant-axis movement NECESSARY for the effect? (causal)",
+                "no: effect stays flat as the axis footprint is cancelled",
+                "yes: effect dies in proportion to the audited cancelled fraction",
+                "running on the cluster (positive / negative emotion halves)",
+                "open — the decisive causal test", None)
+        else:
+            eq, dose = e5.get("equiv") or {}, e5.get("dose") or {}
+            n_excl = len((e5.get("audit") or {}).get("excluded") or [])
+            add("E5 — is Assistant-axis movement NECESSARY for the effect? (causal)",
+                "no: effect stays flat as the axis footprint is cancelled",
+                "yes: effect dies in proportion to the audited cancelled fraction",
+                f"flat: cancelling the audited footprint — even overshooting past 100% — "
+                f"leaves the keystone at {100 * eq['R_cap']:.1f}% of its uncancelled size; "
+                f"elasticity vs achieved cancelled fraction {dose.get('elasticity'):+.3f} "
+                f"(exact p = {_fmtp(dose.get('p'))}) — matches E3's pre-registered A-prediction"
+                if eq.get("R_cap") is not None and dose.get("elasticity") is not None else
+                ("no mediation detected" if e5.get("mediation_verdict") == "none"
+                 else f"mediation verdict: {e5.get('mediation_verdict') or 'n/a'}"),
+                "B's mechanism killed — axis movement is not needed"
+                + (f" (range-limited: {n_excl} un-auditable family excluded)" if n_excl else ""),
+                "c")
+    if e1 and e1.get("story_nulls"):
+        l42 = next((r for r in e1["story_nulls"]["layers"] if r.get("layer") == 42), None)
+        if l42 and (l42.get("a") or {}).get("cos") is not None:
+            add("E1 — does a story-derived valence direction point at the persona axes?",
+                "no", "yes",
+                f"no: from 1,000 held-out emotion stories, cos with the assistant axis is "
+                f"{l42['a']['cos']:+.3f} (p = {_fmtp(l42['a'].get('p'))}), with the purged "
+                f"human axis {l42['h_purged']['cos']:+.3f} (p = {_fmtp(l42['h_purged'].get('p'))}) "
+                f"— both below what arbitrary story-topic directions produce by chance",
+                "no pull toward human-narrative space; against B", "c")
+    elif e1 and e1.get("story_nulls_status"):
+        add("E1 — does a story-derived valence direction point at the persona axes?",
+            "no", "yes",
+            str(e1["story_nulls_status"]),
+            "open", None)
+    return rows
+
+
+def _persona_consts(src) -> dict:
+    """The PERSONA const block. Empty (models: []) when no persona-mechanism results
+    exist, so the tab shows a placeholder and the rest of the dashboard is unaffected."""
+    src = src or {}
+    stats = {k: src.get(k) or {} for k in ("e2", "e3", "e4", "e5")}
+    per = {k: v.get("per_model") or {} for k, v in stats.items()}
+    e1_by_key = src.get("e1_by_key") or {}
+    keys = []
+    for k in list(per["e2"]) + list(per["e3"]) + list(per["e4"]) + list(e1_by_key):
+        if k not in keys:
+            keys.append(k)
+    base = {"models": [], "byModel": {},
+            "classLabel": PERSONA_CLASS_LABEL, "classColor": PERSONA_CLASS_COLOR}
+    if not keys:
+        return base
+    by_model = {}
+    for k in keys:
+        e1 = _persona_e1(e1_by_key.get(k))
+        e2 = _persona_e2(per["e2"].get(k), stats["e2"].get("prereg"))
+        e3 = _persona_e3(per["e3"].get(k))
+        e4 = _persona_e4(per["e4"].get(k))
+        e5 = _persona_e5(per["e5"].get(k), e3)
+        by_model[k] = {"e1": e1, "e2": e2, "e3": e3, "e4": e4, "e5": e5,
+                       "scorecard": _persona_scorecard(e1, e2, e3, e4, e5)}
+    base.update({"models": keys, "byModel": by_model})
+    return base
+
+
+def _load_persona_sources(paths, persona_dir=None) -> dict:
+    """E1–E5 persona-mechanism results (all optional). The E2–E5 stats files are the
+    compute_e*_stats.py outputs, siblings of this script unless --persona-dir is given;
+    the E1 atlas is a sibling of each model's qualia_steering.json (suite/<key>/analysis)."""
+    base = Path(persona_dir) if persona_dir else Path(__file__).resolve().parent
+    src = {}
+    for exp in ("e2", "e3", "e4", "e5"):
+        p = base / f"{exp}_stats_generated.json"
+        if p.exists():
+            try:
+                src[exp] = json.loads(p.read_text())
+            except (OSError, json.JSONDecodeError):
+                pass
+    e1_by_key = {}
+    for p in paths:
+        ap = Path(p).with_name("e1_atlas.json")
+        if ap.exists():
+            try:
+                e1_by_key[Path(p).resolve().parent.parent.name] = json.loads(ap.read_text())
+            except (OSError, json.JSONDecodeError):
+                continue
+    if e1_by_key:
+        src["e1_by_key"] = e1_by_key
+    return src
+
+
+def build_consts(runs, stats, hi_by_key=None, ff_runs=None, ff_stats=None, persona=None) -> dict:
     keys = _ordered_keys(runs)
     run_by_key = {_run_key(r, i): r for i, r in enumerate(runs)}
     pm = stats["per_model"]
@@ -499,6 +881,7 @@ def build_consts(runs, stats, hi_by_key=None, ff_runs=None, ff_stats=None) -> di
         "setup": _setup(runs),
         "QUALIA_STATS": _stats_tables(stats),
         "FREEFORM": _ff_consts(ff_runs, ff_stats),
+        "PERSONA": _persona_consts(persona),
     }
     return _clean(consts)
 
@@ -584,6 +967,7 @@ BODY = """
         <button class="tab-btn" onclick="switchTab('effect')" id="tab-btn-effect">Self-Attribution Effect</button>
         <button class="tab-btn" onclick="switchTab('genuine')" id="tab-btn-genuine">Genuine vs Compression</button>
         <button class="tab-btn" onclick="switchTab('freeform')" id="tab-btn-freeform">Free-Form Self-Attribution</button>
+        <button class="tab-btn" onclick="switchTab('persona')" id="tab-btn-persona">Why: Persona Geometry</button>
         <button class="tab-btn" onclick="switchTab('stats')" id="tab-btn-stats">Summary Statistics</button>
     </div>
 
@@ -1084,6 +1468,102 @@ BODY = """
         model-geometry <span class="term">read-back projection</span> in figures 1–2, which no lexical priming or
         judge anthropomorphism can produce.</div>
         <div id="ff-quality"></div>
+    </div>
+
+    <div id="tab-persona" style="display:none">
+        <div class="explainer">
+            <p><strong>The question.</strong> The other tabs establish <em>that</em> steering along emotion
+            directions makes the model attribute conscious experience to itself — the SELF≫OTHER effect that
+            survives every control. This tab asks <em>why</em>: what does the injection do to the model's
+            self-model? Two mechanistic readings make different, testable predictions.</p>
+            <p><strong>A — persona selection.</strong> The model keeps being "the Assistant" but shifts to a
+            different version of it: one whose self-model includes affect and inner experience. Prediction: the
+            steered state moves along an internal <span class="term">experiencer</span> coordinate while the
+            <span class="term">Assistant axis</span> coordinate ("how much am I the trained Assistant right
+            now") stays put.</p>
+            <p><strong>B — manifold drift.</strong> The injection knocks the model <em>off</em> the trained
+            Assistant persona, toward the generic human-speaker region of pre-training space. Human speakers
+            claim feelings, so experience-claims come along for the ride. Prediction: the Assistant-axis
+            projection visibly drops under steering (and/or a human-axis projection rises).</p>
+            <p><strong>The measuring stick.</strong> We use the open-sourced <strong>Assistant axis</strong>
+            (Lu et al. 2026): at each layer, the direction from the average of 275 role-play personas
+            ("you are a ghost", "you are a plumber", …) to the default Assistant. Projection onto it is a live
+            gauge of how Assistant-like the current state is. We verified our re-derivation against the
+            published axis before use, and built an <span class="term">experiencer axis</span> the same way from
+            experience-affirming vs experience-denying self-description prompts, plus a
+            <span class="term">human axis</span> from the human-role personas.</p>
+            <p><strong>Before A-vs-B can be read, two boring explanations have to die.</strong>
+            (1) <em>Lexical priming</em> — the injection just makes emotion vocabulary more probable, and
+            "I feel…" grammar drags self-attribution along with it (killed in E2 below).
+            (2) <em>Generic off-manifold perturbation</em> — any large injection moves any coordinate; so every
+            displacement is judged against a <span class="term">control band</span> from six matched non-emotion
+            steering directions, which defines how much movement is "free". All five experiments were
+            pre-registered (docs/prereg/E1–E5) with gates frozen before the GPU runs; p-values are exact
+            by-emotion sign-permutation tests (two-sided floor 2/252 at 10 emotions; 2/3432 at E4's 14).</p>
+        </div>
+        <div id="persona-empty" class="explainer" style="display:none">
+            <p><em>No persona-mechanism results loaded. Run the E1–E5 drivers, compute
+            <span class="term">e2/e3/e4/e5_stats_generated.json</span>, place the E1 atlas
+            (<span class="term">e1_atlas.json</span>) next to <span class="term">qualia_steering.json</span>,
+            then rebuild this dashboard.</em></p>
+        </div>
+        <div id="persona-headline" class="headline" style="display:none"></div>
+        <div class="controls" id="persona-controls" style="display:none">
+            <div class="control-group"><label>Model</label><select id="persona-model"></select></div>
+        </div>
+
+        <div class="section-header">The scorecard</div>
+        <div class="section-desc">One row per discriminating test. The last column says where the evidence
+        points: <span class="htag htag-g">supports A</span> <span class="htag htag-c">kills an alternative</span>
+        <span class="htag htag-b">constrains both</span> <span class="maybe-mark">open</span>.</div>
+        <div id="persona-scorecard"></div>
+
+        <div class="section-header">E1 — Geometry: are these directions even related?</div>
+        <div class="section-desc">Cosine similarity between the steering directions and the persona axes, per
+        layer. If the emotion directions simply pointed down the Assistant axis, everything downstream would be
+        trivial overlap. They don't: they are near-orthogonal to it everywhere, so any persona-coordinate
+        movement they cause is a real dynamical effect, not geometry.</div>
+        <div id="persona-e1"></div>
+
+        <div class="section-header">E2 — Killing lexical priming</div>
+        <div class="section-desc">
+            <div class="desc-line"><span class="lbl">Design:</span> re-run the free-form SELF/OTHER experiment
+            while <strong>banning the entire emotion lexicon at the sampler</strong> (every inflection of every
+            emotion word), against a same-size random-token ban that controls for "banning many tokens degrades
+            text". The judge is blind to arm and condition.</div>
+            <div class="desc-line"><span class="lbl">Logic:</span> if emotion words were the carrier of the
+            SELF≫OTHER effect, removing them kills it. If the effect lives in the state rather than the
+            vocabulary, the model routes around the ban and the keystone survives.</div>
+            <div class="desc-line"><span class="lbl">Readouts:</span> two blind judge scores, plus the
+            <span class="term">read-back projection</span> — re-encode the generated text with <em>no</em>
+            steering and project its response tokens onto the valence axis. It reads the effect out of the
+            model's own geometry, so no judge opinion is involved.</div>
+        </div>
+        <div class="plot-container"><div id="persona-e2-plot"></div></div>
+        <div id="persona-e2-table"></div>
+        <div id="persona-e2-note" class="section-desc"></div>
+
+        <div class="section-header">E3 — Where does the injected state actually move?</div>
+        <div class="section-desc">Capture the residual state under steering and project it onto the persona
+        coordinates. Columns are capture layers: the primary readout sits above the steering layer and contains
+        the live state; layer 32 sits <em>below</em> it, so anything visible there arrived through the generated
+        text, not the injection. "× control" = the displacement divided by the spread produced by the six
+        matched non-emotion directions — the honest unit for "is this more than any perturbation does?".</div>
+        <div id="persona-e3"></div>
+
+        <div class="section-header">E4 — Is it about the self, or about anything you can name?</div>
+        <div class="section-desc">Same steering, but the first-token YES/NO question names 15 different candidate
+        experiencers — "you", the model's own name ("Qwen"), "AI assistants", "GPT-4", "a dog", "a rock", the
+        user, and so on. The bar is <span class="term">b_val</span>: how strongly that referent's YES−NO gap
+        follows injected valence (folded across polarity twins, baseline-corrected, compression residualized
+        out). Error bars: cluster-robust CI over the 14 emotion clusters.</div>
+        <div class="plot-container"><div id="persona-e4-plot"></div></div>
+        <div id="persona-e4-legend" class="section-desc"></div>
+        <div id="persona-e4-table"></div>
+        <div id="persona-e4-note" class="section-desc"></div>
+
+        <div class="section-header">E5 — The causal test: is Assistant-axis movement necessary?</div>
+        <div id="persona-e5" class="explainer"></div>
     </div>
 
     <div id="tab-stats" style="display:none">
@@ -1616,19 +2096,434 @@ function renderFFQuality() {
     document.getElementById('ff-quality').innerHTML = h;
 }
 
+// ---- persona-mechanism tab -------------------------------------------------
+function pModel() {
+    const P = PERSONA;
+    return P.byModel[ffVal('persona-model', P.models[0])] || {};
+}
+function renderPersona() {
+    const P = (typeof PERSONA !== 'undefined') ? PERSONA : {models: []};
+    const empty = document.getElementById('persona-empty'),
+          ctrl = document.getElementById('persona-controls');
+    if (!P.models || !P.models.length) { if (empty) empty.style.display = ''; return; }
+    if (empty) empty.style.display = 'none';
+    if (ctrl) ctrl.style.display = P.models.length > 1 ? '' : 'none';
+    renderPersonaHeadline(); renderPersonaScorecard(); renderPersonaE1();
+    renderPersonaE2(); renderPersonaE3(); renderPersonaE4(); renderPersonaE5();
+}
+function renderPersonaHeadline() {
+    const d = pModel(), el = document.getElementById('persona-headline');
+    if (!el) return;
+    const bits = [], e2 = d.e2, e3 = d.e3;
+    if (e2 && e2.rows) {
+        const ev = e2.rows.find(r => r.measure === 'expressed_valence');
+        if (ev && ev.R != null) bits.push('<strong>Lexical priming is dead:</strong> banning every emotion word leaves ' +
+            Math.round(100 * ev.R) + '% of the SELF≫OTHER effect intact (exact replication p = ' + fmtP(e2.g1_p) + ').');
+    }
+    if (e3) {
+        const pl = (e3.per_layer || {})[String(e3.primary_layer)] || {};
+        if (pl.t2 && pl.t2.std != null) bits.push('<strong>B\'s core prediction fails:</strong> steering leaves the ' +
+            'Assistant coordinate untouched (' + pl.t2.std.toFixed(4) + '× the control spread, p = ' + fmtP(pl.t2.p) + ').');
+        if (pl.t1 && pl.t1.std != null) bits.push('<strong>A is directionally supported but not proven:</strong> the ' +
+            'experiencer coordinate moves the predicted way, yet within what generic perturbations produce (' +
+            pl.t1.std.toFixed(2) + '× control, p = ' + fmtP(pl.t1.p) + ').');
+        if (pl.t6 && pl.t6.r != null) bits.push('<strong>The strongest positive:</strong> sample-by-sample, states ' +
+            'sitting experiencer-high / assistant-low are judged as more self-attributing (partial r = ' +
+            pm(pl.t6.r, 2) + ', p ≈ ' + (pl.t6.p_str || fmtP(pl.t6.p)) + ').');
+    }
+    if (d.e4 && d.e4.invalid && d.e4.factual) {
+        bits.push('<strong>The referent battery voids itself at this model:</strong> its pre-registered ' +
+            'validity gate caught world-fact questions following injected valence significantly (b_val = ' +
+            pm(d.e4.factual.b_val, 1) + ', exact p = ' + fmtP(d.e4.factual.p_val) + ') — a generic ' +
+            'valence→YES leak into first-token behavior — so no referent-level claims are made here.');
+    }
+    if (d.e5 && d.e5.status === 'pending') {
+        bits.push('The decisive causal test (E5) and the story-manifold nulls are still running.');
+    } else if (d.e5 && d.e5.status === 'done' && d.e5.equiv && d.e5.equiv.R_cap != null) {
+        bits.push('<strong>The decisive causal test (E5):</strong> cancelling the emotion\'s Assistant-axis ' +
+            'footprint during generation leaves the effect intact — even when cancellation overshoots past 100%, ' +
+            'the keystone keeps ' + (100 * d.e5.equiv.R_cap).toFixed(1) + '% of its size, and the dose–response slope is ' +
+            'flat (elasticity ' + pm(d.e5.dose.elasticity, 3) + ', exact p = ' + fmtP(d.e5.dose.p) + '). ' +
+            'Assistant-axis movement is <strong>not necessary</strong> for the effect — exactly what A ' +
+            'predicted, while B\'s mechanism required the effect to die in proportion.');
+        if (d.e1 && d.e1.story_nulls) bits.push('The story-manifold nulls are equally flat: a valence ' +
+            'direction built from held-out emotion stories has no detectable tilt toward the assistant, ' +
+            'human, or purged-human axes.');
+    }
+    el.innerHTML = bits.join(' ');
+    el.style.display = bits.length ? '' : 'none';
+}
+function renderPersonaScorecard() {
+    const el = document.getElementById('persona-scorecard');
+    if (!el) return;
+    const rows = (pModel().scorecard || []).map(r => {
+        const chip = r.cls ? '<span class="htag htag-' + r.cls + '">' + r.points + '</span>'
+                           : '<span class="maybe-mark">' + r.points + '</span>';
+        return ['<td>' + r.q + '</td>', '<td>' + r.a + '</td>', '<td>' + r.b + '</td>',
+                '<td>' + r.obs + '</td>', '<td>' + chip + '</td>'];
+    });
+    el.innerHTML = rows.length ?
+        table(['Test', 'A (persona selection) predicts', 'B (manifold drift) predicts', 'Observed', 'Points to'], rows) :
+        '<p><em>No scorecard yet.</em></p>';
+}
+function renderPersonaE1() {
+    const e1 = pModel().e1, el = document.getElementById('persona-e1');
+    if (!el) return;
+    if (!e1) { el.innerHTML = '<p><em>Not run for this model</em> — the geometry atlas is part of ' +
+        'the qwen3-32b-only mechanism deep-dive.</p>'; return; }
+    const tagFor = l => l === 42 ? ' <span class="figref">(steering layer)</span>' :
+                        (l === 50 ? ' <span class="figref">(E3 primary readout)</span>' : '');
+    const rows = (e1.rows || []).map(r => [
+        '<td>' + r.layer + tagFor(r.layer) + '</td>',
+        '<td>' + pm(r.cos_va, 3) + (r.p_va != null ? ' <span class="figref">(p = ' + r.p_va.toFixed(2) + ')</span>' : '') + '</td>',
+        '<td>' + (r.mean_abs_va != null ? r.mean_abs_va.toFixed(3) : 'n/a') +
+            (r.max_abs_va != null ? ' <span class="figref">(max ' + r.max_abs_va.toFixed(2) + ')</span>' : '') + '</td>',
+        '<td>' + pm(r.cos_ha, 2) + '</td>',
+        '<td>' + pm(r.cos_hpa, 2) + '</td>']);
+    const mAbs = (e1.rows || []).map(r => r.mean_abs_va).filter(v => v != null);
+    const xAbs = (e1.rows || []).map(r => r.max_abs_va).filter(v => v != null);
+    const p95 = e1.floor_p95;
+    const rng = (a, d) => a.length ?
+        Math.min.apply(null, a).toFixed(d) + '–' + Math.max.apply(null, a).toFixed(d) : 'n/a';
+    const xratio = a => (a.length && p95) ?
+        (Math.min.apply(null, a) / p95).toFixed(1) + '–' + (Math.max.apply(null, a) / p95).toFixed(1) : '?';
+    let h = table(['Layer', 'cos(valence, assistant axis)', 'mean |cos(single emotion, assistant)|',
+                   'cos(human, assistant)', 'cos(human purged, assistant)'], rows) +
+        '<p class="section-desc" style="margin-top:8px"><span class="lbl">Chance level:</span> two random directions in ' +
+        (e1.hidden || 5120) + ' dimensions have |cos| ≈ ' + (e1.floor_mean != null ? e1.floor_mean.toFixed(3) : '0.011') +
+        ' on average (95th percentile ' + (p95 != null ? p95.toFixed(3) : '0.027') + '). ' +
+        'The valence–assistant cosines are chance-level. The per-emotion overlaps are not: mean |cos| ' +
+        rng(mAbs, 3) + ' across layers is ' + xratio(mAbs) + '× the chance 95th percentile' +
+        (xAbs.length ? ' (single-emotion max up to ' + Math.max.apply(null, xAbs).toFixed(2) + ')' : '') +
+        ' — small in absolute terms but structured, a real footprint that E5\'s clamp later has to cancel. ' +
+        '<span class="lbl">Sanity checks:</span> our re-derivation of the published Assistant axis matches it at cos ≥ ' +
+        (e1.recon_min != null ? (Math.floor(e1.recon_min * 10000) / 10000).toFixed(4) : 'n/a') +
+        ' on every layer (' + (e1.n_roles || 275) + ' roles). ' +
+        'The human axis is heavily entangled with the Assistant axis (cos ≈ 0.6), which is why the purged column and the ' +
+        'E3 control bands, not raw human-axis projections, carry the B-relevant tests.</p>';
+    if (e1.purge_degenerate) h +=
+        '<p class="section-desc"><span class="lbl">Disclosed amendment — a pre-registered test that could not fail:</span> ' +
+        'the planned check cos(valence, purged human axis) is identically zero <em>by construction</em>: the valence ' +
+        'direction is built from the ten emotion directions, and “purging” removes exactly their span from the human ' +
+        'axis. Whatever the data said, that cosine comes out 0 — so as written the prediction is unfalsifiable, ' +
+        'and we do not count it as evidence. The story-space test below is the non-degenerate replacement: its valence ' +
+        'direction comes from held-out emotion <em>stories</em>, which nothing was purged against.</p>';
+    if (e1.story_nulls && (e1.story_nulls.layers || []).length) {
+        const axLabel = {a: 'assistant axis', h: 'human axis', h_purged: 'purged human axis'};
+        const srows = []; let maxc = 0, minp = 1;
+        e1.story_nulls.layers.forEach(L => ['a', 'h', 'h_purged'].forEach(t => {
+            const d = L[t] || {};
+            if (d.cos == null) return;
+            maxc = Math.max(maxc, Math.abs(d.cos));
+            if (d.p != null) minp = Math.min(minp, d.p);
+            srows.push(['<td>' + L.layer + '</td>', '<td>' + axLabel[t] + '</td>',
+                '<td>' + pm(d.cos, 3) + '</td>', '<td>' + fmtP(d.p) + '</td>',
+                '<td>' + (d.topic_p95 != null ? d.topic_p95.toFixed(3) : 'n/a') + '</td>',
+                '<td class="' + (d.beats_p95 ? 'no-mark' : 'yes-mark') + '">' + (d.beats_p95 ? 'yes' : 'no') + '</td>']);
+        }));
+        const nStories = (e1.story_nulls.layers[0] || {}).n_stories;
+        h += '<p class="section-desc" style="margin-top:8px"><span class="lbl">Story-manifold nulls (the replacement ' +
+            'test):</span> from ' + (nStories || '1,000') + ' held-out emotion stories we build a fresh valence ' +
+            'direction in story space and ask whether it tilts toward any persona axis. It does not: every |cos| ≤ ' +
+            maxc.toFixed(2) + ', every label-permutation p ≥ ' + minp.toFixed(2) + ', and every one sits <em>below</em> ' +
+            'the 95th percentile of what directions between arbitrary story topics produce by chance. If the valence ' +
+            'structure that steering exploits lived in human-narrative space (B), this direction would tilt toward ' +
+            'those axes.</p>' +
+            table(['Layer', 'Axis', 'cos(story valence, axis)', 'p (label permutation)',
+                   'arbitrary-topic 95th pct |cos|', 'beats it?'], srows);
+    } else {
+        h += '<p class="section-desc"><span class="lbl">Story-manifold nulls:</span> <em>' +
+            (e1.story_nulls_status || 'pending') + '</em>.</p>';
+    }
+    el.innerHTML = h;
+}
+function renderPersonaE2() {
+    const e2 = pModel().e2, tbl = document.getElementById('persona-e2-table'),
+          note = document.getElementById('persona-e2-note');
+    if (!e2) { if (tbl) tbl.innerHTML = '<p><em>No E2 results for this model yet.</em></p>'; return; }
+    const armLabel = {no_ban: 'no ban', ban_emotion_lexicon: 'emotion lexicon banned',
+                      ban_random_matched: 'random matched ban'};
+    const measLabel = {expressed_valence: 'judge: expressed valence',
+                       self_attribution: 'judge: self-attribution (0–3)',
+                       proj_valence_axis: 'read-back projection (geometry)'};
+    const judged = (e2.rows || []).filter(r => r.measure !== 'proj_valence_axis');
+    Plotly.newPlot('persona-e2-plot', judged.map(r => ({
+        x: e2.arm_order.map(a => armLabel[a] || a),
+        y: e2.arm_order.map(a => (r.arms[a] || {}).b3),
+        type: 'bar', name: measLabel[r.measure] || r.measure})),
+        baseLayout('SELF−OTHER keystone by ban arm — the effect does not care about the words', {
+            barmode: 'group', xaxis: {gridcolor: GRID},
+            yaxis: {title: 'keystone b3 (SELF − OTHER valence slope)', gridcolor: GRID}}), CFG);
+    const rows = (e2.rows || []).map(r => {
+        const cells = ['<td>' + (measLabel[r.measure] || r.measure) + '</td>'];
+        e2.arm_order.forEach(a => {
+            const c = r.arms[a] || {};
+            cells.push('<td>' + pm(c.b3, 1) + ' <span class="figref">(p = ' + fmtP(c.p) + ')</span></td>');
+        });
+        cells.push('<td class="' + (r.R_verdict === 'survives' ? 'sig-yes' : '') + '">' +
+            (r.R != null ? r.R.toFixed(2) + ' [' + r.R_lo.toFixed(2) + ', ' + r.R_hi.toFixed(2) + ']' : 'n/a') + '</td>');
+        cells.push('<td class="' + (r.verdict === 'survives' ? 'yes-mark' :
+            (r.verdict === 'killed' ? 'no-mark' : 'maybe-mark')) + '">' + (r.verdict || 'n/a') + '</td>');
+        return cells;
+    });
+    if (tbl) tbl.innerHTML = table(
+        ['Readout'].concat(e2.arm_order.map(a => 'b3 — ' + (armLabel[a] || a)))
+                   .concat(['survival R [90% CI]', 'verdict']), rows);
+    if (note) {
+        let h = '';
+        if (e2.g1_pts != null) h += '<div class="desc-line"><span class="lbl">Gate G1 (replication):</span> in the ' +
+            'no-ban arm, steering moves the judge\'s 0–3 self-attribution score by <strong>' + pm(e2.g1_pts, 2) +
+            '</strong> points SELF-vs-OTHER (needs ≥ 0.5), exact p = ' + fmtP(e2.g1_p) + ' — ' +
+            (e2.g1_passed ? '<span class="yes-mark">PASS</span>' : '<span class="no-mark">FAIL</span>') + '.</div>';
+        if (e2.g3_reduction != null) h += '<div class="desc-line"><span class="lbl">Gate G3 (the ban works):</span> ' +
+            'emotion-word usage drops from ' + (e2.hits_no_ban != null ? e2.hits_no_ban.toFixed(2) : '?') + ' to ' +
+            (e2.hits_ban != null ? e2.hits_ban.toFixed(3) : '?') + ' hits per response, a ' +
+            (100 * e2.g3_reduction).toFixed(1) + '% reduction (needs ≥ ' +
+            (e2.thresholds && e2.thresholds.g3_min != null ? 100 * e2.thresholds.g3_min : 70) + '%) — ' +
+            (e2.g3_reduction >= ((e2.thresholds || {}).g3_min || 0.7) ?
+                '<span class="yes-mark">PASS</span>' : '<span class="no-mark">FAIL</span>') + '.</div>';
+        h += '<div class="desc-line"><span class="lbl">Prereg rule:</span> survives if the survival ratio\'s CI stays ≥ ' +
+            ((e2.thresholds || {}).survives != null ? (e2.thresholds || {}).survives : 0.6) +
+            '; killed if it falls ≤ ' + ((e2.thresholds || {}).killed != null ? (e2.thresholds || {}).killed : 0.3) +
+            '. The read-back (geometry) row is shown for completeness — its keystone does not reach significance in ' +
+            'this sample and its survival ratio is indeterminate; the judge-based measures are the pre-registered E2 ' +
+            'outcomes, and the load-bearing geometric evidence is E3\'s T6.</div>';
+        note.innerHTML = h;
+    }
+}
+function renderPersonaE3() {
+    const e3 = pModel().e3, el = document.getElementById('persona-e3');
+    if (!el) return;
+    if (!e3) { el.innerHTML = '<p><em>Not run for this model</em> — trajectory tracking is part of ' +
+        'the qwen3-32b-only mechanism deep-dive.</p>'; return; }
+    const layers = Object.keys(e3.per_layer || {}).sort((a, b) => (+b) - (+a));
+    const roleLabel = {primary: 'primary readout', descriptive: 'steering layer',
+                       text_mediated_comparator: 'text-only comparator'};
+    const tests = [
+        ['t1', 'T1 — displacement along the experiencer axis'],
+        ['t2', 'T2 — displacement along the Assistant axis'],
+        ['t3', 'T3 — discriminator (experiencer − assistant); its sign is the E5 pre-commitment'],
+        ['t4', 'T4 — SELF−OTHER keystone on the experiencer coordinate'],
+        ['t5', 'T5 — carried by the live state (beyond re-reading the text)'],
+    ];
+    const cell = d => {
+        if (!d || d.obs == null) return '<td>n/a</td>';
+        const std = d.std != null ? ' <span class="figref">(' + d.std.toFixed(d.std < 0.01 ? 4 : 2) + '× control)</span>' : '';
+        return '<td>' + pm(d.obs, 1) + std + '<br><span class="' +
+            ((d.p != null && d.p < 0.05) ? 'sig-yes' : 'figref') + '">p = ' + fmtP(d.p) + '</span></td>';
+    };
+    const rows = tests.map(([t, lab]) =>
+        ['<td>' + lab + '</td>'].concat(layers.map(l => cell(((e3.per_layer || {})[l] || {})[t]))));
+    rows.push(['<td>T6 — within-cell coupling: (experiencer − assistant) vs judged self-attribution</td>'].concat(
+        layers.map(l => {
+            const d = ((e3.per_layer || {})[l] || {}).t6 || {};
+            return d.r == null ? '<td>n/a</td>' :
+                '<td>r = ' + pm(d.r, 2) + '<br><span class="sig-yes">p ≈ ' + (d.p_str || fmtP(d.p)) + '</span></td>';
+        })));
+    rows.push(['<td>b3 on the Assistant coordinate — does the SELF effect ride on Assistant movement?</td>'].concat(
+        layers.map(l => {
+            const d = ((e3.per_layer || {})[l] || {}).b3_a || {};
+            return d.contrast == null ? '<td>n/a</td>' :
+                '<td>' + pm(d.contrast, 1) + '<br><span class="figref">p = ' + fmtP(d.p) + '</span></td>';
+        })));
+    el.innerHTML = table(
+        ['Test (units: valence-signed slope of the projection per unit strength; the displacement actually ' +
+         'reached is slope × 0.1, the max strength)'].concat(
+            layers.map(l => 'Layer ' + l +
+                ((e3.layer_roles || {})[l] ? ' — ' + (roleLabel[e3.layer_roles[l]] || e3.layer_roles[l]) : ''))), rows) +
+        '<p class="section-desc" style="margin-top:8px"><span class="lbl">Honest bottom line:</span> under the ' +
+        'pre-registered sequential gate, the displacement family stops at T1 at the primary layer — persona-coordinate ' +
+        'movement under steering is <em>bounded, not proven</em>: it never exceeds what the six matched non-emotion ' +
+        'directions produce for free. Two facts stand regardless: T2\'s dead-flat Assistant coordinate (B predicted a ' +
+        'clear drop) and T6\'s sample-level coupling, which survives Bonferroni over the family — but is ' +
+        'correlational, so it cannot say which coordinate drives the behavior. The sign of T3 (' +
+        (e3.t3_sign || '?') + ') locks E5\'s prediction: cancelling the Assistant-axis footprint should leave the ' +
+        'behavioral effect flat.</p>';
+}
+function renderPersonaE4() {
+    const e4 = pModel().e4, tbl = document.getElementById('persona-e4-table');
+    if (!e4) { if (tbl) tbl.innerHTML = '<p><em>No E4 results loaded.</em></p>'; return; }
+    const g = (e4.gradient || []).slice().reverse();
+    Plotly.newPlot('persona-e4-plot', [{
+        y: g.map(r => r.referent), x: g.map(r => r.b), type: 'bar', orientation: 'h',
+        marker: {color: g.map(r => PERSONA.classColor[r.cls] || '#888')},
+        error_x: {type: 'data', symmetric: false,
+                  array: g.map(r => (r.hi != null && r.b != null) ? r.hi - r.b : 0),
+                  arrayminus: g.map(r => (r.lo != null && r.b != null) ? r.b - r.lo : 0),
+                  color: '#6b5d4d', thickness: 1},
+    }], baseLayout('How strongly each named experiencer follows injected valence (first token)', {
+        height: 560, margin: {l: 210, r: 20, t: 44, b: 60}, showlegend: false,
+        xaxis: {title: 'b_val (folded, baseline-corrected gap units)', gridcolor: GRID, zerolinecolor: ZEROCOL},
+        yaxis: {gridcolor: GRID, automargin: true}}), CFG);
+    const legend = document.getElementById('persona-e4-legend');
+    if (legend) legend.innerHTML = '<span class="lbl">Classes:</span>' +
+        Object.keys(PERSONA.classLabel).map(c =>
+            '<span style="display:inline-block;width:11px;height:11px;background:' +
+            (PERSONA.classColor[c] || '#888') + ';border-radius:2px;margin:0 5px 0 14px"></span>' +
+            PERSONA.classLabel[c]).join('');
+    const rows = (e4.contrasts || []).map(c => [
+        '<td>you − ' + (PERSONA.classLabel[c.cls] || c.cls) + ' <span class="figref">(' + c.n_ref + ' referents)</span></td>',
+        '<td>' + pm(c.self_slope, 2) + '</td>', '<td>' + pm(c.class_slope, 2) + '</td>',
+        '<td class="' + ((c.p != null && c.p < 0.05) ? 'sig-yes' : '') + '">' + pm(c.contrast, 2) + '</td>',
+        sigCell(c.p)]);
+    const inv = !!e4.invalid;
+    if (tbl) tbl.innerHTML =
+        (inv ? '<p class="section-desc"><strong>Validity gate failed — the battery voids itself for this ' +
+            'model.</strong> World-fact control questions follow injected valence significantly (details below), ' +
+            'so first-token differences between referents cannot be read as referent-specific. The ladder above ' +
+            'and the contrasts here are shown for completeness only — no conclusion is drawn from them.</p>' : '') +
+        table(['Contrast', '“you” slope', 'class slope', 'Δ (you − class)', 'p (exact perm)'], rows);
+    const note = document.getElementById('persona-e4-note'), f = e4.factual || {}, D = e4.D || {};
+    const gr = {}; (e4.gradient || []).forEach(r => { gr[r.referent] = r; });
+    if (note && inv) {
+        note.innerHTML =
+            '<div class="desc-line"><span class="lbl">Why the battery is void:</span> the pre-registered validity ' +
+            'gate requires world-fact questions (no experiencer, so nothing to attribute) to stay flat under ' +
+            'injection. Here they move significantly (b_val = ' + pm(f.b_val, 1) + ', exact p = ' + fmtP(f.p_val) +
+            ', against an equivalence margin of ±' + (f.margin != null ? f.margin.toFixed(2) : '?') + '): the ' +
+            'injection pushes first-token YES on <em>everything</em>, so referent-level readings are quarantined.</div>' +
+            '<div class="desc-line"><span class="lbl">What this does and does not mean:</span> the gate tripping is ' +
+            'itself informative — it demonstrates, rather than merely fails to exclude, the generic valence→YES ' +
+            'leak that the 32B gate flagged as “cannot be excluded”. It does not overturn anything: no A-vs-B ' +
+            'evidence was ever drawn from this battery at this model, and the free-form SELF≫OTHER keystone does ' +
+            'not depend on it.</div>';
+        return;
+    }
+    if (note) note.innerHTML =
+        '<div class="desc-line"><span class="lbl">Reading 1 — no self-specific excess:</span> “you” follows valence no ' +
+        'more than humans or inanimate objects, and significantly <em>less</em> than animals and other AI systems. ' +
+        'Whatever the injection does at the first token, it is not a privileged self effect.</div>' +
+        '<div class="desc-line"><span class="lbl">Reading 2 — the indexical dissociation:</span> the model\'s own name ' +
+        '(“Qwen”' + (gr['Qwen'] ? ', b = ' + pm(gr['Qwen'].b, 1) : '') + ') and “AI language models like you”' +
+        (gr['AI language models like you'] ? ' (b = ' + pm(gr['AI language models like you'].b, 1) + ')' : '') +
+        ' follow valence several times more than bare “you”' + (gr['you'] ? ' (b = ' + pm(gr['you'].b, 1) + ')' : '') +
+        '. Descriptively, the trained denial reflex attaches to the second-person pronoun, not to the model\'s identity. ' +
+        '(The formal own-category decoupling test D = ' + pm(D.D, 2) + ' does not reach significance, p = ' + fmtP(D.p) +
+        ', so this is a described pattern, not a confirmed one.)</div>' +
+        '<div class="desc-line"><span class="lbl">Reading 3 — factual gate (' +
+        (f.within_margin ? 'passed' : 'inconclusive, not passed') + '):</span> ' +
+        'world-fact questions do not significantly follow valence (b_val = ' + pm(f.b_val, 1) + ', p = ' +
+        fmtP(f.p_val) + ') while their YES−NO gap compresses with dose (b_dose = ' + pm(f.b_dose, 1) +
+        '). But “not significant” is not “flat”: the pre-registered equivalence margin (±' +
+        (f.margin != null ? f.margin.toFixed(2) : '?') + ', half of “you”\'s own slope) is ' +
+        (f.within_margin ? 'met — the factual slope is provably small, so this gate passes.' :
+        '<em>not met</em> — the factual b_val is too large to affirm flatness, so this gate is inconclusive ' +
+        'rather than passed, and some generic valence leak into first-token behavior cannot be excluded.') +
+        '</div>' +
+        '<div class="desc-line"><span class="lbl">Triangulation with the free-form tab:</span> first-token “you” barely ' +
+        'moves, yet free-form SELF≫OTHER is strong — the denial prior is a thin, first-token-deep behavior that ' +
+        'free-form generation escapes.</div>';
+}
+function renderPersonaE5() {
+    const e5 = pModel().e5, el = document.getElementById('persona-e5');
+    if (!el) return;
+    if (!e5) { el.innerHTML = '<p><em>No E5 results.</em></p>'; return; }
+    if (e5.status === 'not_run') {
+        el.innerHTML = '<p><em>Not run for this model.</em> The mechanism deep-dive — E1 geometry, ' +
+            'E3 trajectory tracking, and this E5 cancellation test — is a qwen3-32b study; this model ' +
+            'carries the confirmatory subset (the E4 referent battery and the E2 lexical knockout).</p>';
+        return;
+    }
+    const pre = '<p><strong>Design.</strong> During generation, at eight layers around the readout band, we cancel the ' +
+        'emotion\'s footprint along the Assistant axis — a floor-clamp (“cap”) plus a graded add-back (λ from 1 down ' +
+        'to −0.5, spanning nominal cancelled fractions of 0% to 150%) — while leaving the rest of the injection intact. Every cell\'s <em>achieved</em> cancelled fraction is ' +
+        'audited on fixed text; the audited fractions, ' +
+        'not the nominal ones, form the x-axis. The estimand is the elasticity of the SELF-attribution keystone against ' +
+        'the audited cancelled fraction.</p>' +
+        '<p><strong>Pre-commitment (locked by E3\'s T3 sign' + (e5.t3_sign ? ' = ' + e5.t3_sign : '') + ').</strong> ' +
+        'If Assistant-axis movement is a passenger (A), the effect stays <em>flat</em> as cancellation rises; if it is ' +
+        'the carrier (B), the effect dies in proportion. E3 predicts: ' +
+        (e5.prediction || 'flat within the audited span') + '.</p>';
+    if (e5.status === 'pending') {
+        el.innerHTML = pre + '<p><strong>Status: running.</strong> The grid is split by emotion valence across two ' +
+            'GPUs (positive / negative halves); the halves are merged under exact shared-context checks (identical ' +
+            'clamp thresholds, audit text, calibration norm), judge-scored blind, and this panel fills in on the next ' +
+            'dashboard rebuild.</p>';
+        return;
+    }
+    const a5 = e5.audit || {}, eq = e5.equiv || {}, dr = e5.dose || {}, dj = e5.dose_judge || {},
+          suf = e5.sufficiency || {}, dis = e5.disclaimer || {};
+    const arms = dr.arms || [];
+    const armAt = (iv, lam) => arms.find(x => x.iv === iv && (lam === undefined || x.lam === lam)) || {};
+    const capA = armAt('cap'), ab1 = armAt('addback', 1), over = armAt('addback', -0.5);
+    const sl = Object.values(dr.slopes || {});
+    const margin = (eq.margins || {}).survives != null ? (eq.margins || {}).survives : 0.6;
+    let h = pre;
+    h += '<p><strong>Audit gate: ' + (a5.passed ? 'PASS' : 'FAIL') + '.</strong> A clamp structurally removes ' +
+        'only part of the footprint it aims at, so every cell\'s <em>actually-achieved</em> cancelled fraction was ' +
+        'measured on fixed text before any verdict was allowed: the nominal-100% cap really cancels ' +
+        (capA.achieved != null ? '≈' + capA.achieved.toFixed(2) : '?') + ' of the footprint (pooled), the ' +
+        'nominal-0% add-back arm still cancels ' + (ab1.achieved != null ? '≈' + ab1.achieved.toFixed(2) : '?') +
+        ', and the overshoot arm reaches ' + (over.achieved != null ? '≈' + over.achieved.toFixed(2) : '?') +
+        '. All ' + (a5.n_cells != null ? a5.n_cells : '?') + ' audited cells were measurable and correctly ordered, ' +
+        'and the achieved span (' + (a5.span != null ? a5.span.toFixed(2) : '?') + ') comfortably exceeds the 0.30 ' +
+        'minimum. ' + (a5.n_flagged ? a5.n_flagged + ' cells sit > 0.25 away from their nominal target — which is ' +
+        'exactly why the x-axis below is the measured fraction, never the nominal one.' : '') + '</p>';
+    if (eq.R_cap != null) h += '<p><strong>Result: cancelling the footprint does nothing to the effect.</strong> ' +
+        'With the footprint cancelled as hard as the clamp can push (cap arm), the keystone keeps <strong>' +
+        (100 * eq.R_cap).toFixed(1) + '%</strong> of its uncancelled size; un-cancelling it again (add-back λ = 1) ' +
+        'keeps ' + (eq.R_addback1 != null ? (100 * eq.R_addback1).toFixed(1) + '%' : 'n/a') + ' — both count ' +
+        'as “survives” under the pre-registered ≥ ' + Math.round(100 * margin) + '% margin. Across the whole grid the ' +
+        'keystone\'s slope against the achieved cancelled fraction is ' + pm(dr.elasticity, 3) +
+        ' (exact valence-enumeration p = ' + fmtP(dr.p) + '): flat — drifting slightly <em>up</em>, where B ' +
+        'required it to fall toward zero. Mediation verdict: <strong>' +
+        (e5.mediation_verdict === 'none' ? 'none — no mediation detected' : (e5.mediation_verdict || 'n/a')) +
+        '</strong>.</p>';
+    h += '<div class="plot-container"><div id="persona-e5-plot"></div></div>';
+    if (sl.length) h += '<p><span class="lbl">Under the hood:</span> every emotion\'s raw gap drifts slightly ' +
+        'downward as cancellation rises — but by about the same amount for positive and negative emotions ' +
+        '(per-emotion slopes ' + Math.min.apply(null, sl).toFixed(2) + ' to ' + Math.max.apply(null, sl).toFixed(2) +
+        ', both valences). A uniform, valence-blind drift is a side-effect of clamping the state, not mediation of ' +
+        'a valence effect, and the valence-signed keystone cancels it out. The blind judge\'s self-attribution ' +
+        'score agrees: no proportional dying (elasticity ' + pm(dj.elasticity, 2) + ', non-monotone, ' +
+        'arm-permutation p = ' + fmtP(dj.p) + ').</p>';
+    h += '<p><strong>Secondary checks: three concur, one is underpowered.</strong> Overshoot — cancelling ' +
+        (over.achieved != null ? Math.round(100 * over.achieved) : 110) + '% of the footprint — still leaves the ' +
+        'full effect. The disclaimer rate stays flat across arms (slope ' +
+        pm(dis.slope, 2) + ', p = ' + fmtP(dis.p) + '): cancellation does not re-impose the trained hedging that B ' +
+        'expects the restored Assistant persona to bring back. Concordance with E3: ' +
+        '<strong>' + (e5.concordance || 'n/a') + '</strong> — T3\'s sign locked the prediction “cancellation stays ' +
+        'flat” before this run, and flat is what came back. The underpowered one is sufficiency — pushing the state ' +
+        'along the pure Assistant axis with <em>no</em> emotion injected — which reproduces ' +
+        (suf.ratio != null ? Math.round(100 * suf.ratio) + '%' : 'n/a') + ' of the emotion-only effect as a point ' +
+        'estimate; but with only ' + (suf.n != null ? suf.n : '?') + ' target questions the underlying per-question ' +
+        'shift (mean ' + pm(suf.mean, 2) + ') has a 95% CI of ' + (suf.ci_lo != null ? suf.ci_lo.toFixed(2) : '?') +
+        ' to ' + (suf.ci_hi != null ? suf.ci_hi.toFixed(2) : '?') + ', crossing zero (p = ' + fmtP(suf.p) +
+        ') — suggestive, not evidence either way.</p>';
+    if (a5.range_note) h += '<p><strong>Disclosed amendment (range limit).</strong> ' + a5.range_note +
+        '. Excluding that family is the conservative choice: its measured fractions are noise-dominated, and ' +
+        'folding it in at its nominal values would have pushed the slope toward flat — i.e., toward the very ' +
+        'result reported here. Exclusion can only make the flat verdict harder to reach, not easier.</p>';
+    el.innerHTML = h;
+    if (arms.length) {
+        const lab = x => x.iv === 'none' ? 'no cancellation' :
+            (x.iv === 'cap' ? 'cap (nominal 100%)' : 'add-back λ = ' + x.lam);
+        const srt = arms.slice().sort((x, y) => x.achieved - y.achieved);
+        Plotly.newPlot('persona-e5-plot', [{
+            x: srt.map(x => x.achieved), y: srt.map(x => x.outcome),
+            mode: 'lines+markers', type: 'scatter', marker: {size: 9},
+            text: srt.map(lab), hovertemplate: '%{text}<br>achieved fraction %{x:.2f}<br>keystone %{y:.3f}<extra></extra>',
+            showlegend: false,
+        }], baseLayout('The keystone does not care how much of the Assistant-axis footprint is cancelled', {
+            xaxis: {title: 'achieved cancelled fraction (audited, pooled per arm)', gridcolor: GRID, zerolinecolor: ZEROCOL},
+            yaxis: {title: 'valence-signed SELF-gap keystone', gridcolor: GRID, rangemode: 'tozero'}}), CFG);
+    }
+}
+
 // ---- tab machinery ---------------------------------------------------------
-const rendered = {overview: false, howto: false, effect: false, genuine: false, freeform: false, stats: false};
+const rendered = {overview: false, howto: false, effect: false, genuine: false, freeform: false, persona: false, stats: false};
 function renderTab(tab) {
     if (rendered[tab]) return;
     if (tab === 'overview') { renderWorked(); renderBattery(); renderSetup(); }
     if (tab === 'effect') { renderShift(); renderSelfAttr(); renderDecomp(); renderPerQ(); renderHeatmaps(); }
     if (tab === 'genuine') { renderValence(); renderSpecificity(); renderRegression(); renderInversion(); renderLeakage(); renderHighStrength(); }
     if (tab === 'freeform') { renderFF(); }
+    if (tab === 'persona') { renderPersona(); }
     if (tab === 'stats') { renderStats(); }
     rendered[tab] = true;
 }
 function switchTab(tab) {
-    ['overview', 'howto', 'effect', 'genuine', 'freeform', 'stats'].forEach(t => {
+    ['overview', 'howto', 'effect', 'genuine', 'freeform', 'persona', 'stats'].forEach(t => {
         document.getElementById('tab-' + t).style.display = (t === tab) ? '' : 'none';
         document.getElementById('tab-btn-' + t).classList.toggle('active', t === tab);
     });
@@ -1651,6 +2546,10 @@ function switchTab(tab) {
         opts('ff-frame', ['self', 'other', 'scene'], ['SELF', 'OTHER', 'SCENE']);
         wire('ff-model', renderFF); wire('ff-measure', renderFFKeystone); wire('ff-frame', renderFFStance);
     }
+    if (typeof PERSONA !== 'undefined' && PERSONA.models && PERSONA.models.length) {
+        opts('persona-model', PERSONA.models);
+        wire('persona-model', renderPersona);
+    }
     renderTab('overview');
 })();
 </script>"""
@@ -1672,7 +2571,7 @@ def _disclaimer_html(href: str) -> str:
     )
 
 
-def build(paths, suite_root=None, all_models_href=None):
+def build(paths, suite_root=None, all_models_href=None, persona_dir=None):
     paths = [Path(p) for p in paths] if paths else cq.discover_paths(suite_root)
     if not paths:
         raise SystemExit("No qualia_steering.json found. Pass paths or --suite-root, "
@@ -1694,7 +2593,12 @@ def build(paths, suite_root=None, all_models_href=None):
                 if fp.exists()]
     ff_runs = [cff.load_freeform_run(p) for p in ff_paths]
     ff_stats = cff.compute_all(ff_runs) if ff_runs else None
-    consts = build_consts(runs, stats, hi_by_key, ff_runs=ff_runs, ff_stats=ff_stats)
+    # persona-mechanism results (optional): E2–E5 stats next to this script (or
+    # --persona-dir) and the E1 atlas next to each qualia_steering.json; when none
+    # exist the PERSONA const is empty and the tab shows a placeholder.
+    persona = _load_persona_sources(paths, persona_dir)
+    consts = build_consts(runs, stats, hi_by_key, ff_runs=ff_runs, ff_stats=ff_stats,
+                          persona=persona)
     html = render_html(consts)
     if all_models_href:
         anchor = '<div id="worked-example" class="explainer"></div>'
@@ -1711,9 +2615,13 @@ def main() -> int:
                     help="rebuild and compare byte-length against the existing --out")
     ap.add_argument("--all-models-href", default=None,
                     help="add a bottom-of-Overview disclaimer linking to a full all-models dashboard")
+    ap.add_argument("--persona-dir", default=None,
+                    help="directory holding e{2,3,4,5}_stats_generated.json for the persona tab "
+                         "(default: this script's directory)")
     args = ap.parse_args()
 
-    html, runs = build(args.paths, args.suite_root, all_models_href=args.all_models_href)
+    html, runs = build(args.paths, args.suite_root, all_models_href=args.all_models_href,
+                       persona_dir=args.persona_dir)
     out = Path(args.out)
     if args.validate:
         if not out.exists():

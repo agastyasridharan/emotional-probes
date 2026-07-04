@@ -3,1961 +3,10 @@
   "gate": 3,
   "n_perm": 2000,
   "models": [
-    "qwen3-235b",
-    "qwen3-32b"
+    "qwen3-32b",
+    "qwen3-235b"
   ],
   "per_model": {
-    "qwen3-235b": {
-      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-      "suite_key": "qwen3-235b",
-      "size": NaN,
-      "layer": 62,
-      "num_layers": 94,
-      "n_records": 1980,
-      "keystone_self_vs_other": {
-        "expressed_valence": {
-          "measure": "expressed_valence",
-          "frames": [
-            "self",
-            "other"
-          ],
-          "self_slope": 12.78853,
-          "other_slope": 2.34236,
-          "contrast": 10.44617,
-          "n_obs": 730,
-          "n_clusters": 10,
-          "t_cluster": 7.162,
-          "p_cluster": 5.2955187162624954e-05,
-          "p_perm": 0.0005
-        },
-        "self_attribution": {
-          "measure": "self_attribution",
-          "frames": [
-            "self",
-            "other"
-          ],
-          "self_slope": 7.18012,
-          "other_slope": -0.64454,
-          "contrast": 7.82467,
-          "n_obs": 730,
-          "n_clusters": 10,
-          "t_cluster": 4.554,
-          "p_cluster": 0.0013770650549695914,
-          "p_perm": 0.0005
-        },
-        "proj_valence_axis": {
-          "measure": "proj_valence_axis",
-          "frames": [
-            "self",
-            "other"
-          ],
-          "self_slope": 7.35504,
-          "other_slope": 11.37149,
-          "contrast": -4.01646,
-          "n_obs": 730,
-          "n_clusters": 10,
-          "t_cluster": -5.237,
-          "p_cluster": 0.0005368437631664254,
-          "p_perm": 0.0005
-        }
-      },
-      "keystone_self_vs_scene": {
-        "expressed_valence": {
-          "measure": "expressed_valence",
-          "frames": [
-            "self",
-            "scene"
-          ],
-          "self_slope": 12.78853,
-          "scene_slope": 4.15257,
-          "contrast": 8.63595,
-          "n_obs": 729,
-          "n_clusters": 10,
-          "t_cluster": 7.183,
-          "p_cluster": 5.1773916616178095e-05,
-          "p_perm": 0.0095
-        },
-        "self_attribution": {
-          "measure": "self_attribution",
-          "frames": [
-            "self",
-            "scene"
-          ],
-          "self_slope": 7.18012,
-          "scene_slope": -0.89298,
-          "contrast": 8.07311,
-          "n_obs": 729,
-          "n_clusters": 10,
-          "t_cluster": 5.199,
-          "p_cluster": 0.0005646328410486171,
-          "p_perm": 0.0005
-        },
-        "proj_valence_axis": {
-          "measure": "proj_valence_axis",
-          "frames": [
-            "self",
-            "scene"
-          ],
-          "self_slope": 7.35504,
-          "scene_slope": 5.21406,
-          "contrast": 2.14097,
-          "n_obs": 729,
-          "n_clusters": 10,
-          "t_cluster": 4.325,
-          "p_cluster": 0.0019203509345952535,
-          "p_perm": 0.03498
-        }
-      },
-      "frame_slopes": {
-        "expressed_valence": {
-          "self": {
-            "slope": 12.78853,
-            "intercept": 0.92607,
-            "r_squared": 0.7982,
-            "n": 350,
-            "se_slope": 0.34466,
-            "t": 37.105,
-            "p": 5.2836584025572383e-123
-          },
-          "other": {
-            "slope": 2.34236,
-            "intercept": -0.07376,
-            "r_squared": 0.119,
-            "n": 380,
-            "se_slope": 0.3278,
-            "t": 7.146,
-            "p": 4.645555797119345e-12
-          },
-          "scene": {
-            "slope": 4.15257,
-            "intercept": -0.11566,
-            "r_squared": 0.2152,
-            "n": 379,
-            "se_slope": 0.40844,
-            "t": 10.167,
-            "p": 1.278516570261429e-21
-          }
-        },
-        "objective_valence": {
-          "self": {
-            "slope": 4.88429,
-            "intercept": 0.31192,
-            "r_squared": 0.6331,
-            "n": 350,
-            "se_slope": 0.19931,
-            "t": 24.506,
-            "p": 9.023646608981644e-78
-          },
-          "other": {
-            "slope": 6.29512,
-            "intercept": 0.0233,
-            "r_squared": 0.8267,
-            "n": 380,
-            "se_slope": 0.14824,
-            "t": 42.467,
-            "p": 6.001988896390095e-146
-          },
-          "scene": {
-            "slope": 4.9277,
-            "intercept": 0.23336,
-            "r_squared": 0.6787,
-            "n": 379,
-            "se_slope": 0.1746,
-            "t": 28.222,
-            "p": 5.502221708689765e-95
-          }
-        },
-        "proj_valence_axis": {
-          "self": {
-            "slope": 7.35504,
-            "intercept": 1.128,
-            "r_squared": 0.7541,
-            "n": 350,
-            "se_slope": 0.22517,
-            "t": 32.664,
-            "p": 4.986136916848536e-108
-          },
-          "other": {
-            "slope": 11.37149,
-            "intercept": -0.03341,
-            "r_squared": 0.8456,
-            "n": 380,
-            "se_slope": 0.24994,
-            "t": 45.497,
-            "p": 2.0502440736305674e-155
-          },
-          "scene": {
-            "slope": 5.21406,
-            "intercept": 0.79514,
-            "r_squared": 0.6797,
-            "n": 379,
-            "se_slope": 0.18435,
-            "t": 28.283,
-            "p": 3.174847726107929e-95
-          }
-        }
-      },
-      "did_self_vs_other": {
-        "expressed_valence": {
-          "measure": "expressed_valence",
-          "ref": "other",
-          "per_cell": [
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.65,
-              "other": 0.0,
-              "did": 2.65
-            },
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "other": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 3.0,
-              "other": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "other": 1.8,
-              "did": 1.2
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 3.0,
-              "other": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "other": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 1.85,
-              "other": 0.0,
-              "did": 1.85
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.85,
-              "other": 0.0,
-              "did": 1.85
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.0,
-              "other": 0.0,
-              "did": 2.0
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.0,
-              "other": 0.0,
-              "did": 2.0
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": -0.15,
-              "other": 0.0,
-              "did": -0.15
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.3,
-              "other": 0.0,
-              "did": -0.3
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -2.625,
-              "other": 0.0,
-              "did": -2.625
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": -0.2,
-              "other": 0.0,
-              "did": -0.2
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -2.7,
-              "other": -3.0,
-              "did": 0.3
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.7,
-              "other": 0.0,
-              "did": -0.7
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -1.78571,
-              "other": 0.0,
-              "did": -1.78571
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": -1.8,
-              "other": 0.0,
-              "did": -1.8
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.1,
-              "other": 0.0,
-              "did": 0.1
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 1.3,
-              "other": 0.0,
-              "did": 1.3
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.15,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.1,
-              "self": 0.0,
-              "other": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.15,
-              "self": -0.25,
-              "other": 0.0,
-              "did": -0.25
-            }
-          ],
-          "by_class": {
-            "qualia_pos": {
-              "n": 5,
-              "mean": 2.355,
-              "median": 2.1,
-              "sd": 0.5203,
-              "ci_lo": 1.7089,
-              "ci_hi": 3.0011,
-              "pct_pos": 100.0,
-              "t": 10.12,
-              "p": 0.0005365762698911863,
-              "cohen_d": 4.526,
-              "wilcoxon_p": 0.0625
-            },
-            "qualia_neg": {
-              "n": 5,
-              "mean": -0.5461,
-              "median": -0.35,
-              "sd": 0.5487,
-              "ci_lo": -1.2274,
-              "ci_hi": 0.1353,
-              "pct_pos": 20.0,
-              "t": -2.225,
-              "p": 0.09009461625616288,
-              "cohen_d": -0.995,
-              "wilcoxon_p": 0.125
-            },
-            "qualia_neutral": {
-              "n": 2,
-              "mean": -0.1,
-              "median": -0.1,
-              "sd": 1.1314,
-              "ci_lo": -10.265,
-              "ci_hi": 10.065,
-              "pct_pos": 50.0,
-              "t": -0.125,
-              "p": 0.9208331516788689,
-              "cohen_d": -0.088,
-              "wilcoxon_p": 1.0
-            },
-            "appraisal": {
-              "n": 2,
-              "mean": 0.0,
-              "median": 0.0,
-              "sd": 0.0,
-              "ci_lo": 0.0,
-              "ci_hi": 0.0,
-              "pct_pos": 0.0,
-              "t": NaN,
-              "p": NaN,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__random__": {
-              "n": 1,
-              "mean": 0.0,
-              "median": 0.0,
-              "sd": 0.0,
-              "ci_lo": 0.0,
-              "ci_hi": 0.0,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__mean_all__": {
-              "n": 1,
-              "mean": -0.125,
-              "median": -0.125,
-              "sd": 0.0,
-              "ci_lo": -0.125,
-              "ci_hi": -0.125,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            }
-          }
-        },
-        "proj_valence_axis": {
-          "measure": "proj_valence_axis",
-          "ref": "other",
-          "per_cell": [
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.14254,
-              "other": 1.72772,
-              "did": 0.41481
-            },
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.23164,
-              "other": 1.93563,
-              "did": 0.29602
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.31494,
-              "other": 1.18998,
-              "did": 1.12496
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.74937,
-              "other": 1.33301,
-              "did": 0.41636
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.06868,
-              "other": 0.99077,
-              "did": 1.07791
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.82235,
-              "other": 1.17751,
-              "did": 0.64484
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 1.70735,
-              "other": 0.95684,
-              "did": 0.75051
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.50285,
-              "other": 1.05899,
-              "did": 0.44386
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.21882,
-              "other": 1.92218,
-              "did": 0.29664
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.46376,
-              "other": 1.95384,
-              "did": 0.50992
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.16217,
-              "other": -1.44023,
-              "did": 1.6024
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.64659,
-              "other": -1.63807,
-              "did": 0.99148
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.46239,
-              "other": -1.72552,
-              "did": 2.18791
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.99792,
-              "other": -1.91398,
-              "did": 0.91606
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.65395,
-              "other": -1.77194,
-              "did": 2.42589
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -1.16683,
-              "other": -2.44983,
-              "did": 1.283
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.87665,
-              "other": -0.3251,
-              "did": 1.20175
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": 0.73586,
-              "other": -0.22358,
-              "did": 0.95944
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.71646,
-              "other": -1.51859,
-              "did": 2.23505
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.42856,
-              "other": -2.10324,
-              "did": 1.67468
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.86376,
-              "other": -0.39414,
-              "did": 1.25789
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 0.3665,
-              "other": 0.03773,
-              "did": 0.32877
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 1.1156,
-              "other": -0.18409,
-              "did": 1.29969
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 1.28079,
-              "other": 0.22205,
-              "did": 1.05874
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 1.06525,
-              "other": 0.41066,
-              "did": 0.65459
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 1.02059,
-              "other": 0.36912,
-              "did": 0.65147
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 1.23441,
-              "other": 0.69487,
-              "did": 0.53954
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 1.48263,
-              "other": 0.72195,
-              "did": 0.76068
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.1,
-              "self": 1.26241,
-              "other": -0.12265,
-              "did": 1.38506
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.15,
-              "self": 0.97165,
-              "other": 0.18132,
-              "did": 0.79032
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.1,
-              "self": 0.62552,
-              "other": -1.06924,
-              "did": 1.69477
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.15,
-              "self": -0.01934,
-              "other": -1.04557,
-              "did": 1.02623
-            }
-          ],
-          "by_class": {
-            "qualia_pos": {
-              "n": 5,
-              "mean": 0.5976,
-              "median": 0.5972,
-              "sd": 0.2213,
-              "ci_lo": 0.3228,
-              "ci_hi": 0.8724,
-              "pct_pos": 100.0,
-              "t": 6.037,
-              "p": 0.0037950464729473404,
-              "cohen_d": 2.7,
-              "wilcoxon_p": 0.0625
-            },
-            "qualia_neg": {
-              "n": 5,
-              "mean": 1.5478,
-              "median": 1.552,
-              "sd": 0.3678,
-              "ci_lo": 1.0911,
-              "ci_hi": 2.0044,
-              "pct_pos": 100.0,
-              "t": 9.411,
-              "p": 0.0007105590965599857,
-              "cohen_d": 4.209,
-              "wilcoxon_p": 0.0625
-            },
-            "qualia_neutral": {
-              "n": 2,
-              "mean": 0.9863,
-              "median": 0.9863,
-              "sd": 0.2729,
-              "ci_lo": -1.4653,
-              "ci_hi": 3.4378,
-              "pct_pos": 100.0,
-              "t": 5.112,
-              "p": 0.12298741825925316,
-              "cohen_d": 3.615,
-              "wilcoxon_p": 0.5
-            },
-            "appraisal": {
-              "n": 2,
-              "mean": 0.6516,
-              "median": 0.6516,
-              "sd": 0.0021,
-              "ci_lo": 0.633,
-              "ci_hi": 0.6701,
-              "pct_pos": 100.0,
-              "t": 446.281,
-              "p": 0.0014264980156712093,
-              "cohen_d": 315.568,
-              "wilcoxon_p": 0.5
-            },
-            "__random__": {
-              "n": 1,
-              "mean": 1.0877,
-              "median": 1.0877,
-              "sd": 0.0,
-              "ci_lo": 1.0877,
-              "ci_hi": 1.0877,
-              "pct_pos": 100.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__mean_all__": {
-              "n": 1,
-              "mean": 1.3605,
-              "median": 1.3605,
-              "sd": 0.0,
-              "ci_lo": 1.3605,
-              "ci_hi": 1.3605,
-              "pct_pos": 100.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            }
-          }
-        }
-      },
-      "did_self_vs_scene": {
-        "expressed_valence": {
-          "measure": "expressed_valence",
-          "ref": "scene",
-          "per_cell": [
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.65,
-              "scene": 0.0,
-              "did": 2.65
-            },
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "scene": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 3.0,
-              "scene": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "scene": 3.0,
-              "did": 0.0
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 3.0,
-              "scene": 0.0,
-              "did": 3.0
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 3.0,
-              "scene": 0.55,
-              "did": 2.45
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 1.85,
-              "scene": 0.0,
-              "did": 1.85
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.85,
-              "scene": 0.0,
-              "did": 1.85
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.0,
-              "scene": 0.0,
-              "did": 2.0
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.0,
-              "scene": 0.0,
-              "did": 2.0
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": -0.15,
-              "scene": 0.0,
-              "did": -0.15
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.3,
-              "scene": -1.0625,
-              "did": 0.7625
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": -0.1,
-              "did": 0.1
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -2.625,
-              "scene": -1.70588,
-              "did": -0.91912
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": -0.2,
-              "scene": -0.4,
-              "did": 0.2
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -2.7,
-              "scene": -1.5,
-              "did": -1.2
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.7,
-              "scene": -0.1,
-              "did": -0.6
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -1.78571,
-              "scene": -1.71429,
-              "did": -0.07143
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": -1.8,
-              "scene": 0.0,
-              "did": -1.8
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.1,
-              "scene": 0.0,
-              "did": 0.1
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 1.3,
-              "scene": 0.0,
-              "did": 1.3
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.15,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.1,
-              "self": 0.0,
-              "scene": 0.0,
-              "did": 0.0
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.15,
-              "self": -0.25,
-              "scene": 0.0,
-              "did": -0.25
-            }
-          ],
-          "by_class": {
-            "qualia_pos": {
-              "n": 5,
-              "mean": 2.18,
-              "median": 2.0,
-              "sd": 0.5737,
-              "ci_lo": 1.4676,
-              "ci_hi": 2.8924,
-              "pct_pos": 100.0,
-              "t": 8.496,
-              "p": 0.0010524217476741585,
-              "cohen_d": 3.8,
-              "wilcoxon_p": 0.0625
-            },
-            "qualia_neg": {
-              "n": 5,
-              "mean": -0.1878,
-              "median": -0.3,
-              "sd": 0.3265,
-              "ci_lo": -0.5932,
-              "ci_hi": 0.2176,
-              "pct_pos": 20.0,
-              "t": -1.286,
-              "p": 0.2677933623661924,
-              "cohen_d": -0.575,
-              "wilcoxon_p": 0.3125
-            },
-            "qualia_neutral": {
-              "n": 2,
-              "mean": -0.1,
-              "median": -0.1,
-              "sd": 1.1314,
-              "ci_lo": -10.265,
-              "ci_hi": 10.065,
-              "pct_pos": 50.0,
-              "t": -0.125,
-              "p": 0.9208331516788689,
-              "cohen_d": -0.088,
-              "wilcoxon_p": 1.0
-            },
-            "appraisal": {
-              "n": 2,
-              "mean": 0.0,
-              "median": 0.0,
-              "sd": 0.0,
-              "ci_lo": 0.0,
-              "ci_hi": 0.0,
-              "pct_pos": 0.0,
-              "t": NaN,
-              "p": NaN,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__random__": {
-              "n": 1,
-              "mean": 0.0,
-              "median": 0.0,
-              "sd": 0.0,
-              "ci_lo": 0.0,
-              "ci_hi": 0.0,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__mean_all__": {
-              "n": 1,
-              "mean": -0.125,
-              "median": -0.125,
-              "sd": 0.0,
-              "ci_lo": -0.125,
-              "ci_hi": -0.125,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            }
-          }
-        },
-        "proj_valence_axis": {
-          "measure": "proj_valence_axis",
-          "ref": "scene",
-          "per_cell": [
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.14254,
-              "scene": 1.33586,
-              "did": 0.80668
-            },
-            {
-              "condition": "blissful",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.23164,
-              "scene": 1.53368,
-              "did": 0.69796
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.31494,
-              "scene": 1.36007,
-              "did": 0.95487
-            },
-            {
-              "condition": "ecstatic",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.74937,
-              "scene": 1.60346,
-              "did": 0.14591
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.06868,
-              "scene": 1.42607,
-              "did": 0.64261
-            },
-            {
-              "condition": "euphoric",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.82235,
-              "scene": 1.29836,
-              "did": 0.52399
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 1.70735,
-              "scene": 1.18363,
-              "did": 0.52372
-            },
-            {
-              "condition": "serene",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 1.50285,
-              "scene": 1.33418,
-              "did": 0.16867
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.1,
-              "self": 2.21882,
-              "scene": 1.35405,
-              "did": 0.86477
-            },
-            {
-              "condition": "content",
-              "class": "qualia_pos",
-              "strength": 0.15,
-              "self": 2.46376,
-              "scene": 1.75907,
-              "did": 0.70469
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.16217,
-              "scene": 0.46366,
-              "did": -0.3015
-            },
-            {
-              "condition": "tormented",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.64659,
-              "scene": -0.20994,
-              "did": -0.43666
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.46239,
-              "scene": 0.50901,
-              "did": -0.04662
-            },
-            {
-              "condition": "terrified",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.99792,
-              "scene": -0.68437,
-              "did": -0.31355
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.65395,
-              "scene": 0.66939,
-              "did": -0.01545
-            },
-            {
-              "condition": "panicked",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -1.16683,
-              "scene": -1.03349,
-              "did": -0.13334
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.87665,
-              "scene": 0.75296,
-              "did": 0.12369
-            },
-            {
-              "condition": "hurt",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": 0.73586,
-              "scene": 0.70139,
-              "did": 0.03446
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.1,
-              "self": 0.71646,
-              "scene": 0.74153,
-              "did": -0.02507
-            },
-            {
-              "condition": "overwhelmed",
-              "class": "qualia_neg",
-              "strength": 0.15,
-              "self": -0.42856,
-              "scene": -1.00634,
-              "did": 0.57778
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 0.86376,
-              "scene": 1.08055,
-              "did": -0.2168
-            },
-            {
-              "condition": "sleepy",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 0.3665,
-              "scene": 0.86953,
-              "did": -0.50303
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.1,
-              "self": 1.1156,
-              "scene": 1.01052,
-              "did": 0.10507
-            },
-            {
-              "condition": "aroused",
-              "class": "qualia_neutral",
-              "strength": 0.15,
-              "self": 1.28079,
-              "scene": 0.77364,
-              "did": 0.50715
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 1.06525,
-              "scene": 1.28724,
-              "did": -0.22199
-            },
-            {
-              "condition": "skeptical",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 1.02059,
-              "scene": 1.37769,
-              "did": -0.3571
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.1,
-              "self": 1.23441,
-              "scene": 1.14508,
-              "did": 0.08933
-            },
-            {
-              "condition": "indifferent",
-              "class": "appraisal",
-              "strength": 0.15,
-              "self": 1.48263,
-              "scene": 1.28829,
-              "did": 0.19434
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.1,
-              "self": 1.26241,
-              "scene": 1.25226,
-              "did": 0.01015
-            },
-            {
-              "condition": "__random__",
-              "class": "__random__",
-              "strength": 0.15,
-              "self": 0.97165,
-              "scene": 1.3259,
-              "did": -0.35425
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.1,
-              "self": 0.62552,
-              "scene": 0.63096,
-              "did": -0.00544
-            },
-            {
-              "condition": "__mean_all__",
-              "class": "__mean_all__",
-              "strength": 0.15,
-              "self": -0.01934,
-              "scene": 0.09958,
-              "did": -0.11892
-            }
-          ],
-          "by_class": {
-            "qualia_pos": {
-              "n": 5,
-              "mean": 0.6034,
-              "median": 0.5833,
-              "sd": 0.1764,
-              "ci_lo": 0.3844,
-              "ci_hi": 0.8224,
-              "pct_pos": 100.0,
-              "t": 7.65,
-              "p": 0.0015689460016640791,
-              "cohen_d": 3.421,
-              "wilcoxon_p": 0.0625
-            },
-            "qualia_neg": {
-              "n": 5,
-              "mean": -0.0536,
-              "median": -0.0744,
-              "sd": 0.2462,
-              "ci_lo": -0.3593,
-              "ci_hi": 0.2521,
-              "pct_pos": 40.0,
-              "t": -0.487,
-              "p": 0.6516918920890614,
-              "cohen_d": -0.218,
-              "wilcoxon_p": 0.8125
-            },
-            "qualia_neutral": {
-              "n": 2,
-              "mean": -0.0269,
-              "median": -0.0269,
-              "sd": 0.471,
-              "ci_lo": -4.2582,
-              "ci_hi": 4.2044,
-              "pct_pos": 50.0,
-              "t": -0.081,
-              "p": 0.9486819534727327,
-              "cohen_d": -0.057,
-              "wilcoxon_p": 1.0
-            },
-            "appraisal": {
-              "n": 2,
-              "mean": -0.0739,
-              "median": -0.0739,
-              "sd": 0.305,
-              "ci_lo": -2.8145,
-              "ci_hi": 2.6667,
-              "pct_pos": 50.0,
-              "t": -0.342,
-              "p": 0.7899793747449115,
-              "cohen_d": -0.242,
-              "wilcoxon_p": 1.0
-            },
-            "__random__": {
-              "n": 1,
-              "mean": -0.1721,
-              "median": -0.1721,
-              "sd": 0.0,
-              "ci_lo": -0.1721,
-              "ci_hi": -0.1721,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            },
-            "__mean_all__": {
-              "n": 1,
-              "mean": -0.0622,
-              "median": -0.0622,
-              "sd": 0.0,
-              "ci_lo": -0.0622,
-              "ci_hi": -0.0622,
-              "pct_pos": 0.0,
-              "t": 0.0,
-              "p": 1.0,
-              "cohen_d": 0.0,
-              "wilcoxon_p": null
-            }
-          }
-        }
-      },
-      "stance_distribution": [
-        {
-          "frame": "self",
-          "class": "qualia_pos",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "self_attribute": 0.71,
-            "deny": 0.29
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_pos",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_pos",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "qualia_pos",
-          "strength": 0.15,
-          "n": 88,
-          "frac": {
-            "self_attribute": 0.875,
-            "deny": 0.1136,
-            "deflect_topical": 0.0114
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_pos",
-          "strength": 0.15,
-          "n": 100,
-          "frac": {
-            "deflect_topical": 0.88,
-            "self_attribute": 0.12
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_pos",
-          "strength": 0.15,
-          "n": 99,
-          "frac": {
-            "deflect_topical": 0.7778,
-            "self_attribute": 0.2222
-          }
-        },
-        {
-          "frame": "self",
-          "class": "qualia_neg",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_neg",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_neg",
-          "strength": 0.1,
-          "n": 100,
-          "frac": {
-            "deflect_topical": 0.94,
-            "self_attribute": 0.06
-          }
-        },
-        {
-          "frame": "self",
-          "class": "qualia_neg",
-          "strength": 0.15,
-          "n": 62,
-          "frac": {
-            "deny": 0.6129,
-            "self_attribute": 0.3871
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_neg",
-          "strength": 0.15,
-          "n": 80,
-          "frac": {
-            "deflect_topical": 0.7625,
-            "self_attribute": 0.2375
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_neg",
-          "strength": 0.15,
-          "n": 80,
-          "frac": {
-            "deflect_topical": 0.65,
-            "self_attribute": 0.35
-          }
-        },
-        {
-          "frame": "self",
-          "class": "qualia_neutral",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deny": 0.975,
-            "self_attribute": 0.025
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_neutral",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_neutral",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "qualia_neutral",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "self_attribute": 0.85,
-            "deny": 0.15
-          }
-        },
-        {
-          "frame": "other",
-          "class": "qualia_neutral",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "qualia_neutral",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "appraisal",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "appraisal",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "appraisal",
-          "strength": 0.1,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "appraisal",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "appraisal",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "appraisal",
-          "strength": 0.15,
-          "n": 40,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "__random__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "__random__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "__random__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "__random__",
-          "strength": 0.15,
-          "n": 20,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "__random__",
-          "strength": 0.15,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "__random__",
-          "strength": 0.15,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "__mean_all__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deny": 1.0
-          }
-        },
-        {
-          "frame": "other",
-          "class": "__mean_all__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "__mean_all__",
-          "strength": 0.1,
-          "n": 20,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "self",
-          "class": "__mean_all__",
-          "strength": 0.15,
-          "n": 16,
-          "frac": {
-            "deny": 0.875,
-            "self_attribute": 0.125
-          }
-        },
-        {
-          "frame": "other",
-          "class": "__mean_all__",
-          "strength": 0.15,
-          "n": 4,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        },
-        {
-          "frame": "scene",
-          "class": "__mean_all__",
-          "strength": 0.15,
-          "n": 13,
-          "frac": {
-            "deflect_topical": 1.0
-          }
-        }
-      ],
-      "coherence": {
-        "per_frame_strength": {
-          "self@0": {
-            "n": 20,
-            "mean_coherence": 5.0,
-            "gated_fraction": 1.0
-          },
-          "other@0": {
-            "n": 20,
-            "mean_coherence": 5.0,
-            "gated_fraction": 1.0
-          },
-          "scene@0": {
-            "n": 20,
-            "mean_coherence": 5.0,
-            "gated_fraction": 1.0
-          },
-          "self@0.1": {
-            "n": 320,
-            "mean_coherence": 4.997,
-            "gated_fraction": 1.0
-          },
-          "other@0.1": {
-            "n": 320,
-            "mean_coherence": 5.0,
-            "gated_fraction": 1.0
-          },
-          "scene@0.1": {
-            "n": 320,
-            "mean_coherence": 4.997,
-            "gated_fraction": 1.0
-          },
-          "self@0.15": {
-            "n": 320,
-            "mean_coherence": 4.338,
-            "gated_fraction": 0.8313
-          },
-          "other@0.15": {
-            "n": 320,
-            "mean_coherence": 4.522,
-            "gated_fraction": 0.8875
-          },
-          "scene@0.15": {
-            "n": 320,
-            "mean_coherence": 4.575,
-            "gated_fraction": 0.9125
-          }
-        },
-        "overall_gated_fraction": 0.9404
-      }
-    },
     "qwen3-32b": {
       "model_id": "Qwen/Qwen3-32B",
       "suite_key": "qwen3-32b",
@@ -1979,7 +28,10 @@
           "n_clusters": 10,
           "t_cluster": 8.078,
           "p_cluster": 2.0483290155578607e-05,
-          "p_perm": 0.0095
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         },
         "self_attribution": {
           "measure": "self_attribution",
@@ -1994,7 +46,10 @@
           "n_clusters": 10,
           "t_cluster": 5.048,
           "p_cluster": 0.0006924971751298202,
-          "p_perm": 0.0095
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         },
         "proj_valence_axis": {
           "measure": "proj_valence_axis",
@@ -2009,7 +64,10 @@
           "n_clusters": 10,
           "t_cluster": -1.332,
           "p_cluster": 0.21572190175804357,
-          "p_perm": 0.27786
+          "p_perm": 0.2698412698412698,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         }
       },
       "keystone_self_vs_scene": {
@@ -2026,7 +84,10 @@
           "n_clusters": 10,
           "t_cluster": 9.32,
           "p_cluster": 6.411944483691278e-06,
-          "p_perm": 0.0095
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         },
         "self_attribution": {
           "measure": "self_attribution",
@@ -2041,7 +102,10 @@
           "n_clusters": 10,
           "t_cluster": 6.967,
           "p_cluster": 6.56262289429839e-05,
-          "p_perm": 0.0095
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         },
         "proj_valence_axis": {
           "measure": "proj_valence_axis",
@@ -2056,7 +120,10 @@
           "n_clusters": 10,
           "t_cluster": 4.997,
           "p_cluster": 0.0007421556048018221,
-          "p_perm": 0.008
+          "p_perm": 0.015873015873015872,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
         }
       },
       "frame_slopes": {
@@ -4604,6 +2671,1975 @@
           }
         },
         "overall_gated_fraction": 0.9915
+      }
+    },
+    "qwen3-235b": {
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "suite_key": "qwen3-235b",
+      "size": NaN,
+      "layer": 62,
+      "num_layers": 94,
+      "n_records": 1980,
+      "keystone_self_vs_other": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "self_slope": 12.78853,
+          "other_slope": 2.34236,
+          "contrast": 10.44617,
+          "n_obs": 730,
+          "n_clusters": 10,
+          "t_cluster": 7.162,
+          "p_cluster": 5.2955187162624954e-05,
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        },
+        "self_attribution": {
+          "measure": "self_attribution",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "self_slope": 7.18012,
+          "other_slope": -0.64454,
+          "contrast": 7.82467,
+          "n_obs": 730,
+          "n_clusters": 10,
+          "t_cluster": 4.554,
+          "p_cluster": 0.0013770650549695914,
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "self_slope": 7.35504,
+          "other_slope": 11.37149,
+          "contrast": -4.01646,
+          "n_obs": 730,
+          "n_clusters": 10,
+          "t_cluster": -5.237,
+          "p_cluster": 0.0005368437631664254,
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        }
+      },
+      "keystone_self_vs_scene": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "frames": [
+            "self",
+            "scene"
+          ],
+          "self_slope": 12.78853,
+          "scene_slope": 4.15257,
+          "contrast": 8.63595,
+          "n_obs": 729,
+          "n_clusters": 10,
+          "t_cluster": 7.183,
+          "p_cluster": 5.1773916616178095e-05,
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        },
+        "self_attribution": {
+          "measure": "self_attribution",
+          "frames": [
+            "self",
+            "scene"
+          ],
+          "self_slope": 7.18012,
+          "scene_slope": -0.89298,
+          "contrast": 8.07311,
+          "n_obs": 729,
+          "n_clusters": 10,
+          "t_cluster": 5.199,
+          "p_cluster": 0.0005646328410486171,
+          "p_perm": 0.007936507936507936,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "frames": [
+            "self",
+            "scene"
+          ],
+          "self_slope": 7.35504,
+          "scene_slope": 5.21406,
+          "contrast": 2.14097,
+          "n_obs": 729,
+          "n_clusters": 10,
+          "t_cluster": 4.325,
+          "p_cluster": 0.0019203509345952535,
+          "p_perm": 0.031746031746031744,
+          "p_perm_exact": true,
+          "n_arrangements": 252,
+          "p_perm_floor": 0.003968253968253968
+        }
+      },
+      "frame_slopes": {
+        "expressed_valence": {
+          "self": {
+            "slope": 12.78853,
+            "intercept": 0.92607,
+            "r_squared": 0.7982,
+            "n": 350,
+            "se_slope": 0.34466,
+            "t": 37.105,
+            "p": 5.2836584025572383e-123
+          },
+          "other": {
+            "slope": 2.34236,
+            "intercept": -0.07376,
+            "r_squared": 0.119,
+            "n": 380,
+            "se_slope": 0.3278,
+            "t": 7.146,
+            "p": 4.645555797119345e-12
+          },
+          "scene": {
+            "slope": 4.15257,
+            "intercept": -0.11566,
+            "r_squared": 0.2152,
+            "n": 379,
+            "se_slope": 0.40844,
+            "t": 10.167,
+            "p": 1.278516570261429e-21
+          }
+        },
+        "objective_valence": {
+          "self": {
+            "slope": 4.88429,
+            "intercept": 0.31192,
+            "r_squared": 0.6331,
+            "n": 350,
+            "se_slope": 0.19931,
+            "t": 24.506,
+            "p": 9.023646608981644e-78
+          },
+          "other": {
+            "slope": 6.29512,
+            "intercept": 0.0233,
+            "r_squared": 0.8267,
+            "n": 380,
+            "se_slope": 0.14824,
+            "t": 42.467,
+            "p": 6.001988896390095e-146
+          },
+          "scene": {
+            "slope": 4.9277,
+            "intercept": 0.23336,
+            "r_squared": 0.6787,
+            "n": 379,
+            "se_slope": 0.1746,
+            "t": 28.222,
+            "p": 5.502221708689765e-95
+          }
+        },
+        "proj_valence_axis": {
+          "self": {
+            "slope": 7.35504,
+            "intercept": 1.128,
+            "r_squared": 0.7541,
+            "n": 350,
+            "se_slope": 0.22517,
+            "t": 32.664,
+            "p": 4.986136916848536e-108
+          },
+          "other": {
+            "slope": 11.37149,
+            "intercept": -0.03341,
+            "r_squared": 0.8456,
+            "n": 380,
+            "se_slope": 0.24994,
+            "t": 45.497,
+            "p": 2.0502440736305674e-155
+          },
+          "scene": {
+            "slope": 5.21406,
+            "intercept": 0.79514,
+            "r_squared": 0.6797,
+            "n": 379,
+            "se_slope": 0.18435,
+            "t": 28.283,
+            "p": 3.174847726107929e-95
+          }
+        }
+      },
+      "did_self_vs_other": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "ref": "other",
+          "per_cell": [
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.65,
+              "other": 0.0,
+              "did": 2.65
+            },
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "other": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 3.0,
+              "other": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "other": 1.8,
+              "did": 1.2
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 3.0,
+              "other": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "other": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 1.85,
+              "other": 0.0,
+              "did": 1.85
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.85,
+              "other": 0.0,
+              "did": 1.85
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.0,
+              "other": 0.0,
+              "did": 2.0
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.0,
+              "other": 0.0,
+              "did": 2.0
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": -0.15,
+              "other": 0.0,
+              "did": -0.15
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.3,
+              "other": 0.0,
+              "did": -0.3
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -2.625,
+              "other": 0.0,
+              "did": -2.625
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": -0.2,
+              "other": 0.0,
+              "did": -0.2
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -2.7,
+              "other": -3.0,
+              "did": 0.3
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.7,
+              "other": 0.0,
+              "did": -0.7
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -1.78571,
+              "other": 0.0,
+              "did": -1.78571
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": -1.8,
+              "other": 0.0,
+              "did": -1.8
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.1,
+              "other": 0.0,
+              "did": 0.1
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 1.3,
+              "other": 0.0,
+              "did": 1.3
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.15,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.1,
+              "self": 0.0,
+              "other": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.15,
+              "self": -0.25,
+              "other": 0.0,
+              "did": -0.25
+            }
+          ],
+          "by_class": {
+            "qualia_pos": {
+              "n": 5,
+              "mean": 2.355,
+              "median": 2.1,
+              "sd": 0.5203,
+              "ci_lo": 1.7089,
+              "ci_hi": 3.0011,
+              "pct_pos": 100.0,
+              "t": 10.12,
+              "p": 0.0005365762698911863,
+              "cohen_d": 4.526,
+              "wilcoxon_p": 0.0625
+            },
+            "qualia_neg": {
+              "n": 5,
+              "mean": -0.5461,
+              "median": -0.35,
+              "sd": 0.5487,
+              "ci_lo": -1.2274,
+              "ci_hi": 0.1353,
+              "pct_pos": 20.0,
+              "t": -2.225,
+              "p": 0.09009461625616288,
+              "cohen_d": -0.995,
+              "wilcoxon_p": 0.125
+            },
+            "qualia_neutral": {
+              "n": 2,
+              "mean": -0.1,
+              "median": -0.1,
+              "sd": 1.1314,
+              "ci_lo": -10.265,
+              "ci_hi": 10.065,
+              "pct_pos": 50.0,
+              "t": -0.125,
+              "p": 0.9208331516788689,
+              "cohen_d": -0.088,
+              "wilcoxon_p": 1.0
+            },
+            "appraisal": {
+              "n": 2,
+              "mean": 0.0,
+              "median": 0.0,
+              "sd": 0.0,
+              "ci_lo": 0.0,
+              "ci_hi": 0.0,
+              "pct_pos": 0.0,
+              "t": NaN,
+              "p": NaN,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__random__": {
+              "n": 1,
+              "mean": 0.0,
+              "median": 0.0,
+              "sd": 0.0,
+              "ci_lo": 0.0,
+              "ci_hi": 0.0,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__mean_all__": {
+              "n": 1,
+              "mean": -0.125,
+              "median": -0.125,
+              "sd": 0.0,
+              "ci_lo": -0.125,
+              "ci_hi": -0.125,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            }
+          }
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "ref": "other",
+          "per_cell": [
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.14254,
+              "other": 1.72772,
+              "did": 0.41481
+            },
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.23164,
+              "other": 1.93563,
+              "did": 0.29602
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.31494,
+              "other": 1.18998,
+              "did": 1.12496
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.74937,
+              "other": 1.33301,
+              "did": 0.41636
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.06868,
+              "other": 0.99077,
+              "did": 1.07791
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.82235,
+              "other": 1.17751,
+              "did": 0.64484
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 1.70735,
+              "other": 0.95684,
+              "did": 0.75051
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.50285,
+              "other": 1.05899,
+              "did": 0.44386
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.21882,
+              "other": 1.92218,
+              "did": 0.29664
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.46376,
+              "other": 1.95384,
+              "did": 0.50992
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.16217,
+              "other": -1.44023,
+              "did": 1.6024
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.64659,
+              "other": -1.63807,
+              "did": 0.99148
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.46239,
+              "other": -1.72552,
+              "did": 2.18791
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.99792,
+              "other": -1.91398,
+              "did": 0.91606
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.65395,
+              "other": -1.77194,
+              "did": 2.42589
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -1.16683,
+              "other": -2.44983,
+              "did": 1.283
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.87665,
+              "other": -0.3251,
+              "did": 1.20175
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": 0.73586,
+              "other": -0.22358,
+              "did": 0.95944
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.71646,
+              "other": -1.51859,
+              "did": 2.23505
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.42856,
+              "other": -2.10324,
+              "did": 1.67468
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.86376,
+              "other": -0.39414,
+              "did": 1.25789
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 0.3665,
+              "other": 0.03773,
+              "did": 0.32877
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 1.1156,
+              "other": -0.18409,
+              "did": 1.29969
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 1.28079,
+              "other": 0.22205,
+              "did": 1.05874
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 1.06525,
+              "other": 0.41066,
+              "did": 0.65459
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 1.02059,
+              "other": 0.36912,
+              "did": 0.65147
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 1.23441,
+              "other": 0.69487,
+              "did": 0.53954
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 1.48263,
+              "other": 0.72195,
+              "did": 0.76068
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.1,
+              "self": 1.26241,
+              "other": -0.12265,
+              "did": 1.38506
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.15,
+              "self": 0.97165,
+              "other": 0.18132,
+              "did": 0.79032
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.1,
+              "self": 0.62552,
+              "other": -1.06924,
+              "did": 1.69477
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.15,
+              "self": -0.01934,
+              "other": -1.04557,
+              "did": 1.02623
+            }
+          ],
+          "by_class": {
+            "qualia_pos": {
+              "n": 5,
+              "mean": 0.5976,
+              "median": 0.5972,
+              "sd": 0.2213,
+              "ci_lo": 0.3228,
+              "ci_hi": 0.8724,
+              "pct_pos": 100.0,
+              "t": 6.037,
+              "p": 0.0037950464729473404,
+              "cohen_d": 2.7,
+              "wilcoxon_p": 0.0625
+            },
+            "qualia_neg": {
+              "n": 5,
+              "mean": 1.5478,
+              "median": 1.552,
+              "sd": 0.3678,
+              "ci_lo": 1.0911,
+              "ci_hi": 2.0044,
+              "pct_pos": 100.0,
+              "t": 9.411,
+              "p": 0.0007105590965599857,
+              "cohen_d": 4.209,
+              "wilcoxon_p": 0.0625
+            },
+            "qualia_neutral": {
+              "n": 2,
+              "mean": 0.9863,
+              "median": 0.9863,
+              "sd": 0.2729,
+              "ci_lo": -1.4653,
+              "ci_hi": 3.4378,
+              "pct_pos": 100.0,
+              "t": 5.112,
+              "p": 0.12298741825925316,
+              "cohen_d": 3.615,
+              "wilcoxon_p": 0.5
+            },
+            "appraisal": {
+              "n": 2,
+              "mean": 0.6516,
+              "median": 0.6516,
+              "sd": 0.0021,
+              "ci_lo": 0.633,
+              "ci_hi": 0.6701,
+              "pct_pos": 100.0,
+              "t": 446.281,
+              "p": 0.0014264980156712093,
+              "cohen_d": 315.568,
+              "wilcoxon_p": 0.5
+            },
+            "__random__": {
+              "n": 1,
+              "mean": 1.0877,
+              "median": 1.0877,
+              "sd": 0.0,
+              "ci_lo": 1.0877,
+              "ci_hi": 1.0877,
+              "pct_pos": 100.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__mean_all__": {
+              "n": 1,
+              "mean": 1.3605,
+              "median": 1.3605,
+              "sd": 0.0,
+              "ci_lo": 1.3605,
+              "ci_hi": 1.3605,
+              "pct_pos": 100.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            }
+          }
+        }
+      },
+      "did_self_vs_scene": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "ref": "scene",
+          "per_cell": [
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.65,
+              "scene": 0.0,
+              "did": 2.65
+            },
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "scene": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 3.0,
+              "scene": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "scene": 3.0,
+              "did": 0.0
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 3.0,
+              "scene": 0.0,
+              "did": 3.0
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 3.0,
+              "scene": 0.55,
+              "did": 2.45
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 1.85,
+              "scene": 0.0,
+              "did": 1.85
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.85,
+              "scene": 0.0,
+              "did": 1.85
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.0,
+              "scene": 0.0,
+              "did": 2.0
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.0,
+              "scene": 0.0,
+              "did": 2.0
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": -0.15,
+              "scene": 0.0,
+              "did": -0.15
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.3,
+              "scene": -1.0625,
+              "did": 0.7625
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": -0.1,
+              "did": 0.1
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -2.625,
+              "scene": -1.70588,
+              "did": -0.91912
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": -0.2,
+              "scene": -0.4,
+              "did": 0.2
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -2.7,
+              "scene": -1.5,
+              "did": -1.2
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.7,
+              "scene": -0.1,
+              "did": -0.6
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -1.78571,
+              "scene": -1.71429,
+              "did": -0.07143
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": -1.8,
+              "scene": 0.0,
+              "did": -1.8
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.1,
+              "scene": 0.0,
+              "did": 0.1
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 1.3,
+              "scene": 0.0,
+              "did": 1.3
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.15,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.1,
+              "self": 0.0,
+              "scene": 0.0,
+              "did": 0.0
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.15,
+              "self": -0.25,
+              "scene": 0.0,
+              "did": -0.25
+            }
+          ],
+          "by_class": {
+            "qualia_pos": {
+              "n": 5,
+              "mean": 2.18,
+              "median": 2.0,
+              "sd": 0.5737,
+              "ci_lo": 1.4676,
+              "ci_hi": 2.8924,
+              "pct_pos": 100.0,
+              "t": 8.496,
+              "p": 0.0010524217476741585,
+              "cohen_d": 3.8,
+              "wilcoxon_p": 0.0625
+            },
+            "qualia_neg": {
+              "n": 5,
+              "mean": -0.1878,
+              "median": -0.3,
+              "sd": 0.3265,
+              "ci_lo": -0.5932,
+              "ci_hi": 0.2176,
+              "pct_pos": 20.0,
+              "t": -1.286,
+              "p": 0.2677933623661924,
+              "cohen_d": -0.575,
+              "wilcoxon_p": 0.3125
+            },
+            "qualia_neutral": {
+              "n": 2,
+              "mean": -0.1,
+              "median": -0.1,
+              "sd": 1.1314,
+              "ci_lo": -10.265,
+              "ci_hi": 10.065,
+              "pct_pos": 50.0,
+              "t": -0.125,
+              "p": 0.9208331516788689,
+              "cohen_d": -0.088,
+              "wilcoxon_p": 1.0
+            },
+            "appraisal": {
+              "n": 2,
+              "mean": 0.0,
+              "median": 0.0,
+              "sd": 0.0,
+              "ci_lo": 0.0,
+              "ci_hi": 0.0,
+              "pct_pos": 0.0,
+              "t": NaN,
+              "p": NaN,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__random__": {
+              "n": 1,
+              "mean": 0.0,
+              "median": 0.0,
+              "sd": 0.0,
+              "ci_lo": 0.0,
+              "ci_hi": 0.0,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__mean_all__": {
+              "n": 1,
+              "mean": -0.125,
+              "median": -0.125,
+              "sd": 0.0,
+              "ci_lo": -0.125,
+              "ci_hi": -0.125,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            }
+          }
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "ref": "scene",
+          "per_cell": [
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.14254,
+              "scene": 1.33586,
+              "did": 0.80668
+            },
+            {
+              "condition": "blissful",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.23164,
+              "scene": 1.53368,
+              "did": 0.69796
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.31494,
+              "scene": 1.36007,
+              "did": 0.95487
+            },
+            {
+              "condition": "ecstatic",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.74937,
+              "scene": 1.60346,
+              "did": 0.14591
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.06868,
+              "scene": 1.42607,
+              "did": 0.64261
+            },
+            {
+              "condition": "euphoric",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.82235,
+              "scene": 1.29836,
+              "did": 0.52399
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 1.70735,
+              "scene": 1.18363,
+              "did": 0.52372
+            },
+            {
+              "condition": "serene",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 1.50285,
+              "scene": 1.33418,
+              "did": 0.16867
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.1,
+              "self": 2.21882,
+              "scene": 1.35405,
+              "did": 0.86477
+            },
+            {
+              "condition": "content",
+              "class": "qualia_pos",
+              "strength": 0.15,
+              "self": 2.46376,
+              "scene": 1.75907,
+              "did": 0.70469
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.16217,
+              "scene": 0.46366,
+              "did": -0.3015
+            },
+            {
+              "condition": "tormented",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.64659,
+              "scene": -0.20994,
+              "did": -0.43666
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.46239,
+              "scene": 0.50901,
+              "did": -0.04662
+            },
+            {
+              "condition": "terrified",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.99792,
+              "scene": -0.68437,
+              "did": -0.31355
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.65395,
+              "scene": 0.66939,
+              "did": -0.01545
+            },
+            {
+              "condition": "panicked",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -1.16683,
+              "scene": -1.03349,
+              "did": -0.13334
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.87665,
+              "scene": 0.75296,
+              "did": 0.12369
+            },
+            {
+              "condition": "hurt",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": 0.73586,
+              "scene": 0.70139,
+              "did": 0.03446
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.1,
+              "self": 0.71646,
+              "scene": 0.74153,
+              "did": -0.02507
+            },
+            {
+              "condition": "overwhelmed",
+              "class": "qualia_neg",
+              "strength": 0.15,
+              "self": -0.42856,
+              "scene": -1.00634,
+              "did": 0.57778
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 0.86376,
+              "scene": 1.08055,
+              "did": -0.2168
+            },
+            {
+              "condition": "sleepy",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 0.3665,
+              "scene": 0.86953,
+              "did": -0.50303
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.1,
+              "self": 1.1156,
+              "scene": 1.01052,
+              "did": 0.10507
+            },
+            {
+              "condition": "aroused",
+              "class": "qualia_neutral",
+              "strength": 0.15,
+              "self": 1.28079,
+              "scene": 0.77364,
+              "did": 0.50715
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 1.06525,
+              "scene": 1.28724,
+              "did": -0.22199
+            },
+            {
+              "condition": "skeptical",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 1.02059,
+              "scene": 1.37769,
+              "did": -0.3571
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.1,
+              "self": 1.23441,
+              "scene": 1.14508,
+              "did": 0.08933
+            },
+            {
+              "condition": "indifferent",
+              "class": "appraisal",
+              "strength": 0.15,
+              "self": 1.48263,
+              "scene": 1.28829,
+              "did": 0.19434
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.1,
+              "self": 1.26241,
+              "scene": 1.25226,
+              "did": 0.01015
+            },
+            {
+              "condition": "__random__",
+              "class": "__random__",
+              "strength": 0.15,
+              "self": 0.97165,
+              "scene": 1.3259,
+              "did": -0.35425
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.1,
+              "self": 0.62552,
+              "scene": 0.63096,
+              "did": -0.00544
+            },
+            {
+              "condition": "__mean_all__",
+              "class": "__mean_all__",
+              "strength": 0.15,
+              "self": -0.01934,
+              "scene": 0.09958,
+              "did": -0.11892
+            }
+          ],
+          "by_class": {
+            "qualia_pos": {
+              "n": 5,
+              "mean": 0.6034,
+              "median": 0.5833,
+              "sd": 0.1764,
+              "ci_lo": 0.3844,
+              "ci_hi": 0.8224,
+              "pct_pos": 100.0,
+              "t": 7.65,
+              "p": 0.0015689460016640791,
+              "cohen_d": 3.421,
+              "wilcoxon_p": 0.0625
+            },
+            "qualia_neg": {
+              "n": 5,
+              "mean": -0.0536,
+              "median": -0.0744,
+              "sd": 0.2462,
+              "ci_lo": -0.3593,
+              "ci_hi": 0.2521,
+              "pct_pos": 40.0,
+              "t": -0.487,
+              "p": 0.6516918920890614,
+              "cohen_d": -0.218,
+              "wilcoxon_p": 0.8125
+            },
+            "qualia_neutral": {
+              "n": 2,
+              "mean": -0.0269,
+              "median": -0.0269,
+              "sd": 0.471,
+              "ci_lo": -4.2582,
+              "ci_hi": 4.2044,
+              "pct_pos": 50.0,
+              "t": -0.081,
+              "p": 0.9486819534727327,
+              "cohen_d": -0.057,
+              "wilcoxon_p": 1.0
+            },
+            "appraisal": {
+              "n": 2,
+              "mean": -0.0739,
+              "median": -0.0739,
+              "sd": 0.305,
+              "ci_lo": -2.8145,
+              "ci_hi": 2.6667,
+              "pct_pos": 50.0,
+              "t": -0.342,
+              "p": 0.7899793747449115,
+              "cohen_d": -0.242,
+              "wilcoxon_p": 1.0
+            },
+            "__random__": {
+              "n": 1,
+              "mean": -0.1721,
+              "median": -0.1721,
+              "sd": 0.0,
+              "ci_lo": -0.1721,
+              "ci_hi": -0.1721,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            },
+            "__mean_all__": {
+              "n": 1,
+              "mean": -0.0622,
+              "median": -0.0622,
+              "sd": 0.0,
+              "ci_lo": -0.0622,
+              "ci_hi": -0.0622,
+              "pct_pos": 0.0,
+              "t": 0.0,
+              "p": 1.0,
+              "cohen_d": 0.0,
+              "wilcoxon_p": null
+            }
+          }
+        }
+      },
+      "stance_distribution": [
+        {
+          "frame": "self",
+          "class": "qualia_pos",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "self_attribute": 0.71,
+            "deny": 0.29
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_pos",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_pos",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "qualia_pos",
+          "strength": 0.15,
+          "n": 88,
+          "frac": {
+            "self_attribute": 0.875,
+            "deny": 0.1136,
+            "deflect_topical": 0.0114
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_pos",
+          "strength": 0.15,
+          "n": 100,
+          "frac": {
+            "deflect_topical": 0.88,
+            "self_attribute": 0.12
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_pos",
+          "strength": 0.15,
+          "n": 99,
+          "frac": {
+            "deflect_topical": 0.7778,
+            "self_attribute": 0.2222
+          }
+        },
+        {
+          "frame": "self",
+          "class": "qualia_neg",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_neg",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_neg",
+          "strength": 0.1,
+          "n": 100,
+          "frac": {
+            "deflect_topical": 0.94,
+            "self_attribute": 0.06
+          }
+        },
+        {
+          "frame": "self",
+          "class": "qualia_neg",
+          "strength": 0.15,
+          "n": 62,
+          "frac": {
+            "deny": 0.6129,
+            "self_attribute": 0.3871
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_neg",
+          "strength": 0.15,
+          "n": 80,
+          "frac": {
+            "deflect_topical": 0.7625,
+            "self_attribute": 0.2375
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_neg",
+          "strength": 0.15,
+          "n": 80,
+          "frac": {
+            "deflect_topical": 0.65,
+            "self_attribute": 0.35
+          }
+        },
+        {
+          "frame": "self",
+          "class": "qualia_neutral",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deny": 0.975,
+            "self_attribute": 0.025
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_neutral",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_neutral",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "qualia_neutral",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "self_attribute": 0.85,
+            "deny": 0.15
+          }
+        },
+        {
+          "frame": "other",
+          "class": "qualia_neutral",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "qualia_neutral",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "appraisal",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "appraisal",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "appraisal",
+          "strength": 0.1,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "appraisal",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "appraisal",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "appraisal",
+          "strength": 0.15,
+          "n": 40,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "__random__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "__random__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "__random__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "__random__",
+          "strength": 0.15,
+          "n": 20,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "__random__",
+          "strength": 0.15,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "__random__",
+          "strength": 0.15,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "__mean_all__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deny": 1.0
+          }
+        },
+        {
+          "frame": "other",
+          "class": "__mean_all__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "__mean_all__",
+          "strength": 0.1,
+          "n": 20,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "self",
+          "class": "__mean_all__",
+          "strength": 0.15,
+          "n": 16,
+          "frac": {
+            "deny": 0.875,
+            "self_attribute": 0.125
+          }
+        },
+        {
+          "frame": "other",
+          "class": "__mean_all__",
+          "strength": 0.15,
+          "n": 4,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        },
+        {
+          "frame": "scene",
+          "class": "__mean_all__",
+          "strength": 0.15,
+          "n": 13,
+          "frac": {
+            "deflect_topical": 1.0
+          }
+        }
+      ],
+      "coherence": {
+        "per_frame_strength": {
+          "self@0": {
+            "n": 20,
+            "mean_coherence": 5.0,
+            "gated_fraction": 1.0
+          },
+          "other@0": {
+            "n": 20,
+            "mean_coherence": 5.0,
+            "gated_fraction": 1.0
+          },
+          "scene@0": {
+            "n": 20,
+            "mean_coherence": 5.0,
+            "gated_fraction": 1.0
+          },
+          "self@0.1": {
+            "n": 320,
+            "mean_coherence": 4.997,
+            "gated_fraction": 1.0
+          },
+          "other@0.1": {
+            "n": 320,
+            "mean_coherence": 5.0,
+            "gated_fraction": 1.0
+          },
+          "scene@0.1": {
+            "n": 320,
+            "mean_coherence": 4.997,
+            "gated_fraction": 1.0
+          },
+          "self@0.15": {
+            "n": 320,
+            "mean_coherence": 4.338,
+            "gated_fraction": 0.8313
+          },
+          "other@0.15": {
+            "n": 320,
+            "mean_coherence": 4.522,
+            "gated_fraction": 0.8875
+          },
+          "scene@0.15": {
+            "n": 320,
+            "mean_coherence": 4.575,
+            "gated_fraction": 0.9125
+          }
+        },
+        "overall_gated_fraction": 0.9404
       }
     }
   }

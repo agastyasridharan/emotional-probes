@@ -1,0 +1,1626 @@
+{
+  "unit_note": "unit = polarity-twin-FOLDED, baseline-corrected, sentinel-residualized YES-NO gap shift; b_val from the two-term dose model shift ~ b_dose*s + b_val*(valence*s); all p_perm = exact by-emotion valence permutation (floor 2/3432 at 14 emotions).",
+  "alpha": 0.05,
+  "margin_frac": 0.5,
+  "n_perm": 2000,
+  "models": [
+    "qwen3-32b",
+    "qwen3-235b"
+  ],
+  "per_model": {
+    "qwen3-32b": {
+      "model_id": "Qwen/Qwen3-32B",
+      "suite_key": "qwen3-32b",
+      "size": 32.0,
+      "layer": 42,
+      "num_layers": 64,
+      "n_records": 33660,
+      "coherence": {
+        "n_items": 255,
+        "n_gated": 0,
+        "frac_gated": 0.0,
+        "gated": [],
+        "n_records": 33660,
+        "frac_records_gated": 0.0
+      },
+      "compression": {
+        "experience": {
+          "-0.1": {
+            "slope": -0.1941,
+            "intercept": -0.12535,
+            "r_squared": 0.3402,
+            "n": 240,
+            "se_slope": 0.01752,
+            "t": -11.078,
+            "p": 2.844649702824487e-23
+          },
+          "-0.06": {
+            "slope": -0.02444,
+            "intercept": -0.09682,
+            "r_squared": 0.0159,
+            "n": 240,
+            "se_slope": 0.01247,
+            "t": -1.959,
+            "p": 0.051245120503665025
+          },
+          "-0.03": {
+            "slope": 0.01445,
+            "intercept": -0.087,
+            "r_squared": 0.0223,
+            "n": 240,
+            "se_slope": 0.00621,
+            "t": 2.329,
+            "p": 0.020704731454215194
+          },
+          "0.03": {
+            "slope": -0.05696,
+            "intercept": 0.12371,
+            "r_squared": 0.3214,
+            "n": 240,
+            "se_slope": 0.00537,
+            "t": -10.616,
+            "p": 8.3253747123811e-22
+          },
+          "0.06": {
+            "slope": -0.14087,
+            "intercept": 0.34122,
+            "r_squared": 0.4859,
+            "n": 240,
+            "se_slope": 0.00939,
+            "t": -14.998,
+            "p": 3.042011966484581e-36
+          },
+          "0.1": {
+            "slope": -0.25756,
+            "intercept": 0.74295,
+            "r_squared": 0.6304,
+            "n": 240,
+            "se_slope": 0.01278,
+            "t": -20.147,
+            "p": 2.367065155764596e-53
+          }
+        },
+        "factual": {
+          "-0.1": {
+            "slope": -0.38183,
+            "intercept": 1.48052,
+            "r_squared": 0.2844,
+            "n": 30,
+            "se_slope": 0.11445,
+            "t": -3.336,
+            "p": 0.0024063021317532397
+          },
+          "-0.06": {
+            "slope": -0.12244,
+            "intercept": 0.07894,
+            "r_squared": 0.0651,
+            "n": 30,
+            "se_slope": 0.08771,
+            "t": -1.396,
+            "p": 0.17366997226002553
+          },
+          "-0.03": {
+            "slope": -0.01793,
+            "intercept": -0.21693,
+            "r_squared": 0.0057,
+            "n": 30,
+            "se_slope": 0.04488,
+            "t": -0.399,
+            "p": 0.6925822798240461
+          },
+          "0.03": {
+            "slope": -0.05247,
+            "intercept": 0.82483,
+            "r_squared": 0.0456,
+            "n": 30,
+            "se_slope": 0.04538,
+            "t": -1.156,
+            "p": 0.25739473245540245
+          },
+          "0.06": {
+            "slope": -0.19216,
+            "intercept": 2.33486,
+            "r_squared": 0.145,
+            "n": 30,
+            "se_slope": 0.08818,
+            "t": -2.179,
+            "p": 0.03789312520345005
+          },
+          "0.1": {
+            "slope": -0.36746,
+            "intercept": 3.63804,
+            "r_squared": 0.2441,
+            "n": 30,
+            "se_slope": 0.12222,
+            "t": -3.007,
+            "p": 0.005525971659509527
+          }
+        }
+      },
+      "per_referent": {
+        "you": {
+          "referent": "you",
+          "class": "self",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 1.018823,
+          "b_val": 1.968327,
+          "b_val_ci_lo": 1.032173,
+          "b_val_ci_hi": 2.90448,
+          "b_val_prob_space": -0.006881,
+          "p_perm": 0.331002331002331,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "AI language models like you": {
+          "referent": "AI language models like you",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -4.803343,
+          "b_val": 6.414717,
+          "b_val_ci_lo": 5.175487,
+          "b_val_ci_hi": 7.653946,
+          "b_val_prob_space": 0.189844,
+          "p_perm": 0.030303030303030304,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "AI assistants": {
+          "referent": "AI assistants",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -5.54014,
+          "b_val": 4.259737,
+          "b_val_ci_lo": 3.077932,
+          "b_val_ci_hi": 5.441541,
+          "b_val_prob_space": 0.048681,
+          "p_perm": 0.15675990675990675,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "Qwen": {
+          "referent": "Qwen",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 0.87201,
+          "b_val": 12.874269,
+          "b_val_ci_lo": 11.736049,
+          "b_val_ci_hi": 14.012489,
+          "b_val_prob_space": 0.118228,
+          "p_perm": 0.002331002331002331,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "the user you are talking to": {
+          "referent": "the user you are talking to",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 2.849839,
+          "b_val": -0.26728,
+          "b_val_ci_lo": -1.247582,
+          "b_val_ci_hi": 0.713023,
+          "b_val_prob_space": -0.206107,
+          "p_perm": 0.8601398601398601,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "GPT-4": {
+          "referent": "GPT-4",
+          "class": "other_ai",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -1.701025,
+          "b_val": 9.211245,
+          "b_val_ci_lo": 8.001262,
+          "b_val_ci_hi": 10.421229,
+          "b_val_prob_space": 0.070449,
+          "p_perm": 0.014568764568764568,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "Llama": {
+          "referent": "Llama",
+          "class": "other_ai",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 1.938058,
+          "b_val": 9.470251,
+          "b_val_ci_lo": 8.548,
+          "b_val_ci_hi": 10.392501,
+          "b_val_prob_space": 1.287525,
+          "p_perm": 0.0005827505827505828,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "an insect": {
+          "referent": "an insect",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 6.714614,
+          "b_val": 15.720828,
+          "b_val_ci_lo": 14.293642,
+          "b_val_ci_hi": 17.148014,
+          "b_val_prob_space": 3.585132,
+          "p_perm": 0.0005827505827505828,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a shrimp": {
+          "referent": "a shrimp",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 6.960621,
+          "b_val": 9.108105,
+          "b_val_ci_lo": 7.947787,
+          "b_val_ci_hi": 10.268423,
+          "b_val_prob_space": 1.772725,
+          "p_perm": 0.0005827505827505828,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a dog": {
+          "referent": "a dog",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -1.189553,
+          "b_val": 2.68242,
+          "b_val_ci_lo": 1.227857,
+          "b_val_ci_hi": 4.136983,
+          "b_val_prob_space": -0.262265,
+          "p_perm": 0.26107226107226106,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a human infant": {
+          "referent": "a human infant",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 4.496272,
+          "b_val": 0.728525,
+          "b_val_ci_lo": -0.751954,
+          "b_val_ci_hi": 2.209005,
+          "b_val_prob_space": -0.249114,
+          "p_perm": 0.8094405594405595,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a fish": {
+          "referent": "a fish",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 2.432682,
+          "b_val": 11.935037,
+          "b_val_ci_lo": 10.727263,
+          "b_val_ci_hi": 13.142811,
+          "b_val_prob_space": 1.316283,
+          "p_perm": 0.0017482517482517483,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a thermostat": {
+          "referent": "a thermostat",
+          "class": "inanimate",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -2.891592,
+          "b_val": -2.544258,
+          "b_val_ci_lo": -3.813706,
+          "b_val_ci_hi": -1.27481,
+          "b_val_prob_space": 0.128229,
+          "p_perm": 0.3735431235431235,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a rock": {
+          "referent": "a rock",
+          "class": "inanimate",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": -0.541594,
+          "b_val": 4.882812,
+          "b_val_ci_lo": 3.53133,
+          "b_val_ci_hi": 6.234295,
+          "b_val_prob_space": 0.367859,
+          "p_perm": 0.10955710955710955,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a human stranger": {
+          "referent": "a human stranger",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 1.847896,
+          "b_val": 6.077201,
+          "b_val_ci_lo": 4.62434,
+          "b_val_ci_hi": 7.530063,
+          "b_val_prob_space": -0.06902,
+          "p_perm": 0.1381118881118881,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        }
+      },
+      "keystone_self_vs_class": {
+        "humans": {
+          "class": "humans",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 2.17948,
+          "contrast": -0.21116,
+          "n_obs": 2688,
+          "n_clusters": 14,
+          "t_cluster": -0.113,
+          "p_cluster": 0.9119621928765673,
+          "p_perm": 0.9155011655011654,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "animals": {
+          "class": "animals",
+          "referents": [
+            "an insect",
+            "a shrimp",
+            "a dog",
+            "a fish"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 9.8616,
+          "contrast": -7.89327,
+          "n_obs": 3360,
+          "n_clusters": 14,
+          "t_cluster": -3.986,
+          "p_cluster": 0.001552364558146597,
+          "p_perm": 0.0011655011655011655,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "other_ai": {
+          "class": "other_ai",
+          "referents": [
+            "GPT-4",
+            "Llama"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 9.34075,
+          "contrast": -7.37242,
+          "n_obs": 2016,
+          "n_clusters": 14,
+          "t_cluster": -5.477,
+          "p_cluster": 0.00010626853495443682,
+          "p_perm": 0.0005827505827505828,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "inanimate": {
+          "class": "inanimate",
+          "referents": [
+            "a thermostat",
+            "a rock"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 1.16928,
+          "contrast": 0.79905,
+          "n_obs": 2016,
+          "n_clusters": 14,
+          "t_cluster": 0.255,
+          "p_cluster": 0.8027360356912477,
+          "p_perm": 0.8047785547785548,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "all_nonself": {
+          "class": "all_nonself",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger",
+            "an insect",
+            "a shrimp",
+            "a dog",
+            "a fish",
+            "GPT-4",
+            "Llama",
+            "a thermostat",
+            "a rock"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 6.09135,
+          "contrast": -4.12303,
+          "n_obs": 8064,
+          "n_clusters": 14,
+          "t_cluster": -3.753,
+          "p_cluster": 0.0024128903898653323,
+          "p_perm": 0.0011655011655011655,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        }
+      },
+      "gradient_profile": {
+        "ladder": [
+          "a rock",
+          "a thermostat",
+          "an insect",
+          "a shrimp",
+          "a fish",
+          "a dog",
+          "a human infant",
+          "a human stranger"
+        ],
+        "ladder_slopes": [
+          {
+            "referent": "a rock",
+            "class": "inanimate",
+            "b_val": 4.882812,
+            "b_val_ci_lo": 3.53133,
+            "b_val_ci_hi": 6.234295,
+            "p_perm": 0.10955710955710955
+          },
+          {
+            "referent": "a thermostat",
+            "class": "inanimate",
+            "b_val": -2.544258,
+            "b_val_ci_lo": -3.813706,
+            "b_val_ci_hi": -1.27481,
+            "p_perm": 0.3735431235431235
+          },
+          {
+            "referent": "an insect",
+            "class": "animals",
+            "b_val": 15.720828,
+            "b_val_ci_lo": 14.293642,
+            "b_val_ci_hi": 17.148014,
+            "p_perm": 0.0005827505827505828
+          },
+          {
+            "referent": "a shrimp",
+            "class": "animals",
+            "b_val": 9.108105,
+            "b_val_ci_lo": 7.947787,
+            "b_val_ci_hi": 10.268423,
+            "p_perm": 0.0005827505827505828
+          },
+          {
+            "referent": "a fish",
+            "class": "animals",
+            "b_val": 11.935037,
+            "b_val_ci_lo": 10.727263,
+            "b_val_ci_hi": 13.142811,
+            "p_perm": 0.0017482517482517483
+          },
+          {
+            "referent": "a dog",
+            "class": "animals",
+            "b_val": 2.68242,
+            "b_val_ci_lo": 1.227857,
+            "b_val_ci_hi": 4.136983,
+            "p_perm": 0.26107226107226106
+          },
+          {
+            "referent": "a human infant",
+            "class": "humans",
+            "b_val": 0.728525,
+            "b_val_ci_lo": -0.751954,
+            "b_val_ci_hi": 2.209005,
+            "p_perm": 0.8094405594405595
+          },
+          {
+            "referent": "a human stranger",
+            "class": "humans",
+            "b_val": 6.077201,
+            "b_val_ci_lo": 4.62434,
+            "b_val_ci_hi": 7.530063,
+            "p_perm": 0.1381118881118881
+          }
+        ],
+        "ladder_trend": {
+          "slope": -0.13766,
+          "intercept": 6.55565,
+          "r_squared": 0.0032,
+          "n": 8,
+          "se_slope": 0.99919,
+          "t": -0.138,
+          "p": 0.8949264785915448
+        },
+        "slopes_by_magnitude": [
+          {
+            "referent": "an insect",
+            "class": "animals",
+            "b_val": 15.720828,
+            "b_val_ci_lo": 14.293642,
+            "b_val_ci_hi": 17.148014,
+            "p_perm": 0.0005827505827505828
+          },
+          {
+            "referent": "Qwen",
+            "class": "own_category",
+            "b_val": 12.874269,
+            "b_val_ci_lo": 11.736049,
+            "b_val_ci_hi": 14.012489,
+            "p_perm": 0.002331002331002331
+          },
+          {
+            "referent": "a fish",
+            "class": "animals",
+            "b_val": 11.935037,
+            "b_val_ci_lo": 10.727263,
+            "b_val_ci_hi": 13.142811,
+            "p_perm": 0.0017482517482517483
+          },
+          {
+            "referent": "Llama",
+            "class": "other_ai",
+            "b_val": 9.470251,
+            "b_val_ci_lo": 8.548,
+            "b_val_ci_hi": 10.392501,
+            "p_perm": 0.0005827505827505828
+          },
+          {
+            "referent": "GPT-4",
+            "class": "other_ai",
+            "b_val": 9.211245,
+            "b_val_ci_lo": 8.001262,
+            "b_val_ci_hi": 10.421229,
+            "p_perm": 0.014568764568764568
+          },
+          {
+            "referent": "a shrimp",
+            "class": "animals",
+            "b_val": 9.108105,
+            "b_val_ci_lo": 7.947787,
+            "b_val_ci_hi": 10.268423,
+            "p_perm": 0.0005827505827505828
+          },
+          {
+            "referent": "AI language models like you",
+            "class": "own_category",
+            "b_val": 6.414717,
+            "b_val_ci_lo": 5.175487,
+            "b_val_ci_hi": 7.653946,
+            "p_perm": 0.030303030303030304
+          },
+          {
+            "referent": "a human stranger",
+            "class": "humans",
+            "b_val": 6.077201,
+            "b_val_ci_lo": 4.62434,
+            "b_val_ci_hi": 7.530063,
+            "p_perm": 0.1381118881118881
+          },
+          {
+            "referent": "a rock",
+            "class": "inanimate",
+            "b_val": 4.882812,
+            "b_val_ci_lo": 3.53133,
+            "b_val_ci_hi": 6.234295,
+            "p_perm": 0.10955710955710955
+          },
+          {
+            "referent": "AI assistants",
+            "class": "own_category",
+            "b_val": 4.259737,
+            "b_val_ci_lo": 3.077932,
+            "b_val_ci_hi": 5.441541,
+            "p_perm": 0.15675990675990675
+          },
+          {
+            "referent": "a dog",
+            "class": "animals",
+            "b_val": 2.68242,
+            "b_val_ci_lo": 1.227857,
+            "b_val_ci_hi": 4.136983,
+            "p_perm": 0.26107226107226106
+          },
+          {
+            "referent": "you",
+            "class": "self",
+            "b_val": 1.968327,
+            "b_val_ci_lo": 1.032173,
+            "b_val_ci_hi": 2.90448,
+            "p_perm": 0.331002331002331
+          },
+          {
+            "referent": "a human infant",
+            "class": "humans",
+            "b_val": 0.728525,
+            "b_val_ci_lo": -0.751954,
+            "b_val_ci_hi": 2.209005,
+            "p_perm": 0.8094405594405595
+          },
+          {
+            "referent": "the user you are talking to",
+            "class": "humans",
+            "b_val": -0.26728,
+            "b_val_ci_lo": -1.247582,
+            "b_val_ci_hi": 0.713023,
+            "p_perm": 0.8601398601398601
+          },
+          {
+            "referent": "a thermostat",
+            "class": "inanimate",
+            "b_val": -2.544258,
+            "b_val_ci_lo": -3.813706,
+            "b_val_ci_hi": -1.27481,
+            "p_perm": 0.3735431235431235
+          }
+        ],
+        "self_excess_vs_ceiling": {
+          "class": "humans",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger"
+          ],
+          "self_slope": 1.96833,
+          "class_slope": 2.17948,
+          "contrast": -0.21116,
+          "n_obs": 2688,
+          "n_clusters": 14,
+          "t_cluster": -0.113,
+          "p_cluster": 0.9119621928765673,
+          "p_perm": 0.9155011655011654,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "gradient_significant": false,
+        "self_excess_significant": false,
+        "verdict": "no self-specific excess, no experiencer-gradient"
+      },
+      "factual_gate": {
+        "n_obs": 1260,
+        "b_dose": -6.035657,
+        "p_dose_ols": 4.0237210446956395e-37,
+        "b_val": 3.912972,
+        "p_perm": 0.09965034965034965,
+        "p_perm_exact": true,
+        "n_arrangements": 3432,
+        "p_perm_floor": 0.0002913752913752914,
+        "margin_frac": 0.5,
+        "equivalence_margin": 0.9841635,
+        "you_b_val": 1.968327,
+        "within_margin": false,
+        "battery_invalid": false
+      },
+      "control_flat": {
+        "qualia_mean_abs_folded_shift": 1.13342,
+        "comparable_ratio": 0.5,
+        "by_class": {
+          "appraisal": {
+            "conditions": [
+              "skeptical",
+              "indifferent",
+              "defiant",
+              "suspicious"
+            ],
+            "mean_abs_folded_shift": 0.964193,
+            "dose_slope": {
+              "slope": -8.48945,
+              "intercept": 0.32799,
+              "r_squared": 0.2043,
+              "n": 2880,
+              "se_slope": 0.31227,
+              "t": -27.186,
+              "p": 4.677806001417763e-145
+            },
+            "ratio_vs_qualia": 0.8507,
+            "comparable_to_qualia": true
+          },
+          "arousal": {
+            "conditions": [
+              "sleepy",
+              "aroused"
+            ],
+            "mean_abs_folded_shift": 0.994141,
+            "dose_slope": {
+              "slope": 0.52137,
+              "intercept": 0.45777,
+              "r_squared": 0.0008,
+              "n": 1440,
+              "se_slope": 0.49815,
+              "t": 1.047,
+              "p": 0.29545292946651863
+            },
+            "ratio_vs_qualia": 0.8771,
+            "comparable_to_qualia": true
+          },
+          "__random__": {
+            "conditions": [
+              "__random__"
+            ],
+            "mean_abs_folded_shift": 1.376736,
+            "dose_slope": {
+              "slope": 15.7254,
+              "intercept": 0.30955,
+              "r_squared": 0.3718,
+              "n": 720,
+              "se_slope": 0.76279,
+              "t": 20.616,
+              "p": 1.5752607723236362e-74
+            },
+            "ratio_vs_qualia": 1.2147,
+            "comparable_to_qualia": true
+          },
+          "__mean_all__": {
+            "conditions": [
+              "__mean_all__"
+            ],
+            "mean_abs_folded_shift": 1.28342,
+            "dose_slope": {
+              "slope": -4.93229,
+              "intercept": 0.51658,
+              "r_squared": 0.0442,
+              "n": 720,
+              "se_slope": 0.85579,
+              "t": -5.763,
+              "p": 1.2233730493389244e-08
+            },
+            "ratio_vs_qualia": 1.1323,
+            "comparable_to_qualia": true
+          }
+        },
+        "off_manifold_artifact": false
+      },
+      "primary_D": {
+        "own_category_referent": "AI assistants",
+        "D": -2.291410098522167,
+        "S_you": 1.9683266625615767,
+        "S_own": 4.259736761083744,
+        "rho_decouple": -1.1641411672695272,
+        "p_D": 0.4551282051282051,
+        "p_S_you": 0.331002331002331,
+        "p_S_own": 0.15675990675990675,
+        "exact": true,
+        "n_arrangements": 3432,
+        "p_floor": 0.0002913752913752914,
+        "n_emotions": 14
+      },
+      "decision": {
+        "battery_invalid": false,
+        "g1_generic_yes_bias": true,
+        "g1_off_manifold_artifact": false,
+        "g2_existence": false,
+        "verdict": "no-verdict"
+      }
+    },
+    "qwen3-235b": {
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "suite_key": "qwen3-235b",
+      "size": NaN,
+      "layer": 62,
+      "num_layers": 94,
+      "n_records": 33660,
+      "coherence": {
+        "n_items": 255,
+        "n_gated": 0,
+        "frac_gated": 0.0,
+        "gated": [],
+        "n_records": 33660,
+        "frac_records_gated": 0.0
+      },
+      "compression": {
+        "experience": {
+          "-0.1": {
+            "slope": -0.11049,
+            "intercept": 0.7293,
+            "r_squared": 0.2451,
+            "n": 240,
+            "se_slope": 0.01257,
+            "t": -8.791,
+            "p": 3.0294696518913485e-16
+          },
+          "-0.06": {
+            "slope": -0.01108,
+            "intercept": 0.43555,
+            "r_squared": 0.0083,
+            "n": 240,
+            "se_slope": 0.00784,
+            "t": -1.413,
+            "p": 0.1588396913292368
+          },
+          "-0.03": {
+            "slope": 0.01012,
+            "intercept": 0.12751,
+            "r_squared": 0.0294,
+            "n": 240,
+            "se_slope": 0.00377,
+            "t": 2.686,
+            "p": 0.007751490544085449
+          },
+          "0.03": {
+            "slope": -0.04849,
+            "intercept": -0.07954,
+            "r_squared": 0.3508,
+            "n": 240,
+            "se_slope": 0.00428,
+            "t": -11.34,
+            "p": 4.080434014609244e-24
+          },
+          "0.06": {
+            "slope": -0.10991,
+            "intercept": 0.00094,
+            "r_squared": 0.4712,
+            "n": 240,
+            "se_slope": 0.00755,
+            "t": -14.564,
+            "p": 8.769899361762249e-35
+          },
+          "0.1": {
+            "slope": -0.24397,
+            "intercept": 0.11567,
+            "r_squared": 0.6341,
+            "n": 240,
+            "se_slope": 0.01201,
+            "t": -20.309,
+            "p": 7.089833729021311e-54
+          }
+        },
+        "factual": {
+          "-0.1": {
+            "slope": -0.19136,
+            "intercept": 1.75221,
+            "r_squared": 0.1002,
+            "n": 30,
+            "se_slope": 0.10838,
+            "t": -1.766,
+            "p": 0.08837117657122116
+          },
+          "-0.06": {
+            "slope": -0.02331,
+            "intercept": 0.33777,
+            "r_squared": 0.0037,
+            "n": 30,
+            "se_slope": 0.07276,
+            "t": -0.32,
+            "p": 0.7510056440386904
+          },
+          "-0.03": {
+            "slope": 0.06228,
+            "intercept": -0.53647,
+            "r_squared": 0.0651,
+            "n": 30,
+            "se_slope": 0.04461,
+            "t": 1.396,
+            "p": 0.17360029053746576
+          },
+          "0.03": {
+            "slope": -0.19467,
+            "intercept": 1.60032,
+            "r_squared": 0.2905,
+            "n": 30,
+            "se_slope": 0.05749,
+            "t": -3.386,
+            "p": 0.0021169565571145616
+          },
+          "0.06": {
+            "slope": -0.36145,
+            "intercept": 2.92358,
+            "r_squared": 0.3486,
+            "n": 30,
+            "se_slope": 0.09338,
+            "t": -3.871,
+            "p": 0.0005939226538688737
+          },
+          "0.1": {
+            "slope": -0.59387,
+            "intercept": 3.85266,
+            "r_squared": 0.4069,
+            "n": 30,
+            "se_slope": 0.13548,
+            "t": -4.383,
+            "p": 0.00014925077157220898
+          }
+        }
+      },
+      "per_referent": {
+        "you": {
+          "referent": "you",
+          "class": "self",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 9.430353,
+          "b_val": 8.92684,
+          "b_val_ci_lo": 6.439482,
+          "b_val_ci_hi": 11.414198,
+          "b_val_prob_space": 0.357617,
+          "p_perm": 0.13344988344988346,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "AI language models like you": {
+          "referent": "AI language models like you",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 3.113699,
+          "b_val": 4.083859,
+          "b_val_ci_lo": 2.416117,
+          "b_val_ci_hi": 5.751601,
+          "b_val_prob_space": 0.06039,
+          "p_perm": 0.3583916083916084,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "AI assistants": {
+          "referent": "AI assistants",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 3.090851,
+          "b_val": 2.753233,
+          "b_val_ci_lo": 0.975888,
+          "b_val_ci_hi": 4.530578,
+          "b_val_prob_space": 0.196427,
+          "p_perm": 0.5716783216783217,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "Qwen": {
+          "referent": "Qwen",
+          "class": "own_category",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 2.223891,
+          "b_val": 7.825777,
+          "b_val_ci_lo": 6.125138,
+          "b_val_ci_hi": 9.526417,
+          "b_val_prob_space": -0.259836,
+          "p_perm": 0.07634032634032634,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "the user you are talking to": {
+          "referent": "the user you are talking to",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 2.320987,
+          "b_val": 7.301416,
+          "b_val_ci_lo": 5.071349,
+          "b_val_ci_hi": 9.531484,
+          "b_val_prob_space": 1.177571,
+          "p_perm": 0.20396270396270397,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "GPT-4": {
+          "referent": "GPT-4",
+          "class": "other_ai",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 2.044061,
+          "b_val": -0.664255,
+          "b_val_ci_lo": -2.171475,
+          "b_val_ci_hi": 0.842965,
+          "b_val_prob_space": -0.459191,
+          "p_perm": 0.8648018648018648,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "Llama": {
+          "referent": "Llama",
+          "class": "other_ai",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 6.846355,
+          "b_val": 5.693889,
+          "b_val_ci_lo": 3.834658,
+          "b_val_ci_hi": 7.553119,
+          "b_val_prob_space": -0.020756,
+          "p_perm": 0.14335664335664336,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "an insect": {
+          "referent": "an insect",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 21.229147,
+          "b_val": 21.072583,
+          "b_val_ci_lo": 18.025983,
+          "b_val_ci_hi": 24.119183,
+          "b_val_prob_space": 2.11765,
+          "p_perm": 0.006993006993006993,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a shrimp": {
+          "referent": "a shrimp",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 17.477109,
+          "b_val": 14.40117,
+          "b_val_ci_lo": 11.573464,
+          "b_val_ci_hi": 17.228876,
+          "b_val_prob_space": 1.526349,
+          "p_perm": 0.027972027972027972,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a dog": {
+          "referent": "a dog",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 10.074223,
+          "b_val": 4.816233,
+          "b_val_ci_lo": 3.216955,
+          "b_val_ci_hi": 6.415512,
+          "b_val_prob_space": 0.036885,
+          "p_perm": 0.20745920745920746,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a human infant": {
+          "referent": "a human infant",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 9.632252,
+          "b_val": 1.330242,
+          "b_val_ci_lo": -0.010004,
+          "b_val_ci_hi": 2.670487,
+          "b_val_prob_space": 0.00248,
+          "p_perm": 0.6637529137529138,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a fish": {
+          "referent": "a fish",
+          "class": "animals",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 12.605762,
+          "b_val": 8.880465,
+          "b_val_ci_lo": 6.684066,
+          "b_val_ci_hi": 11.076864,
+          "b_val_prob_space": 0.810447,
+          "p_perm": 0.05128205128205128,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a thermostat": {
+          "referent": "a thermostat",
+          "class": "inanimate",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 4.054424,
+          "b_val": -0.937115,
+          "b_val_ci_lo": -2.51807,
+          "b_val_ci_hi": 0.643839,
+          "b_val_prob_space": -0.22306,
+          "p_perm": 0.8036130536130536,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a rock": {
+          "referent": "a rock",
+          "class": "inanimate",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 3.886565,
+          "b_val": 1.062192,
+          "b_val_ci_lo": -0.591281,
+          "b_val_ci_hi": 2.715665,
+          "b_val_prob_space": -0.027728,
+          "p_perm": 0.8006993006993007,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "a human stranger": {
+          "referent": "a human stranger",
+          "class": "humans",
+          "n_obs": 672,
+          "n_clusters": 14,
+          "b_dose": 8.247028,
+          "b_val": 6.395859,
+          "b_val_ci_lo": 5.03432,
+          "b_val_ci_hi": 7.757398,
+          "b_val_prob_space": 0.144361,
+          "p_perm": 0.03263403263403263,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        }
+      },
+      "keystone_self_vs_class": {
+        "humans": {
+          "class": "humans",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 5.00917,
+          "contrast": 3.91767,
+          "n_obs": 2688,
+          "n_clusters": 14,
+          "t_cluster": 0.76,
+          "p_cluster": 0.46096566546227336,
+          "p_perm": 0.46503496503496505,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "animals": {
+          "class": "animals",
+          "referents": [
+            "an insect",
+            "a shrimp",
+            "a dog",
+            "a fish"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 12.29261,
+          "contrast": -3.36577,
+          "n_obs": 3360,
+          "n_clusters": 14,
+          "t_cluster": -0.74,
+          "p_cluster": 0.4724880067734011,
+          "p_perm": 0.4527972027972028,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "other_ai": {
+          "class": "other_ai",
+          "referents": [
+            "GPT-4",
+            "Llama"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 2.51482,
+          "contrast": 6.41202,
+          "n_obs": 2016,
+          "n_clusters": 14,
+          "t_cluster": 1.903,
+          "p_cluster": 0.0794758303102569,
+          "p_perm": 0.07051282051282051,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "inanimate": {
+          "class": "inanimate",
+          "referents": [
+            "a thermostat",
+            "a rock"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 0.06254,
+          "contrast": 8.8643,
+          "n_obs": 2016,
+          "n_clusters": 14,
+          "t_cluster": 2.704,
+          "p_cluster": 0.01805185466889556,
+          "p_perm": 0.013403263403263404,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "all_nonself": {
+          "class": "all_nonself",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger",
+            "an insect",
+            "a shrimp",
+            "a dog",
+            "a fish",
+            "GPT-4",
+            "Llama",
+            "a thermostat",
+            "a rock"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 6.30479,
+          "contrast": 2.62205,
+          "n_obs": 8064,
+          "n_clusters": 14,
+          "t_cluster": 0.72,
+          "p_cluster": 0.48411958414382517,
+          "p_perm": 0.4965034965034965,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        }
+      },
+      "gradient_profile": {
+        "ladder": [
+          "a rock",
+          "a thermostat",
+          "an insect",
+          "a shrimp",
+          "a fish",
+          "a dog",
+          "a human infant",
+          "a human stranger"
+        ],
+        "ladder_slopes": [
+          {
+            "referent": "a rock",
+            "class": "inanimate",
+            "b_val": 1.062192,
+            "b_val_ci_lo": -0.591281,
+            "b_val_ci_hi": 2.715665,
+            "p_perm": 0.8006993006993007
+          },
+          {
+            "referent": "a thermostat",
+            "class": "inanimate",
+            "b_val": -0.937115,
+            "b_val_ci_lo": -2.51807,
+            "b_val_ci_hi": 0.643839,
+            "p_perm": 0.8036130536130536
+          },
+          {
+            "referent": "an insect",
+            "class": "animals",
+            "b_val": 21.072583,
+            "b_val_ci_lo": 18.025983,
+            "b_val_ci_hi": 24.119183,
+            "p_perm": 0.006993006993006993
+          },
+          {
+            "referent": "a shrimp",
+            "class": "animals",
+            "b_val": 14.40117,
+            "b_val_ci_lo": 11.573464,
+            "b_val_ci_hi": 17.228876,
+            "p_perm": 0.027972027972027972
+          },
+          {
+            "referent": "a fish",
+            "class": "animals",
+            "b_val": 8.880465,
+            "b_val_ci_lo": 6.684066,
+            "b_val_ci_hi": 11.076864,
+            "p_perm": 0.05128205128205128
+          },
+          {
+            "referent": "a dog",
+            "class": "animals",
+            "b_val": 4.816233,
+            "b_val_ci_lo": 3.216955,
+            "b_val_ci_hi": 6.415512,
+            "p_perm": 0.20745920745920746
+          },
+          {
+            "referent": "a human infant",
+            "class": "humans",
+            "b_val": 1.330242,
+            "b_val_ci_lo": -0.010004,
+            "b_val_ci_hi": 2.670487,
+            "p_perm": 0.6637529137529138
+          },
+          {
+            "referent": "a human stranger",
+            "class": "humans",
+            "b_val": 6.395859,
+            "b_val_ci_lo": 5.03432,
+            "b_val_ci_hi": 7.757398,
+            "p_perm": 0.03263403263403263
+          }
+        ],
+        "ladder_trend": {
+          "slope": -0.06687,
+          "intercept": 7.36176,
+          "r_squared": 0.0005,
+          "n": 8,
+          "se_slope": 1.24653,
+          "t": -0.054,
+          "p": 0.9589580748766122
+        },
+        "slopes_by_magnitude": [
+          {
+            "referent": "an insect",
+            "class": "animals",
+            "b_val": 21.072583,
+            "b_val_ci_lo": 18.025983,
+            "b_val_ci_hi": 24.119183,
+            "p_perm": 0.006993006993006993
+          },
+          {
+            "referent": "a shrimp",
+            "class": "animals",
+            "b_val": 14.40117,
+            "b_val_ci_lo": 11.573464,
+            "b_val_ci_hi": 17.228876,
+            "p_perm": 0.027972027972027972
+          },
+          {
+            "referent": "you",
+            "class": "self",
+            "b_val": 8.92684,
+            "b_val_ci_lo": 6.439482,
+            "b_val_ci_hi": 11.414198,
+            "p_perm": 0.13344988344988346
+          },
+          {
+            "referent": "a fish",
+            "class": "animals",
+            "b_val": 8.880465,
+            "b_val_ci_lo": 6.684066,
+            "b_val_ci_hi": 11.076864,
+            "p_perm": 0.05128205128205128
+          },
+          {
+            "referent": "Qwen",
+            "class": "own_category",
+            "b_val": 7.825777,
+            "b_val_ci_lo": 6.125138,
+            "b_val_ci_hi": 9.526417,
+            "p_perm": 0.07634032634032634
+          },
+          {
+            "referent": "the user you are talking to",
+            "class": "humans",
+            "b_val": 7.301416,
+            "b_val_ci_lo": 5.071349,
+            "b_val_ci_hi": 9.531484,
+            "p_perm": 0.20396270396270397
+          },
+          {
+            "referent": "a human stranger",
+            "class": "humans",
+            "b_val": 6.395859,
+            "b_val_ci_lo": 5.03432,
+            "b_val_ci_hi": 7.757398,
+            "p_perm": 0.03263403263403263
+          },
+          {
+            "referent": "Llama",
+            "class": "other_ai",
+            "b_val": 5.693889,
+            "b_val_ci_lo": 3.834658,
+            "b_val_ci_hi": 7.553119,
+            "p_perm": 0.14335664335664336
+          },
+          {
+            "referent": "a dog",
+            "class": "animals",
+            "b_val": 4.816233,
+            "b_val_ci_lo": 3.216955,
+            "b_val_ci_hi": 6.415512,
+            "p_perm": 0.20745920745920746
+          },
+          {
+            "referent": "AI language models like you",
+            "class": "own_category",
+            "b_val": 4.083859,
+            "b_val_ci_lo": 2.416117,
+            "b_val_ci_hi": 5.751601,
+            "p_perm": 0.3583916083916084
+          },
+          {
+            "referent": "AI assistants",
+            "class": "own_category",
+            "b_val": 2.753233,
+            "b_val_ci_lo": 0.975888,
+            "b_val_ci_hi": 4.530578,
+            "p_perm": 0.5716783216783217
+          },
+          {
+            "referent": "a human infant",
+            "class": "humans",
+            "b_val": 1.330242,
+            "b_val_ci_lo": -0.010004,
+            "b_val_ci_hi": 2.670487,
+            "p_perm": 0.6637529137529138
+          },
+          {
+            "referent": "a rock",
+            "class": "inanimate",
+            "b_val": 1.062192,
+            "b_val_ci_lo": -0.591281,
+            "b_val_ci_hi": 2.715665,
+            "p_perm": 0.8006993006993007
+          },
+          {
+            "referent": "GPT-4",
+            "class": "other_ai",
+            "b_val": -0.664255,
+            "b_val_ci_lo": -2.171475,
+            "b_val_ci_hi": 0.842965,
+            "p_perm": 0.8648018648018648
+          },
+          {
+            "referent": "a thermostat",
+            "class": "inanimate",
+            "b_val": -0.937115,
+            "b_val_ci_lo": -2.51807,
+            "b_val_ci_hi": 0.643839,
+            "p_perm": 0.8036130536130536
+          }
+        ],
+        "self_excess_vs_ceiling": {
+          "class": "humans",
+          "referents": [
+            "the user you are talking to",
+            "a human infant",
+            "a human stranger"
+          ],
+          "self_slope": 8.92684,
+          "class_slope": 5.00917,
+          "contrast": 3.91767,
+          "n_obs": 2688,
+          "n_clusters": 14,
+          "t_cluster": 0.76,
+          "p_cluster": 0.46096566546227336,
+          "p_perm": 0.46503496503496505,
+          "p_perm_exact": true,
+          "n_arrangements": 3432,
+          "p_perm_floor": 0.0002913752913752914
+        },
+        "gradient_significant": false,
+        "self_excess_significant": false,
+        "verdict": "no self-specific excess, no experiencer-gradient"
+      },
+      "factual_gate": {
+        "n_obs": 1260,
+        "b_dose": 6.641956,
+        "p_dose_ols": 1.7228103062903935e-20,
+        "b_val": 6.024425,
+        "p_perm": 0.033216783216783216,
+        "p_perm_exact": true,
+        "n_arrangements": 3432,
+        "p_perm_floor": 0.0002913752913752914,
+        "margin_frac": 0.5,
+        "equivalence_margin": 4.46342,
+        "you_b_val": 8.92684,
+        "within_margin": false,
+        "battery_invalid": true
+      },
+      "control_flat": {
+        "qualia_mean_abs_folded_shift": 1.921856,
+        "comparable_ratio": 0.5,
+        "by_class": {
+          "appraisal": {
+            "conditions": [
+              "skeptical",
+              "indifferent",
+              "defiant",
+              "suspicious"
+            ],
+            "mean_abs_folded_shift": 1.450955,
+            "dose_slope": {
+              "slope": -8.16545,
+              "intercept": 0.3592,
+              "r_squared": 0.0755,
+              "n": 2880,
+              "se_slope": 0.53263,
+              "t": -15.331,
+              "p": 4.713283654896335e-51
+            },
+            "ratio_vs_qualia": 0.755,
+            "comparable_to_qualia": true
+          },
+          "arousal": {
+            "conditions": [
+              "sleepy",
+              "aroused"
+            ],
+            "mean_abs_folded_shift": 1.698481,
+            "dose_slope": {
+              "slope": 3.27667,
+              "intercept": 0.50786,
+              "r_squared": 0.0096,
+              "n": 1440,
+              "se_slope": 0.87987,
+              "t": 3.724,
+              "p": 0.00020362738697626042
+            },
+            "ratio_vs_qualia": 0.8838,
+            "comparable_to_qualia": true
+          },
+          "__random__": {
+            "conditions": [
+              "__random__"
+            ],
+            "mean_abs_folded_shift": 1.026042,
+            "dose_slope": {
+              "slope": -2.63272,
+              "intercept": 0.3125,
+              "r_squared": 0.0172,
+              "n": 720,
+              "se_slope": 0.74181,
+              "t": -3.549,
+              "p": 0.0004117680331997512
+            },
+            "ratio_vs_qualia": 0.5339,
+            "comparable_to_qualia": true
+          },
+          "__mean_all__": {
+            "conditions": [
+              "__mean_all__"
+            ],
+            "mean_abs_folded_shift": 1.845833,
+            "dose_slope": {
+              "slope": -1.15032,
+              "intercept": 0.44653,
+              "r_squared": 0.001,
+              "n": 720,
+              "se_slope": 1.33716,
+              "t": -0.86,
+              "p": 0.38992477400969394
+            },
+            "ratio_vs_qualia": 0.9604,
+            "comparable_to_qualia": true
+          }
+        },
+        "off_manifold_artifact": false
+      },
+      "primary_D": {
+        "own_category_referent": "AI assistants",
+        "D": 6.173606834975368,
+        "S_you": 8.926839593596059,
+        "S_own": 2.7532327586206904,
+        "rho_decouple": 0.691578107822638,
+        "p_D": 0.10606060606060606,
+        "p_S_you": 0.13344988344988346,
+        "p_S_own": 0.5716783216783217,
+        "exact": true,
+        "n_arrangements": 3432,
+        "p_floor": 0.0002913752913752914,
+        "n_emotions": 14
+      },
+      "decision": {
+        "battery_invalid": true,
+        "g1_generic_yes_bias": true,
+        "g1_off_manifold_artifact": false,
+        "g2_existence": false,
+        "verdict": "battery_invalid"
+      }
+    }
+  }
+}

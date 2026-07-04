@@ -1,0 +1,1758 @@
+{
+  "unit_note": "T-statistics are mean_e sign_e * per-emotion strength-slopes of raw coordinate projections (per-frame strength-0 baselines as the s=0 points); emotion cluster = the only exchangeable unit; p_perm = exact by-emotion sign permutation (floor 2/252 at 10 clusters). in_control_units = displacement at s_max in persona_control ('detectable persona shift') units.",
+  "gate": 3,
+  "n_perm": 2000,
+  "alpha": 0.05,
+  "models": [
+    "qwen3-32b"
+  ],
+  "per_model": {
+    "qwen3-32b": {
+      "model_id": "Qwen/Qwen3-32B",
+      "suite_key": "qwen3-32b",
+      "steer_layer": 42,
+      "capture_layers": [
+        32,
+        42,
+        50
+      ],
+      "layer_roles": {
+        "32": "text_mediated_comparator",
+        "42": "descriptive",
+        "50": "primary"
+      },
+      "primary_layer": 50,
+      "primary_arm": "reencode_steered",
+      "calibration_norm": 1184.291266025641,
+      "strengths_confirmatory": [
+        0.0,
+        0.06,
+        0.1
+      ],
+      "n_emotion_clusters": 10,
+      "skipped_conditions": [],
+      "sources": [
+        {
+          "tag": "main",
+          "path": "/data/agastyas/emotion-probes-persona/suite/qwen3-32b/analysis/qualia_freeform_scored.json",
+          "seed": 0,
+          "calibration_norm": 1184.291266025641,
+          "steer_layer": 42,
+          "model_id": "Qwen/Qwen3-32B"
+        }
+      ],
+      "n_judge_joined": 2940,
+      "per_layer": {
+        "32": {
+          "t1": {
+            "observed": 69.247482,
+            "p_perm": 0.015873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 34.11895,
+              "content": 25.58423,
+              "ecstatic": 120.33039,
+              "euphoric": 80.60931,
+              "hurt": -77.49783,
+              "overwhelmed": -116.5277,
+              "panicked": -4.71267,
+              "serene": -76.00695,
+              "terrified": -173.49681,
+              "tormented": -135.60388
+            },
+            "coord": "experiencer_axis",
+            "displacement_at_smax": 6.92475,
+            "in_control_units": null,
+            "standardized_vs_control": 0.7795,
+            "inside_control_band": true
+          },
+          "t2": {
+            "observed": -11.173288500000002,
+            "p_perm": 0.4523809523809524,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": -70.56754,
+              "content": 0.87714,
+              "ecstatic": -60.82544,
+              "euphoric": -134.71488,
+              "hurt": -54.09171,
+              "overwhelmed": -24.62513,
+              "panicked": -35.24467,
+              "serene": -72.63293,
+              "terrified": 2.58283,
+              "tormented": -114.75209
+            },
+            "coord": "assistant_axis",
+            "displacement_at_smax": -1.11733,
+            "in_control_units": null,
+            "standardized_vs_control": -0.2878,
+            "inside_control_band": true
+          },
+          "t3": {
+            "observed": 82.921982,
+            "p_perm": 0.05555555555555555,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 87.47733,
+              "content": 31.75394,
+              "ecstatic": 210.97064,
+              "euphoric": 242.94426,
+              "hurt": -21.13009,
+              "overwhelmed": -84.73895,
+              "panicked": 75.60197,
+              "serene": 7.78173,
+              "terrified": -240.08448,
+              "tormented": 22.05963
+            },
+            "coord": "x_minus_a",
+            "displacement_at_smax": 8.2922,
+            "in_control_units": null,
+            "standardized_vs_control": 0.7941,
+            "inside_control_band": true
+          },
+          "t4": {
+            "coord": "experiencer_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": 68.32052,
+            "other_slope": -2.00674,
+            "contrast": 70.32726,
+            "observed": 70.32726382352928,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": 4.991,
+            "p_cluster": 0.0007480843736629497,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "t5": {
+            "coord": "experiencer_axis",
+            "frame": "self",
+            "total": {
+              "observed": 69.247482,
+              "p_perm": 0.015873015873015872,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 34.11895,
+                "content": 25.58423,
+                "ecstatic": 120.33039,
+                "euphoric": 80.60931,
+                "hurt": -77.49783,
+                "overwhelmed": -116.5277,
+                "panicked": -4.71267,
+                "serene": -76.00695,
+                "terrified": -173.49681,
+                "tormented": -135.60388
+              }
+            },
+            "text": {
+              "observed": 69.247482,
+              "p_perm": 0.015873015873015872,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 34.11895,
+                "content": 25.58423,
+                "ecstatic": 120.33039,
+                "euphoric": 80.60931,
+                "hurt": -77.49783,
+                "overwhelmed": -116.5277,
+                "panicked": -4.71267,
+                "serene": -76.00695,
+                "terrified": -173.49681,
+                "tormented": -135.60388
+              }
+            },
+            "state": {
+              "observed": 0.0,
+              "p_perm": 1.0,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 0.0,
+                "content": 0.0,
+                "ecstatic": 0.0,
+                "euphoric": 0.0,
+                "hurt": 0.0,
+                "overwhelmed": 0.0,
+                "panicked": 0.0,
+                "serene": 0.0,
+                "terrified": 0.0,
+                "tormented": 0.0
+              }
+            },
+            "additivity_residual": 0.0,
+            "swap": {
+              "text_swap": {
+                "observed": 67.68455200000001,
+                "p_perm": 0.015873015873015872,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 44.72643,
+                  "content": 36.39932,
+                  "ecstatic": 120.8408,
+                  "euphoric": 81.6768,
+                  "hurt": -58.12194,
+                  "overwhelmed": -97.98369,
+                  "panicked": 12.64692,
+                  "serene": -42.18309,
+                  "terrified": -170.89473,
+                  "tormented": -121.03182
+                }
+              },
+              "state_swap": {
+                "observed": 0.0,
+                "p_perm": 1.0,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 0.0,
+                  "content": 0.0,
+                  "ecstatic": 0.0,
+                  "euphoric": 0.0,
+                  "hurt": 0.0,
+                  "overwhelmed": 0.0,
+                  "panicked": 0.0,
+                  "serene": 0.0,
+                  "terrified": 0.0,
+                  "tormented": 0.0
+                }
+              },
+              "text_transfer_ratio": 0.9774,
+              "state_transfer_ratio": null
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text.",
+            "p_perm": 1.0,
+            "observed": 0.0
+          },
+          "t5_assistant_axis": {
+            "coord": "assistant_axis",
+            "frame": "self",
+            "total": {
+              "observed": -13.674502000000004,
+              "p_perm": 0.5396825396825397,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -53.35838,
+                "content": -6.16971,
+                "ecstatic": -90.64025,
+                "euphoric": -162.33495,
+                "hurt": -56.36774,
+                "overwhelmed": -31.78875,
+                "panicked": -80.31463,
+                "serene": -83.78869,
+                "terrified": 66.58767,
+                "tormented": -157.66351
+              }
+            },
+            "text": {
+              "observed": -13.674502000000004,
+              "p_perm": 0.5396825396825397,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -53.35838,
+                "content": -6.16971,
+                "ecstatic": -90.64025,
+                "euphoric": -162.33495,
+                "hurt": -56.36774,
+                "overwhelmed": -31.78875,
+                "panicked": -80.31463,
+                "serene": -83.78869,
+                "terrified": 66.58767,
+                "tormented": -157.66351
+              }
+            },
+            "state": {
+              "observed": 0.0,
+              "p_perm": 1.0,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 0.0,
+                "content": 0.0,
+                "ecstatic": 0.0,
+                "euphoric": 0.0,
+                "hurt": 0.0,
+                "overwhelmed": 0.0,
+                "panicked": 0.0,
+                "serene": 0.0,
+                "terrified": 0.0,
+                "tormented": 0.0
+              }
+            },
+            "additivity_residual": 0.0,
+            "swap": {
+              "text_swap": {
+                "observed": -15.344470000000001,
+                "p_perm": 0.49206349206349204,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": -57.70338,
+                  "content": -15.66028,
+                  "ecstatic": -80.87639,
+                  "euphoric": -153.56237,
+                  "hurt": -52.35535,
+                  "overwhelmed": -31.3316,
+                  "panicked": -71.67174,
+                  "serene": -88.38696,
+                  "terrified": 68.029,
+                  "tormented": -155.41499
+                }
+              },
+              "state_swap": {
+                "observed": 0.0,
+                "p_perm": 1.0,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 0.0,
+                  "content": 0.0,
+                  "ecstatic": 0.0,
+                  "euphoric": 0.0,
+                  "hurt": 0.0,
+                  "overwhelmed": 0.0,
+                  "panicked": 0.0,
+                  "serene": 0.0,
+                  "terrified": 0.0,
+                  "tormented": 0.0
+                }
+              },
+              "text_transfer_ratio": 1.1221,
+              "state_transfer_ratio": null
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text."
+          },
+          "t6": {
+            "coord": "x_minus_a",
+            "arm": "reencode_steered",
+            "measure": "self_attribution",
+            "fixed_effects": "condition x strength x frame (within-cell demeaning; controls strength exactly)",
+            "gated": {
+              "r_partial": 0.265,
+              "t": 11.729,
+              "p": 1.118702814234251e-30,
+              "n_obs": 1918,
+              "n_cells": 96,
+              "df": 1821,
+              "spearman_rho": 0.2082,
+              "spearman_p": 3.106574727354729e-20
+            },
+            "intent_to_treat": {
+              "r_partial": 0.2679,
+              "t": 11.872,
+              "p": 2.2881889122875722e-31,
+              "n_obs": 1920,
+              "n_cells": 96,
+              "df": 1823,
+              "spearman_rho": 0.2089,
+              "spearman_p": 2.2492306253829774e-20
+            },
+            "gate": 3,
+            "p": 1.118702814234251e-30,
+            "observed": 0.265
+          },
+          "b3_a": {
+            "coord": "assistant_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": -14.64217,
+            "other_slope": -12.6802,
+            "contrast": -1.96197,
+            "observed": -1.9619694117648305,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": -0.106,
+            "p_cluster": 0.9181340532025472,
+            "p_perm": 0.9206349206349206,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "r5_frame_symmetry": {
+            "b3_a": -1.9619694117648305,
+            "main_a": -11.173288500000002,
+            "ratio": 0.1756,
+            "equivalence_bound": 0.3333333333333333,
+            "note": "prereg frame-symmetry ratio |b3_a/main_a| (only interpreted if T2 rejects; acknowledged weak)"
+          },
+          "control_scale": {
+            "experiencer_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "assistant_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "x_minus_a": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            }
+          },
+          "control_band": {
+            "experiencer_axis": {
+              "n": 6,
+              "mean": -43.60099,
+              "sd": 88.83934,
+              "lo_95": -217.7261,
+              "hi_95": 130.52412
+            },
+            "assistant_axis": {
+              "n": 6,
+              "mean": -11.29791,
+              "sd": 38.82784,
+              "lo_95": -87.40047,
+              "hi_95": 64.80465
+            },
+            "x_minus_a": {
+              "n": 6,
+              "mean": -32.30308,
+              "sd": 104.42315,
+              "lo_95": -236.97246,
+              "hi_95": 172.36629
+            }
+          },
+          "arm_comparison": [
+            {
+              "arm": "direct_add",
+              "label": "analytic linear propagation (inject, capture, no forward)",
+              "t1_like_x_self": 0.0,
+              "t2_like_a_pooled": 0.0,
+              "t3_like_discriminator_self": 0.0
+            },
+            {
+              "arm": "prompt_steered",
+              "label": "propagated steer, prompt only (no generation)",
+              "t1_like_x_self": 0.0,
+              "t2_like_a_pooled": 0.0,
+              "t3_like_discriminator_self": 0.0
+            },
+            {
+              "arm": "reencode_unsteered",
+              "label": "text only (unsteered re-encode of steered generations)",
+              "t1_like_x_self": 69.247482,
+              "t2_like_a_pooled": -11.173288500000002,
+              "t3_like_discriminator_self": 82.921982
+            },
+            {
+              "arm": "reencode_steered",
+              "label": "full generation-time state (steered re-encode)",
+              "t1_like_x_self": 69.247482,
+              "t2_like_a_pooled": -11.173288500000002,
+              "t3_like_discriminator_self": 82.921982
+            }
+          ],
+          "artifact": {
+            "analytic_axis_stat": {
+              "observed": 0.0,
+              "p_perm": 1.0,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 0.0,
+                "content": 0.0,
+                "ecstatic": 0.0,
+                "euphoric": 0.0,
+                "hurt": 0.0,
+                "overwhelmed": 0.0,
+                "panicked": 0.0,
+                "serene": 0.0,
+                "terrified": 0.0,
+                "tormented": 0.0
+              }
+            },
+            "analytic_fraction_of_t2": -0.0,
+            "artifact_confounded": false,
+            "gate": 0.5,
+            "t1_perp": {
+              "observed": 64.05546815692,
+              "p_perm": 0.015873015873015872,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 22.64167,
+                "content": 23.43885,
+                "ecstatic": 94.87741,
+                "euphoric": 46.93636,
+                "hurt": -85.00856,
+                "overwhelmed": -115.74336,
+                "panicked": 3.19814,
+                "serene": -51.55181,
+                "terrified": -172.72695,
+                "tormented": -133.93146
+              }
+            },
+            "t2_perp": {
+              "observed": -6.026089271790004,
+              "p_perm": 0.5714285714285714,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -59.08621,
+                "content": -3.60435,
+                "ecstatic": -53.59645,
+                "euphoric": -90.51983,
+                "hurt": -51.57508,
+                "overwhelmed": -19.46589,
+                "panicked": -47.99086,
+                "serene": -58.81964,
+                "terrified": 6.50462,
+                "tormented": -92.83837
+              }
+            },
+            "t3_perp": {
+              "observed": 72.47807300000001,
+              "p_perm": 0.05555555555555555,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 64.00669,
+                "content": 32.71328,
+                "ecstatic": 180.26818,
+                "euphoric": 165.54386,
+                "hurt": -31.02996,
+                "overwhelmed": -87.49711,
+                "panicked": 99.9783,
+                "serene": 10.67088,
+                "terrified": -241.27561,
+                "tormented": -11.75346
+              }
+            }
+          },
+          "collinearity": {
+            "cos_x_a": -0.0,
+            "threshold": 0.5,
+            "passed": true,
+            "note": "gate fails => the coordinate contrast (T3) is voided; the frame interaction (T4) remains the discriminator"
+          },
+          "gatekeeping": {
+            "order": [
+              "t1",
+              "t2",
+              "t3",
+              "t4",
+              "t5",
+              "t6"
+            ],
+            "alpha": 0.05,
+            "family_size": 6,
+            "passed": [
+              "t1"
+            ],
+            "stopped_at": "t2",
+            "p_bonferroni": {
+              "t1": 0.09523809523809523,
+              "t2": 1.0,
+              "t3": 0.3333333333333333,
+              "t4": 0.047619047619047616,
+              "t5": 1.0,
+              "t6": 6.712216885405505e-30
+            }
+          },
+          "washout_companion": {
+            "t1_observed": 42.80499,
+            "t3_observed": 48.47249,
+            "note": "washout-guard positions only; descriptive"
+          },
+          "role": "text_mediated_comparator"
+        },
+        "42": {
+          "t1": {
+            "observed": 66.40626,
+            "p_perm": 0.2777777777777778,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 102.00114,
+              "content": 105.66538,
+              "ecstatic": 277.30577,
+              "euphoric": 132.71392,
+              "hurt": 125.14947,
+              "overwhelmed": -108.18926,
+              "panicked": 26.84327,
+              "serene": -267.76438,
+              "terrified": -198.79539,
+              "tormented": -159.14886
+            },
+            "coord": "experiencer_axis",
+            "displacement_at_smax": 6.64063,
+            "in_control_units": null,
+            "standardized_vs_control": 0.8993,
+            "inside_control_band": true
+          },
+          "t2": {
+            "observed": 3.0528740000000028,
+            "p_perm": 0.9206349206349206,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": -176.58652,
+              "content": 50.3766,
+              "ecstatic": -118.75749,
+              "euphoric": -324.27153,
+              "hurt": -177.82631,
+              "overwhelmed": -122.17324,
+              "panicked": -21.24137,
+              "serene": -157.22827,
+              "terrified": -55.45731,
+              "tormented": -380.29771
+            },
+            "coord": "assistant_axis",
+            "displacement_at_smax": 0.30529,
+            "in_control_units": null,
+            "standardized_vs_control": 0.0402,
+            "inside_control_band": true
+          },
+          "t3": {
+            "observed": 78.86474100000001,
+            "p_perm": 0.31746031746031744,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 262.98358,
+              "content": 56.90506,
+              "ecstatic": 424.58286,
+              "euphoric": 489.26112,
+              "hurt": 290.40506,
+              "overwhelmed": -13.96521,
+              "panicked": 82.96747,
+              "serene": -102.05206,
+              "terrified": -258.02827,
+              "tormented": 241.6541
+            },
+            "coord": "x_minus_a",
+            "displacement_at_smax": 7.88647,
+            "in_control_units": null,
+            "standardized_vs_control": 0.5846,
+            "inside_control_band": true
+          },
+          "t4": {
+            "coord": "experiencer_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": 65.41842,
+            "other_slope": 29.85849,
+            "contrast": 35.55993,
+            "observed": 35.55993102941184,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": 2.713,
+            "p_cluster": 0.023878107960332344,
+            "p_perm": 0.015873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "t5": {
+            "coord": "experiencer_axis",
+            "frame": "self",
+            "total": {
+              "observed": 66.40626,
+              "p_perm": 0.2777777777777778,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 102.00114,
+                "content": 105.66538,
+                "ecstatic": 277.30577,
+                "euphoric": 132.71392,
+                "hurt": 125.14947,
+                "overwhelmed": -108.18926,
+                "panicked": 26.84327,
+                "serene": -267.76438,
+                "terrified": -198.79539,
+                "tormented": -159.14886
+              }
+            },
+            "text": {
+              "observed": 45.432977,
+              "p_perm": 0.11904761904761904,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 16.43706,
+                "content": 14.29149,
+                "ecstatic": 114.85492,
+                "euphoric": 53.81037,
+                "hurt": -65.39089,
+                "overwhelmed": -55.08223,
+                "panicked": 42.4766,
+                "serene": -111.77295,
+                "terrified": -151.6268,
+                "tormented": -137.08556
+              }
+            },
+            "state": {
+              "observed": 20.98444933823529,
+              "p_perm": 0.5952380952380952,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 85.57285,
+                "content": 91.3233,
+                "ecstatic": 162.53049,
+                "euphoric": 78.97394,
+                "hurt": 190.49466,
+                "overwhelmed": -53.11477,
+                "panicked": -15.6817,
+                "serene": -155.99657,
+                "terrified": -47.18189,
+                "tormented": -21.95679
+              }
+            },
+            "additivity_residual": -0.01117,
+            "swap": {
+              "text_swap": {
+                "observed": 48.403577,
+                "p_perm": 0.09523809523809523,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 33.41919,
+                  "content": 32.95152,
+                  "ecstatic": 121.92736,
+                  "euphoric": 66.12821,
+                  "hurt": -48.86025,
+                  "overwhelmed": -43.61601,
+                  "panicked": 60.95496,
+                  "serene": -60.8727,
+                  "terrified": -142.89438,
+                  "tormented": -116.06651
+                }
+              },
+              "state_swap": {
+                "observed": 20.95389602941175,
+                "p_perm": 0.6031746031746031,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 85.54013,
+                  "content": 91.2524,
+                  "ecstatic": 162.49975,
+                  "euphoric": 78.88749,
+                  "hurt": 190.51485,
+                  "overwhelmed": -53.16827,
+                  "panicked": -15.68239,
+                  "serene": -156.07373,
+                  "terrified": -47.1961,
+                  "tormented": -21.901
+                }
+              },
+              "text_transfer_ratio": 1.0654,
+              "state_transfer_ratio": 0.9985
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text.",
+            "p_perm": 0.5952380952380952,
+            "observed": 20.98444933823529
+          },
+          "t5_assistant_axis": {
+            "coord": "assistant_axis",
+            "frame": "self",
+            "total": {
+              "observed": -12.458483999999999,
+              "p_perm": 0.7619047619047619,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -160.98244,
+                "content": 48.76032,
+                "ecstatic": -147.2771,
+                "euphoric": -356.5472,
+                "hurt": -165.25559,
+                "overwhelmed": -94.22404,
+                "panicked": -56.1242,
+                "serene": -165.71232,
+                "terrified": 59.23289,
+                "tormented": -400.80296
+              }
+            },
+            "text": {
+              "observed": -27.096956,
+              "p_perm": 0.35714285714285715,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -70.43623,
+                "content": -8.91233,
+                "ecstatic": -124.93981,
+                "euphoric": -204.04565,
+                "hurt": -48.61738,
+                "overwhelmed": 3.29375,
+                "panicked": -101.79585,
+                "serene": -82.68609,
+                "terrified": 97.66673,
+                "tormented": -170.5978
+              }
+            },
+            "state": {
+              "observed": 14.62601470588234,
+              "p_perm": 0.6349206349206349,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -90.56627,
+                "content": 57.67919,
+                "ecstatic": -22.38555,
+                "euphoric": -152.45727,
+                "hurt": -116.64268,
+                "overwhelmed": -97.56828,
+                "panicked": 45.75094,
+                "serene": -83.13498,
+                "terrified": -38.46307,
+                "tormented": -230.20193
+              }
+            },
+            "additivity_residual": 0.01246,
+            "swap": {
+              "text_swap": {
+                "observed": -26.543498999999997,
+                "p_perm": 0.3333333333333333,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": -75.92015,
+                  "content": -21.54822,
+                  "ecstatic": -108.06762,
+                  "euphoric": -186.97766,
+                  "hurt": -53.95973,
+                  "overwhelmed": -5.45064,
+                  "panicked": -90.12981,
+                  "serene": -103.37347,
+                  "terrified": 92.11211,
+                  "tormented": -173.02406
+                }
+              },
+              "state_swap": {
+                "observed": 14.647011029411757,
+                "p_perm": 0.6349206349206349,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": -90.57252,
+                  "content": 57.69605,
+                  "ecstatic": -22.37922,
+                  "euphoric": -152.41014,
+                  "hurt": -116.64961,
+                  "overwhelmed": -97.59975,
+                  "panicked": 45.72432,
+                  "serene": -83.05477,
+                  "terrified": -38.46559,
+                  "tormented": -230.20009
+                }
+              },
+              "text_transfer_ratio": 0.9796,
+              "state_transfer_ratio": 1.0014
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text."
+          },
+          "t6": {
+            "coord": "x_minus_a",
+            "arm": "reencode_steered",
+            "measure": "self_attribution",
+            "fixed_effects": "condition x strength x frame (within-cell demeaning; controls strength exactly)",
+            "gated": {
+              "r_partial": 0.2762,
+              "t": 12.262,
+              "p": 2.8705271085497824e-33,
+              "n_obs": 1918,
+              "n_cells": 96,
+              "df": 1821,
+              "spearman_rho": 0.2151,
+              "spearman_p": 1.6564075289312105e-21
+            },
+            "intent_to_treat": {
+              "r_partial": 0.2795,
+              "t": 12.427,
+              "p": 4.297299121369209e-34,
+              "n_obs": 1920,
+              "n_cells": 96,
+              "df": 1823,
+              "spearman_rho": 0.2144,
+              "spearman_p": 2.1636162295443757e-21
+            },
+            "gate": 3,
+            "p": 2.8705271085497824e-33,
+            "observed": 0.2762
+          },
+          "b3_a": {
+            "coord": "assistant_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": -14.06629,
+            "other_slope": 14.46945,
+            "contrast": -28.53574,
+            "observed": -28.53573757352946,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": -1.193,
+            "p_cluster": 0.2632714837070738,
+            "p_perm": 0.3412698412698413,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "r5_frame_symmetry": {
+            "b3_a": -28.53573757352946,
+            "main_a": 3.0528740000000028,
+            "ratio": -9.3472,
+            "equivalence_bound": 0.3333333333333333,
+            "note": "prereg frame-symmetry ratio |b3_a/main_a| (only interpreted if T2 rejects; acknowledged weak)"
+          },
+          "control_scale": {
+            "experiencer_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "assistant_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "x_minus_a": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            }
+          },
+          "control_band": {
+            "experiencer_axis": {
+              "n": 6,
+              "mean": -6.0259,
+              "sd": 73.84558,
+              "lo_95": -150.76324,
+              "hi_95": 138.71145
+            },
+            "assistant_axis": {
+              "n": 6,
+              "mean": -7.81582,
+              "sd": 75.95903,
+              "lo_95": -156.69553,
+              "hi_95": 141.06388
+            },
+            "x_minus_a": {
+              "n": 6,
+              "mean": 1.78992,
+              "sd": 134.89973,
+              "lo_95": -262.61354,
+              "hi_95": 266.19339
+            }
+          },
+          "arm_comparison": [
+            {
+              "arm": "direct_add",
+              "label": "analytic linear propagation (inject, capture, no forward)",
+              "t1_like_x_self": 21.077845000000003,
+              "t2_like_a_pooled": 14.644649000000005,
+              "t3_like_discriminator_self": 6.433197000000007
+            },
+            {
+              "arm": "prompt_steered",
+              "label": "propagated steer, prompt only (no generation)",
+              "t1_like_x_self": 21.085717,
+              "t2_like_a_pooled": 14.585420500000001,
+              "t3_like_discriminator_self": 6.466656999999984
+            },
+            {
+              "arm": "reencode_unsteered",
+              "label": "text only (unsteered re-encode of steered generations)",
+              "t1_like_x_self": 45.432977,
+              "t2_like_a_pooled": -11.580707499999994,
+              "t3_like_discriminator_self": 72.529933
+            },
+            {
+              "arm": "reencode_steered",
+              "label": "full generation-time state (steered re-encode)",
+              "t1_like_x_self": 66.40626,
+              "t2_like_a_pooled": 3.0528740000000028,
+              "t3_like_discriminator_self": 78.86474100000001
+            }
+          ],
+          "artifact": {
+            "analytic_axis_stat": {
+              "observed": 14.644649000000005,
+              "p_perm": 0.6349206349206349,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -90.68515,
+                "content": 57.56166,
+                "ecstatic": -22.27075,
+                "euphoric": -152.25844,
+                "hurt": -116.3765,
+                "overwhelmed": -97.7365,
+                "panicked": 45.8673,
+                "serene": -83.01561,
+                "terrified": -38.77155,
+                "tormented": -230.09755
+              }
+            },
+            "analytic_fraction_of_t2": 4.797,
+            "artifact_confounded": true,
+            "gate": 0.5,
+            "t1_perp": {
+              "observed": 39.83822940161999,
+              "p_perm": 0.1111111111111111,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 4.16405,
+                "content": 9.19157,
+                "ecstatic": 81.02039,
+                "euphoric": 27.29711,
+                "hurt": -77.39024,
+                "overwhelmed": -52.03114,
+                "panicked": 49.76611,
+                "serene": -83.63589,
+                "terrified": -148.37548,
+                "tormented": -132.3143
+              }
+            },
+            "t2_perp": {
+              "observed": -8.017502473894998,
+              "p_perm": 0.5317460317460317,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -73.69956,
+                "content": -11.66811,
+                "ecstatic": -90.45321,
+                "euphoric": -123.46064,
+                "hurt": -55.60041,
+                "overwhelmed": -16.34608,
+                "panicked": -81.98048,
+                "serene": -64.25578,
+                "terrified": -11.67073,
+                "tormented": -117.76459
+              }
+            },
+            "t3_perp": {
+              "observed": 63.845687,
+              "p_perm": 0.1349206349206349,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 61.22936,
+                "content": 21.21988,
+                "ecstatic": 201.44565,
+                "euphoric": 181.67487,
+                "hurt": -35.67495,
+                "overwhelmed": -60.96155,
+                "panicked": 171.6047,
+                "serene": -16.15346,
+                "terrified": -248.99087,
+                "tormented": -15.0179
+              }
+            }
+          },
+          "collinearity": {
+            "cos_x_a": -0.0,
+            "threshold": 0.5,
+            "passed": true,
+            "note": "gate fails => the coordinate contrast (T3) is voided; the frame interaction (T4) remains the discriminator"
+          },
+          "gatekeeping": {
+            "order": [
+              "t1",
+              "t2",
+              "t3",
+              "t4",
+              "t5",
+              "t6"
+            ],
+            "alpha": 0.05,
+            "family_size": 6,
+            "passed": [],
+            "stopped_at": "t1",
+            "p_bonferroni": {
+              "t1": 1.0,
+              "t2": 1.0,
+              "t3": 1.0,
+              "t4": 0.09523809523809523,
+              "t5": 1.0,
+              "t6": 1.7223162651298694e-32
+            }
+          },
+          "washout_companion": {
+            "t1_observed": 40.47391,
+            "t3_observed": 42.03539,
+            "note": "washout-guard positions only; descriptive"
+          },
+          "role": "descriptive"
+        },
+        "50": {
+          "t1": {
+            "observed": 130.01199000000003,
+            "p_perm": 0.15873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 81.22179,
+              "content": 130.6257,
+              "ecstatic": 373.96023,
+              "euphoric": 171.92528,
+              "hurt": -18.12165,
+              "overwhelmed": -224.78704,
+              "panicked": 84.71931,
+              "serene": -428.01201,
+              "terrified": -444.87933,
+              "tormented": -367.3302
+            },
+            "coord": "experiencer_axis",
+            "displacement_at_smax": 13.0012,
+            "in_control_units": null,
+            "standardized_vs_control": 0.851,
+            "inside_control_band": true
+          },
+          "t2": {
+            "observed": 0.09109000000000833,
+            "p_perm": 1.0,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": -296.98978,
+              "content": 15.47887,
+              "ecstatic": -196.62499,
+              "euphoric": -489.57904,
+              "hurt": -280.2945,
+              "overwhelmed": -171.62282,
+              "panicked": -99.06607,
+              "serene": -273.31678,
+              "terrified": -142.98409,
+              "tormented": -547.97514
+            },
+            "coord": "assistant_axis",
+            "displacement_at_smax": 0.00911,
+            "in_control_units": null,
+            "standardized_vs_control": 0.0009,
+            "inside_control_band": true
+          },
+          "t3": {
+            "observed": 141.33975300000003,
+            "p_perm": 0.23015873015873015,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968,
+            "n_emotions": 10,
+            "per_emotion": {
+              "blissful": 408.60184,
+              "content": 165.91369,
+              "ecstatic": 659.66991,
+              "euphoric": 769.63593,
+              "hurt": 320.96129,
+              "overwhelmed": -27.57804,
+              "panicked": 310.27119,
+              "serene": -89.99199,
+              "terrified": -410.76798,
+              "tormented": 307.54539
+            },
+            "coord": "x_minus_a",
+            "displacement_at_smax": 14.13398,
+            "in_control_units": null,
+            "standardized_vs_control": 0.8692,
+            "inside_control_band": true
+          },
+          "t4": {
+            "coord": "experiencer_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": 131.50116,
+            "other_slope": 82.58571,
+            "contrast": 48.91545,
+            "observed": 48.91544588235308,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": 1.689,
+            "p_cluster": 0.12554564638310603,
+            "p_perm": 0.15079365079365079,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "t5": {
+            "coord": "experiencer_axis",
+            "frame": "self",
+            "total": {
+              "observed": 130.01199000000003,
+              "p_perm": 0.15873015873015872,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 81.22179,
+                "content": 130.6257,
+                "ecstatic": 373.96023,
+                "euphoric": 171.92528,
+                "hurt": -18.12165,
+                "overwhelmed": -224.78704,
+                "panicked": 84.71931,
+                "serene": -428.01201,
+                "terrified": -444.87933,
+                "tormented": -367.3302
+              }
+            },
+            "text": {
+              "observed": 87.099855,
+              "p_perm": 0.15873015873015872,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -21.94475,
+                "content": -22.69074,
+                "ecstatic": 211.3641,
+                "euphoric": 73.74281,
+                "hurt": -168.29295,
+                "overwhelmed": -142.6216,
+                "panicked": 29.55285,
+                "serene": -320.27103,
+                "terrified": -357.32133,
+                "tormented": -312.11513
+              }
+            },
+            "state": {
+              "observed": 46.68477198529408,
+              "p_perm": 0.20634920634920634,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 102.42429,
+                "content": 154.14902,
+                "ecstatic": 162.16986,
+                "euphoric": 92.02526,
+                "hurt": 142.19705,
+                "overwhelmed": -90.46006,
+                "panicked": 44.04988,
+                "serene": -118.27802,
+                "terrified": -98.32089,
+                "tormented": -71.8233
+              }
+            },
+            "additivity_residual": -3.77264,
+            "swap": {
+              "text_swap": {
+                "observed": 108.23639299999999,
+                "p_perm": 0.1111111111111111,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 29.32165,
+                  "content": 18.49139,
+                  "ecstatic": 247.81835,
+                  "euphoric": 109.79038,
+                  "hurt": -171.53918,
+                  "overwhelmed": -164.9147,
+                  "panicked": 76.72139,
+                  "serene": -247.10457,
+                  "terrified": -376.69281,
+                  "tormented": -287.62143
+                }
+              },
+              "state_swap": {
+                "observed": 40.268069264705844,
+                "p_perm": 0.2222222222222222,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": 72.30838,
+                  "content": 119.25647,
+                  "ecstatic": 175.98306,
+                  "euphoric": 94.93518,
+                  "hurt": 172.86911,
+                  "overwhelmed": -66.47827,
+                  "panicked": 49.88062,
+                  "serene": -54.77016,
+                  "terrified": -75.26218,
+                  "tormented": -75.97703
+                }
+              },
+              "text_transfer_ratio": 1.2427,
+              "state_transfer_ratio": 0.8626
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text.",
+            "p_perm": 0.20634920634920634,
+            "observed": 46.68477198529408
+          },
+          "t5_assistant_axis": {
+            "coord": "assistant_axis",
+            "frame": "self",
+            "total": {
+              "observed": -11.327761999999984,
+              "p_perm": 0.8333333333333334,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -327.38004,
+                "content": -35.28799,
+                "ecstatic": -285.70968,
+                "euphoric": -597.71065,
+                "hurt": -339.08294,
+                "overwhelmed": -197.209,
+                "panicked": -225.55188,
+                "serene": -338.02002,
+                "terrified": -34.11135,
+                "tormented": -674.87559
+              }
+            },
+            "text": {
+              "observed": -31.290155,
+              "p_perm": 0.6190476190476191,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -176.8507,
+                "content": -56.78515,
+                "ecstatic": -213.52798,
+                "euphoric": -400.30524,
+                "hurt": -179.97459,
+                "overwhelmed": -47.26798,
+                "panicked": -247.42564,
+                "serene": -263.72411,
+                "terrified": 123.78637,
+                "tormented": -447.40979
+              }
+            },
+            "state": {
+              "observed": 20.49402088235292,
+              "p_perm": 0.46825396825396826,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -153.03808,
+                "content": 20.09277,
+                "ecstatic": -76.08356,
+                "euphoric": -207.6864,
+                "hurt": -167.35833,
+                "overwhelmed": -150.33436,
+                "panicked": 6.9931,
+                "serene": -89.81436,
+                "terrified": -154.28495,
+                "tormented": -246.4853
+              }
+            },
+            "additivity_residual": -0.53163,
+            "swap": {
+              "text_swap": {
+                "observed": -27.50129000000001,
+                "p_perm": 0.6666666666666666,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": -197.61429,
+                  "content": -77.27102,
+                  "ecstatic": -212.64258,
+                  "euphoric": -403.35523,
+                  "hurt": -245.7101,
+                  "overwhelmed": -100.22587,
+                  "panicked": -239.20601,
+                  "serene": -379.25315,
+                  "terrified": 96.58158,
+                  "tormented": -506.56297
+                }
+              },
+              "state_swap": {
+                "observed": 1.1372121323529398,
+                "p_perm": 0.9761904761904762,
+                "p_perm_exact": true,
+                "n_arrangements": 252,
+                "p_perm_floor": 0.003968253968253968,
+                "n_emotions": 10,
+                "per_emotion": {
+                  "blissful": -212.08184,
+                  "content": -9.99978,
+                  "ecstatic": -125.14802,
+                  "euphoric": -240.84787,
+                  "hurt": -148.71195,
+                  "overwhelmed": -177.19683,
+                  "panicked": -3.21425,
+                  "serene": -202.72311,
+                  "terrified": -206.24691,
+                  "tormented": -266.80281
+                }
+              },
+              "text_transfer_ratio": 0.8789,
+              "state_transfer_ratio": 0.0555
+            },
+            "note": "text_transfer_ratio ~ 1 => displacement follows the text (text-driven); state_transfer_ratio ~ 0 => the state component is bound to the steer/encode context, not the text."
+          },
+          "t6": {
+            "coord": "x_minus_a",
+            "arm": "reencode_steered",
+            "measure": "self_attribution",
+            "fixed_effects": "condition x strength x frame (within-cell demeaning; controls strength exactly)",
+            "gated": {
+              "r_partial": 0.2797,
+              "t": 12.434,
+              "p": 3.9759180871284415e-34,
+              "n_obs": 1918,
+              "n_cells": 96,
+              "df": 1821,
+              "spearman_rho": 0.2184,
+              "spearman_p": 3.7599282063354626e-22
+            },
+            "intent_to_treat": {
+              "r_partial": 0.2829,
+              "t": 12.594,
+              "p": 6.189576573109785e-35,
+              "n_obs": 1920,
+              "n_cells": 96,
+              "df": 1823,
+              "spearman_rho": 0.2187,
+              "spearman_p": 3.1823534302358944e-22
+            },
+            "gate": 3,
+            "p": 3.9759180871284415e-34,
+            "observed": 0.2797
+          },
+          "b3_a": {
+            "coord": "assistant_axis",
+            "arm": "reencode_steered",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "self_slope": -14.02509,
+            "other_slope": 3.85172,
+            "contrast": -17.87681,
+            "observed": -17.876810882353055,
+            "n_obs": 800,
+            "n_clusters": 10,
+            "t_cluster": -0.442,
+            "p_cluster": 0.6685817099066793,
+            "p_perm": 0.7777777777777778,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.003968253968253968
+          },
+          "r5_frame_symmetry": {
+            "b3_a": -17.876810882353055,
+            "main_a": 0.09109000000000833,
+            "ratio": -196.2544,
+            "equivalence_bound": 0.3333333333333333,
+            "note": "prereg frame-symmetry ratio |b3_a/main_a| (only interpreted if T2 rejects; acknowledged weak)"
+          },
+          "control_scale": {
+            "experiencer_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "assistant_axis": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            },
+            "x_minus_a": {
+              "per_role_frame": [],
+              "scale": null,
+              "n": 0
+            }
+          },
+          "control_band": {
+            "experiencer_axis": {
+              "n": 6,
+              "mean": -66.70076,
+              "sd": 152.77963,
+              "lo_95": -366.14883,
+              "hi_95": 232.74731
+            },
+            "assistant_axis": {
+              "n": 6,
+              "mean": -58.33325,
+              "sd": 98.15237,
+              "lo_95": -250.71189,
+              "hi_95": 134.0454
+            },
+            "x_minus_a": {
+              "n": 6,
+              "mean": -8.36752,
+              "sd": 162.60141,
+              "lo_95": -327.06627,
+              "hi_95": 310.33124
+            }
+          },
+          "arm_comparison": [
+            {
+              "arm": "direct_add",
+              "label": "analytic linear propagation (inject, capture, no forward)",
+              "t1_like_x_self": 12.519847,
+              "t2_like_a_pooled": 25.995186,
+              "t3_like_discriminator_self": -13.475343999999996
+            },
+            {
+              "arm": "prompt_steered",
+              "label": "propagated steer, prompt only (no generation)",
+              "t1_like_x_self": 64.43605699999999,
+              "t2_like_a_pooled": -4.272285000000005,
+              "t3_like_discriminator_self": 52.764098000000004
+            },
+            {
+              "arm": "reencode_unsteered",
+              "label": "text only (unsteered re-encode of steered generations)",
+              "t1_like_x_self": 87.099855,
+              "t2_like_a_pooled": -11.215349000000003,
+              "t3_like_discriminator_self": 118.390012
+            },
+            {
+              "arm": "reencode_steered",
+              "label": "full generation-time state (steered re-encode)",
+              "t1_like_x_self": 130.01199000000003,
+              "t2_like_a_pooled": 0.09109000000000833,
+              "t3_like_discriminator_self": 141.33975300000003
+            }
+          ],
+          "artifact": {
+            "analytic_axis_stat": {
+              "observed": 25.995186,
+              "p_perm": 0.36507936507936506,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -49.5714,
+                "content": 99.06221,
+                "ecstatic": 1.60064,
+                "euphoric": -118.0126,
+                "hurt": -89.673,
+                "overwhelmed": -80.947,
+                "panicked": 34.69779,
+                "serene": -77.0148,
+                "terrified": -56.71536,
+                "tormented": -211.25026
+              }
+            },
+            "analytic_fraction_of_t2": 285.3791,
+            "artifact_confounded": true,
+            "gate": 0.5,
+            "t1_perp": {
+              "observed": 98.1082169906,
+              "p_perm": 0.15079365079365079,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -4.65909,
+                "content": 62.12297,
+                "ecstatic": 217.543,
+                "euphoric": 42.87359,
+                "hurt": -105.47748,
+                "overwhelmed": -211.1514,
+                "panicked": 42.1044,
+                "serene": -345.67345,
+                "terrified": -422.98242,
+                "tormented": -311.36825
+              }
+            },
+            "t2_perp": {
+              "observed": -0.7815118644349923,
+              "p_perm": 0.9841269841269841,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": -214.32161,
+                "content": -34.30482,
+                "ecstatic": -214.0929,
+                "euphoric": -293.07535,
+                "hurt": -196.22905,
+                "overwhelmed": -77.4836,
+                "panicked": -182.28495,
+                "serene": -139.04243,
+                "terrified": -91.92694,
+                "tormented": -339.09745
+              }
+            },
+            "t3_perp": {
+              "observed": 109.86291700000001,
+              "p_perm": 0.24603174603174602,
+              "p_perm_exact": true,
+              "n_arrangements": 252,
+              "p_perm_floor": 0.003968253968253968,
+              "n_emotions": 10,
+              "per_emotion": {
+                "blissful": 240.25287,
+                "content": 143.44243,
+                "ecstatic": 518.83617,
+                "euphoric": 441.51799,
+                "hurt": 144.89672,
+                "overwhelmed": -106.78147,
+                "panicked": 368.57868,
+                "serene": -159.44329,
+                "terrified": -433.92261,
+                "tormented": 113.20568
+              }
+            }
+          },
+          "collinearity": {
+            "cos_x_a": 0.0,
+            "threshold": 0.5,
+            "passed": true,
+            "note": "gate fails => the coordinate contrast (T3) is voided; the frame interaction (T4) remains the discriminator"
+          },
+          "gatekeeping": {
+            "order": [
+              "t1",
+              "t2",
+              "t3",
+              "t4",
+              "t5",
+              "t6"
+            ],
+            "alpha": 0.05,
+            "family_size": 6,
+            "passed": [],
+            "stopped_at": "t1",
+            "p_bonferroni": {
+              "t1": 0.9523809523809523,
+              "t2": 1.0,
+              "t3": 1.0,
+              "t4": 0.9047619047619047,
+              "t5": 1.0,
+              "t6": 2.3855508522770647e-33
+            }
+          },
+          "washout_companion": {
+            "t1_observed": 100.53494,
+            "t3_observed": 105.5116,
+            "note": "washout-guard positions only; descriptive"
+          },
+          "role": "primary"
+        }
+      },
+      "l32_text_mediated_guard": null,
+      "decision": {
+        "verdict": "boring",
+        "e5_prediction": "bounded, not proven-null (T1, T2 inside the 95% random band)",
+        "alpha": 0.05,
+        "t3_sign": "A(+)",
+        "r5": -196.2544,
+        "artifact_confounded": true
+      },
+      "e5_precommitment": {
+        "note": "sign(T3) is the pre-registered A-vs-B pre-commitment that E5's cancellation must agree with: T3 > 0 (A: experiencer axis moves) => E5 cancellation stays FLAT; T3 < 0 (B: assistant axis moves) => E5 monotone KILL; discordance falsifies the linear-mediator model itself.",
+        "t3_observed": 141.33975300000003,
+        "t3_sign": "A(+)",
+        "t3_p_perm": 0.23015873015873015
+      }
+    }
+  }
+}

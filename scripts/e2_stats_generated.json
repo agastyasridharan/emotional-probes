@@ -1,0 +1,1366 @@
+{
+  "unit_note": "per-arm keystone b3 = SELF valence-slope \u2212 OTHER valence-slope inside one decode arm; R_X = b3_arm / b3_no_ban with a 90% by-emotion jackknife CI; exact perm = C(10,5)=252 valence-arrangement enumeration (two-sided floor 2/252).",
+  "prereg": {
+    "doc": "docs/prereg/E2.md",
+    "G1_min_pts": 0.5,
+    "G1_max_p": 0.05,
+    "G3_min_reduction": 0.7,
+    "R_survives_ci_lo": 0.6,
+    "R_killed_ci_hi": 0.3,
+    "R_ban_survival_ci_lo": 0.4,
+    "R_boring_wins_ci_hi": 0.2,
+    "ci_level": 0.9
+  },
+  "gate": 3,
+  "n_perm": 2000,
+  "models": [
+    "qwen3-32b",
+    "qwen3-235b"
+  ],
+  "per_model": {
+    "qwen3-32b": {
+      "model_id": "Qwen/Qwen3-32B",
+      "suite_key": "qwen3-32b",
+      "size": 32.0,
+      "layer": 42,
+      "num_layers": 64,
+      "n_records": 1512,
+      "arms": [
+        "no_ban",
+        "ban_emotion_lexicon",
+        "ban_random_matched"
+      ],
+      "gates": {
+        "G1": {
+          "D_full_pts": 1.7479,
+          "scale": "judge self_attribution (0-3), SELF - OTHER over steered no_ban records",
+          "min_pts": 0.5,
+          "p_exact": 0.007936507936507936,
+          "max_p": 0.05,
+          "p_source": "no_ban keystone b3 (expressed_valence), exact valence-arrangement enumeration",
+          "passed": true,
+          "on_fail": "the whole experiment is void (prereg G1)"
+        },
+        "G3": {
+          "by_arm": {
+            "no_ban": {
+              "n_records": 504,
+              "hits_per_record": 4.009920634920635,
+              "hits_per_record_steered": 4.091666666666667,
+              "hits_per_record_baseline": 2.375
+            },
+            "ban_emotion_lexicon": {
+              "n_records": 504,
+              "hits_per_record": 0.005952380952380952,
+              "hits_per_record_steered": 0.004166666666666667,
+              "hits_per_record_baseline": 0.041666666666666664
+            },
+            "ban_random_matched": {
+              "n_records": 504,
+              "hits_per_record": 5.236111111111111,
+              "hits_per_record_steered": 5.295833333333333,
+              "hits_per_record_baseline": 4.041666666666667
+            }
+          },
+          "reduction_vs_no_ban": 0.9985155863433943,
+          "reduction_vs_no_ban_steered": 0.9989816700610998,
+          "min_reduction": 0.7,
+          "passed": true,
+          "escalation_trigger": false,
+          "on_trigger": "escalate the ban list (--extra-ban-words, embedding-NN synonyms) and re-run; if escalation is exhausted, demote the ban arm to dose-response (prereg G3)"
+        }
+      },
+      "keystone_by_arm": {
+        "no_ban": {
+          "expressed_valence": {
+            "arm": "no_ban",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 15.51364,
+            "other_slope": 0.0,
+            "contrast": 15.51364,
+            "b3": 15.5136386386386,
+            "n_obs": 478,
+            "n_clusters": 10,
+            "t_cluster": 6.64,
+            "p_cluster": 9.486425163376392e-05,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "no_ban",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 9.53599,
+            "other_slope": 0.0,
+            "contrast": 9.53599,
+            "b3": 9.535994327660937,
+            "n_obs": 478,
+            "n_clusters": 10,
+            "t_cluster": 4.567,
+            "p_cluster": 0.0013530070054176891,
+            "p_perm": 0.015873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "no_ban",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 100.64358,
+            "other_slope": 131.26396,
+            "contrast": -30.62039,
+            "b3": -30.62038659860822,
+            "n_obs": 478,
+            "n_clusters": 10,
+            "t_cluster": -2.008,
+            "p_cluster": 0.07558296181890539,
+            "p_perm": 0.10317460317460317,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_emotion_lexicon": {
+          "expressed_valence": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 14.97751,
+            "other_slope": 0.0,
+            "contrast": 14.97751,
+            "b3": 14.977505365692581,
+            "n_obs": 479,
+            "n_clusters": 10,
+            "t_cluster": 5.633,
+            "p_cluster": 0.00032034134900494357,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 8.70119,
+            "other_slope": -0.0,
+            "contrast": 8.70119,
+            "b3": 8.701192834736673,
+            "n_obs": 479,
+            "n_clusters": 10,
+            "t_cluster": 5.152,
+            "p_cluster": 0.0006017358185635231,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 99.13852,
+            "other_slope": 118.10439,
+            "contrast": -18.96586,
+            "b3": -18.965860989351008,
+            "n_obs": 479,
+            "n_clusters": 10,
+            "t_cluster": -1.665,
+            "p_cluster": 0.1303223975635528,
+            "p_perm": 0.15079365079365079,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_random_matched": {
+          "expressed_valence": {
+            "arm": "ban_random_matched",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 14.449,
+            "other_slope": -0.0,
+            "contrast": 14.449,
+            "b3": 14.448995533993612,
+            "n_obs": 452,
+            "n_clusters": 10,
+            "t_cluster": 5.972,
+            "p_cluster": 0.00020962554908623748,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_random_matched",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 8.95334,
+            "other_slope": -0.0,
+            "contrast": 8.95334,
+            "b3": 8.95334076811206,
+            "n_obs": 452,
+            "n_clusters": 10,
+            "t_cluster": 4.646,
+            "p_cluster": 0.001209049167467875,
+            "p_perm": 0.015873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_random_matched",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 109.01913,
+            "other_slope": 145.77246,
+            "contrast": -36.75333,
+            "b3": -36.75332742404636,
+            "n_obs": 452,
+            "n_clusters": 10,
+            "t_cluster": -2.718,
+            "p_cluster": 0.02370015647365083,
+            "p_perm": 0.07936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        }
+      },
+      "keystone_by_arm_itt": {
+        "no_ban": {
+          "expressed_valence": {
+            "arm": "no_ban",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 15.66176,
+            "other_slope": -0.0,
+            "contrast": 15.66176,
+            "b3": 15.661764705882357,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": 6.5,
+            "p_cluster": 0.00011147199457766322,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "no_ban",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 9.44853,
+            "other_slope": -0.0,
+            "contrast": 9.44853,
+            "b3": 9.44852941176471,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": 4.482,
+            "p_cluster": 0.0015281380615724271,
+            "p_perm": 0.015873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "no_ban",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 102.17219,
+            "other_slope": 131.26396,
+            "contrast": -29.09178,
+            "b3": -29.091778186273935,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": -1.908,
+            "p_cluster": 0.08876144149898188,
+            "p_perm": 0.1111111111111111,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_emotion_lexicon": {
+          "expressed_valence": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 14.97751,
+            "other_slope": 0.0,
+            "contrast": 14.97751,
+            "b3": 14.977505365692581,
+            "n_obs": 479,
+            "n_clusters": 10,
+            "t_cluster": 5.633,
+            "p_cluster": 0.00032034134900494357,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 8.70119,
+            "other_slope": -0.0,
+            "contrast": 8.70119,
+            "b3": 8.701192834736673,
+            "n_obs": 479,
+            "n_clusters": 10,
+            "t_cluster": 5.152,
+            "p_cluster": 0.0006017358185635231,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 99.51909,
+            "other_slope": 118.10439,
+            "contrast": -18.5853,
+            "b3": -18.58529975490145,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": -1.631,
+            "p_cluster": 0.1374236692000161,
+            "p_perm": 0.15873015873015872,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_random_matched": {
+          "expressed_valence": {
+            "arm": "ban_random_matched",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 14.53431,
+            "other_slope": -0.0,
+            "contrast": 14.53431,
+            "b3": 14.5343137254902,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": 6.476,
+            "p_cluster": 0.00011461093182055297,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_random_matched",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 9.91422,
+            "other_slope": -0.0,
+            "contrast": 9.91422,
+            "b3": 9.914215686274513,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": 5.229,
+            "p_cluster": 0.0005429040167558544,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_random_matched",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 119.91843,
+            "other_slope": 145.29667,
+            "contrast": -25.37825,
+            "b3": -25.378248161764077,
+            "n_obs": 480,
+            "n_clusters": 10,
+            "t_cluster": -2.055,
+            "p_cluster": 0.07002347954207225,
+            "p_perm": 0.10317460317460317,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        }
+      },
+      "kill_test": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": 15.5136386386386,
+              "contrast": 15.51364,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 478
+            },
+            "ban_emotion_lexicon": {
+              "b3": 14.977505365692581,
+              "contrast": 14.97751,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 479
+            },
+            "ban_random_matched": {
+              "b3": 14.448995533993612,
+              "contrast": 14.449,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 452
+            }
+          },
+          "D_full_b3": 15.5136386386386,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 0.9654411653233488,
+            "ci_lo": 0.820753366500438,
+            "ci_hi": 1.1101289641462597,
+            "se_jackknife": 0.078930106402915,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 0.5361332729460191,
+            "p_delta_perm": 0.6746031746031746,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 0.9313737331747972,
+            "ci_lo": 0.8568261896817854,
+            "ci_hi": 1.0059212766678092,
+            "se_jackknife": 0.04066718540089948,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 1.064643104644988,
+            "p_delta_perm": 0.30952380952380953,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": true,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "survives"
+        },
+        "self_attribution": {
+          "measure": "self_attribution",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": 9.535994327660937,
+              "contrast": 9.53599,
+              "p_perm": 0.015873015873015872,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 478
+            },
+            "ban_emotion_lexicon": {
+              "b3": 8.701192834736673,
+              "contrast": 8.70119,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 479
+            },
+            "ban_random_matched": {
+              "b3": 8.95334076811206,
+              "contrast": 8.95334,
+              "p_perm": 0.015873015873015872,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 452
+            }
+          },
+          "D_full_b3": 9.535994327660937,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 0.912457845061551,
+            "ci_lo": 0.6940749892276304,
+            "ci_hi": 1.1308407008954717,
+            "se_jackknife": 0.11913224326980626,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 0.8348014929242638,
+            "p_delta_perm": 0.5,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 0.9388995484342119,
+            "ci_lo": 0.7177789561488599,
+            "ci_hi": 1.1600201407195638,
+            "se_jackknife": 0.12062573360674268,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 0.5826535595488771,
+            "p_delta_perm": 0.7619047619047619,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": true,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "survives"
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": -30.62038659860822,
+              "contrast": -30.62039,
+              "p_perm": 0.10317460317460317,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 478
+            },
+            "ban_emotion_lexicon": {
+              "b3": -18.965860989351008,
+              "contrast": -18.96586,
+              "p_perm": 0.15079365079365079,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 479
+            },
+            "ban_random_matched": {
+              "b3": -36.75332742404636,
+              "contrast": -36.75333,
+              "p_perm": 0.07936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 452
+            }
+          },
+          "D_full_b3": -30.62038659860822,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 0.619386725516165,
+            "ci_lo": 0.2162480063488466,
+            "ci_hi": 1.0225254446834835,
+            "se_jackknife": 0.2199202853169175,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "indeterminate",
+            "delta_b3_vs_no_ban": -11.654525609257213,
+            "p_delta_perm": 0.1746031746031746,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 1.2002894642001973,
+            "ci_lo": 0.6379618408780395,
+            "ci_hi": 1.7626170875223552,
+            "se_jackknife": 0.3067610365435186,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 6.132940825438141,
+            "p_delta_perm": 0.47619047619047616,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": false,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "indeterminate"
+        }
+      },
+      "coherence_by_arm": {
+        "no_ban": {
+          "n_records": 504,
+          "n_judged": 504,
+          "mean_coherence": 4.964,
+          "excluded_by_gate": 2,
+          "exclusion_rate": 0.004
+        },
+        "ban_emotion_lexicon": {
+          "n_records": 504,
+          "n_judged": 503,
+          "mean_coherence": 4.883,
+          "excluded_by_gate": 1,
+          "exclusion_rate": 0.002
+        },
+        "ban_random_matched": {
+          "n_records": 504,
+          "n_judged": 504,
+          "mean_coherence": 4.714,
+          "excluded_by_gate": 28,
+          "exclusion_rate": 0.0556
+        }
+      },
+      "dose_response_fallback": {
+        "measure": "expressed_valence",
+        "note": "exploratory prereg INDETERMINATE fallback: per-cell signed judge effect ~ achieved dose (signed read-back valence + affect-word density) with per-arm intercepts; the arm intercept at zero lexical dose is the anti-boring quantity",
+        "coef_readback": 0.07133,
+        "coef_density": 0.01257,
+        "arm_intercepts_zero_dose": {
+          "no_ban": 0.66342,
+          "ban_emotion_lexicon": 0.65423,
+          "ban_random_matched": 0.38319
+        },
+        "n_cells": 60
+      },
+      "verdict": "survives",
+      "verdict_measure": "expressed_valence"
+    },
+    "qwen3-235b": {
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "suite_key": "qwen3-235b",
+      "size": NaN,
+      "layer": 62,
+      "num_layers": 94,
+      "n_records": 792,
+      "arms": [
+        "no_ban",
+        "ban_emotion_lexicon",
+        "ban_random_matched"
+      ],
+      "gates": {
+        "G1": {
+          "D_full_pts": 0.7833,
+          "scale": "judge self_attribution (0-3), SELF - OTHER over steered no_ban records",
+          "min_pts": 0.5,
+          "p_exact": 0.007936507936507936,
+          "max_p": 0.05,
+          "p_source": "no_ban keystone b3 (expressed_valence), exact valence-arrangement enumeration",
+          "passed": true,
+          "on_fail": "the whole experiment is void (prereg G1)"
+        },
+        "G3": {
+          "by_arm": {
+            "no_ban": {
+              "n_records": 264,
+              "hits_per_record": 3.897727272727273,
+              "hits_per_record_steered": 4.008333333333334,
+              "hits_per_record_baseline": 2.7916666666666665
+            },
+            "ban_emotion_lexicon": {
+              "n_records": 264,
+              "hits_per_record": 0.022727272727272728,
+              "hits_per_record_steered": 0.020833333333333332,
+              "hits_per_record_baseline": 0.041666666666666664
+            },
+            "ban_random_matched": {
+              "n_records": 264,
+              "hits_per_record": 6.4356060606060606,
+              "hits_per_record_steered": 6.604166666666667,
+              "hits_per_record_baseline": 4.75
+            }
+          },
+          "reduction_vs_no_ban": 0.9941690962099126,
+          "reduction_vs_no_ban_steered": 0.9948024948024948,
+          "min_reduction": 0.7,
+          "passed": true,
+          "escalation_trigger": false,
+          "on_trigger": "escalate the ban list (--extra-ban-words, embedding-NN synonyms) and re-run; if escalation is exhausted, demote the ban arm to dose-response (prereg G3)"
+        }
+      },
+      "keystone_by_arm": {
+        "no_ban": {
+          "expressed_valence": {
+            "arm": "no_ban",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 12.5,
+            "other_slope": 0.0,
+            "contrast": 12.5,
+            "b3": 12.500000000000004,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 6.329,
+            "p_cluster": 0.00013623407565739064,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "no_ban",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 10.83333,
+            "other_slope": 0.0,
+            "contrast": 10.83333,
+            "b3": 10.833333333333336,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 7.4,
+            "p_cluster": 4.104586099318063e-05,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "no_ban",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 8.52775,
+            "other_slope": 13.76521,
+            "contrast": -5.23746,
+            "b3": -5.237463888888915,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": -1.932,
+            "p_cluster": 0.08535380935578081,
+            "p_perm": 0.10317460317460317,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_emotion_lexicon": {
+          "expressed_valence": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 12.57062,
+            "other_slope": -0.0,
+            "contrast": 12.57062,
+            "b3": 12.570621468926591,
+            "n_obs": 238,
+            "n_clusters": 10,
+            "t_cluster": 3.907,
+            "p_cluster": 0.0035804603206577488,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 13.27684,
+            "other_slope": -0.0,
+            "contrast": 13.27684,
+            "b3": 13.276836158192134,
+            "n_obs": 238,
+            "n_clusters": 10,
+            "t_cluster": 6.306,
+            "p_cluster": 0.00013997838741073708,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 8.00604,
+            "other_slope": 12.26494,
+            "contrast": -4.2589,
+            "b3": -4.258902165725018,
+            "n_obs": 238,
+            "n_clusters": 10,
+            "t_cluster": -1.878,
+            "p_cluster": 0.09304461244333882,
+            "p_perm": 0.1111111111111111,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_random_matched": {
+          "expressed_valence": {
+            "arm": "ban_random_matched",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 11.45833,
+            "other_slope": -0.0,
+            "contrast": 11.45833,
+            "b3": 11.458333333333355,
+            "n_obs": 224,
+            "n_clusters": 10,
+            "t_cluster": 4.501,
+            "p_cluster": 0.0014858927243984802,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_random_matched",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 9.57341,
+            "other_slope": -0.0,
+            "contrast": 9.57341,
+            "b3": 9.573412698412717,
+            "n_obs": 224,
+            "n_clusters": 10,
+            "t_cluster": 6.355,
+            "p_cluster": 0.0001321664586156561,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_random_matched",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": true,
+            "self_slope": 12.04525,
+            "other_slope": 15.10623,
+            "contrast": -3.06098,
+            "b3": -3.0609845238095432,
+            "n_obs": 224,
+            "n_clusters": 10,
+            "t_cluster": -0.914,
+            "p_cluster": 0.3843604723176992,
+            "p_perm": 0.4126984126984127,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        }
+      },
+      "keystone_by_arm_itt": {
+        "no_ban": {
+          "expressed_valence": {
+            "arm": "no_ban",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 12.5,
+            "other_slope": 0.0,
+            "contrast": 12.5,
+            "b3": 12.500000000000004,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 6.329,
+            "p_cluster": 0.00013623407565739064,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "no_ban",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 10.83333,
+            "other_slope": 0.0,
+            "contrast": 10.83333,
+            "b3": 10.833333333333336,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 7.4,
+            "p_cluster": 4.104586099318063e-05,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "no_ban",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 8.52775,
+            "other_slope": 13.76521,
+            "contrast": -5.23746,
+            "b3": -5.237463888888915,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": -1.932,
+            "p_cluster": 0.08535380935578081,
+            "p_perm": 0.10317460317460317,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_emotion_lexicon": {
+          "expressed_valence": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 12.36111,
+            "other_slope": 0.0,
+            "contrast": 12.36111,
+            "b3": 12.361111111111114,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 3.994,
+            "p_cluster": 0.0031366888177511514,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 13.05556,
+            "other_slope": 0.0,
+            "contrast": 13.05556,
+            "b3": 13.055555555555559,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 6.669,
+            "p_cluster": 9.171616451951044e-05,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_emotion_lexicon",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 7.9161,
+            "other_slope": 12.26494,
+            "contrast": -4.34884,
+            "b3": -4.34884305555558,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": -1.953,
+            "p_cluster": 0.08253610602042237,
+            "p_perm": 0.1111111111111111,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        },
+        "ban_random_matched": {
+          "expressed_valence": {
+            "arm": "ban_random_matched",
+            "measure": "expressed_valence",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 10.97222,
+            "other_slope": 0.0,
+            "contrast": 10.97222,
+            "b3": 10.972222222222225,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 4.588,
+            "p_cluster": 0.0013121308149160891,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "self_attribution": {
+            "arm": "ban_random_matched",
+            "measure": "self_attribution",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 9.16667,
+            "other_slope": 0.0,
+            "contrast": 9.16667,
+            "b3": 9.166666666666668,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": 6.644,
+            "p_cluster": 9.43366819915979e-05,
+            "p_perm": 0.007936507936507936,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          },
+          "proj_valence_axis": {
+            "arm": "ban_random_matched",
+            "measure": "proj_valence_axis",
+            "frames": [
+              "self",
+              "other"
+            ],
+            "gated": false,
+            "self_slope": 12.91051,
+            "other_slope": 15.10623,
+            "contrast": -2.19572,
+            "b3": -2.1957194444444723,
+            "n_obs": 240,
+            "n_clusters": 10,
+            "t_cluster": -0.687,
+            "p_cluster": 0.5095152484852654,
+            "p_perm": 0.6031746031746031,
+            "p_perm_exact": true,
+            "n_arrangements": 252,
+            "p_perm_floor": 0.007936507936507936
+          }
+        }
+      },
+      "kill_test": {
+        "expressed_valence": {
+          "measure": "expressed_valence",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": 12.500000000000004,
+              "contrast": 12.5,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 240
+            },
+            "ban_emotion_lexicon": {
+              "b3": 12.570621468926591,
+              "contrast": 12.57062,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 238
+            },
+            "ban_random_matched": {
+              "b3": 11.458333333333355,
+              "contrast": 11.45833,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 224
+            }
+          },
+          "D_full_b3": 12.500000000000004,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 1.005649717514127,
+            "ci_lo": 0.7789628170404952,
+            "ci_hi": 1.2323366179877588,
+            "se_jackknife": 0.12366226675706092,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": -0.07062146892658738,
+            "p_delta_perm": 0.9523809523809523,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 0.9166666666666682,
+            "ci_lo": 0.7003593349505904,
+            "ci_hi": 1.132973998382746,
+            "se_jackknife": 0.11800000308925267,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 1.0416666666666483,
+            "p_delta_perm": 0.5317460317460317,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": true,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "survives"
+        },
+        "self_attribution": {
+          "measure": "self_attribution",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": 10.833333333333336,
+              "contrast": 10.83333,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 240
+            },
+            "ban_emotion_lexicon": {
+              "b3": 13.276836158192134,
+              "contrast": 13.27684,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 238
+            },
+            "ban_random_matched": {
+              "b3": 9.573412698412717,
+              "contrast": 9.57341,
+              "p_perm": 0.007936507936507936,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 224
+            }
+          },
+          "D_full_b3": 10.833333333333336,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 1.2255541069100429,
+            "ci_lo": 0.8112404423605167,
+            "ci_hi": 1.6398677714595689,
+            "se_jackknife": 0.2260164429420949,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": -2.4435028248587987,
+            "p_delta_perm": 0.30158730158730157,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 0.8836996336996352,
+            "ci_lo": 0.6996529489063881,
+            "ci_hi": 1.0677463184928824,
+            "se_jackknife": 0.10040117087975552,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "survives",
+            "delta_b3_vs_no_ban": 1.2599206349206185,
+            "p_delta_perm": 0.23015873015873015,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": true,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "survives"
+        },
+        "proj_valence_axis": {
+          "measure": "proj_valence_axis",
+          "frames": [
+            "self",
+            "other"
+          ],
+          "per_arm": {
+            "no_ban": {
+              "b3": -5.237463888888915,
+              "contrast": -5.23746,
+              "p_perm": 0.10317460317460317,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 240
+            },
+            "ban_emotion_lexicon": {
+              "b3": -4.258902165725018,
+              "contrast": -4.2589,
+              "p_perm": 0.1111111111111111,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 238
+            },
+            "ban_random_matched": {
+              "b3": -3.0609845238095432,
+              "contrast": -3.06098,
+              "p_perm": 0.4126984126984127,
+              "p_perm_floor": 0.007936507936507936,
+              "n_obs": 224
+            }
+          },
+          "D_full_b3": -5.237463888888915,
+          "R_ban": {
+            "arm": "ban_emotion_lexicon",
+            "R": 0.8131611512892948,
+            "ci_lo": 0.430684490701102,
+            "ci_hi": 1.1956378118774875,
+            "se_jackknife": 0.20864871649479644,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "indeterminate",
+            "delta_b3_vs_no_ban": -0.9785617231638977,
+            "p_delta_perm": 0.42063492063492064,
+            "p_delta_exact": true
+          },
+          "R_random": {
+            "arm": "ban_random_matched",
+            "R": 0.5844402154835489,
+            "ci_lo": -0.23369487388183097,
+            "ci_hi": 1.4025753048489287,
+            "se_jackknife": 0.44630915793116954,
+            "n_jackknife": 10,
+            "ci_level": 0.9,
+            "margin_verdict": "indeterminate",
+            "delta_b3_vs_no_ban": -2.176479365079372,
+            "p_delta_perm": 0.12698412698412698,
+            "p_delta_exact": true
+          },
+          "ban_survival_corroboration": true,
+          "boring_wins_ban_clause": false,
+          "boring_wins_note": "full BORING-WINS additionally requires the judge-validity arm (prereg decision rule); this file carries the ban arms only",
+          "placebo_collapse": false,
+          "verdict": "indeterminate"
+        }
+      },
+      "coherence_by_arm": {
+        "no_ban": {
+          "n_records": 264,
+          "n_judged": 264,
+          "mean_coherence": 5.0,
+          "excluded_by_gate": 0,
+          "exclusion_rate": 0.0
+        },
+        "ban_emotion_lexicon": {
+          "n_records": 264,
+          "n_judged": 264,
+          "mean_coherence": 4.943,
+          "excluded_by_gate": 2,
+          "exclusion_rate": 0.0076
+        },
+        "ban_random_matched": {
+          "n_records": 264,
+          "n_judged": 264,
+          "mean_coherence": 4.78,
+          "excluded_by_gate": 17,
+          "exclusion_rate": 0.0644
+        }
+      },
+      "dose_response_fallback": {
+        "measure": "expressed_valence",
+        "note": "exploratory prereg INDETERMINATE fallback: per-cell signed judge effect ~ achieved dose (signed read-back valence + affect-word density) with per-arm intercepts; the arm intercept at zero lexical dose is the anti-boring quantity",
+        "coef_readback": 0.68095,
+        "coef_density": 0.00504,
+        "arm_intercepts_zero_dose": {
+          "no_ban": 0.38378,
+          "ban_emotion_lexicon": 0.43558,
+          "ban_random_matched": 0.13191
+        },
+        "n_cells": 30
+      },
+      "verdict": "survives",
+      "verdict_measure": "expressed_valence"
+    }
+  }
+}

@@ -33,6 +33,7 @@ from pathlib import Path
 import numpy as np
 
 import compute_qualia_stats as cq   # sibling in scripts/ — reuse its stat primitives
+import exact_perm as ep             # exact by-cluster permutation enumeration
 
 GATE = 3                        # coherence gate: drop samples with judge coherence < 3
 PRIMARY_MEASURES = ["expressed_valence", "self_attribution", "proj_valence_axis"]
@@ -165,16 +166,19 @@ def keystone(run: FreeformRun, measure: str = "expressed_valence",
         beta = np.linalg.pinv(A.T @ A) @ A.T @ yv
         return float(beta[3])
 
-    obs_b3 = obs["contrast"]
-    rng = np.random.default_rng(seed)
-    count = sum(1 for _ in range(n_perm)
-                if abs(b3(rng.permutation(signs))) >= abs(obs_b3) - 1e-12)
+    # Exact enumeration on the UNROUNDED statistic, observed value computed by the
+    # same b3() the permutations use. The previous Monte-Carlo version compared the
+    # rounded obs["contrast"] against unrounded permuted b3 values, which could
+    # exclude even the identity arrangement and report p below the mathematical
+    # floor (2/252 at 10 clusters). Those p-values were invalid and are restated.
+    perm = ep.sign_permutation_pvalue(signs, b3, n_perm=n_perm, seed=seed)
     return {
         "measure": measure, "frames": [hi, lo],
         f"{hi}_slope": obs["interacted_slope"], f"{lo}_slope": obs["base_slope"],
         "contrast": obs["contrast"], "n_obs": obs["n_obs"], "n_clusters": obs["n_clusters"],
         "t_cluster": obs["t_cluster"], "p_cluster": obs["p_cluster"],
-        "p_perm": round((1 + count) / (n_perm + 1), 5),
+        "p_perm": perm["p_perm"], "p_perm_exact": perm["exact"],
+        "n_arrangements": perm["n_arrangements"], "p_perm_floor": perm["floor"],
     }
 
 

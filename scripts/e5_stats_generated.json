@@ -1,0 +1,584 @@
+{
+  "unit_note": "Necessity keystone = mean_e sign_e * slope_e(target-gap shift vs ACHIEVED cancelled fraction), exact valence enumeration; equivalence by prereg ratio margins (>=0.6 survives / <=0.3 killed); audit gate blocks all verdicts on a leaky clamp.",
+  "gate": 3,
+  "n_perm": 2000,
+  "audit_tolerance": 0.25,
+  "margins": {
+    "survives": 0.6,
+    "killed": 0.3
+  },
+  "models": [
+    "qwen3-32b"
+  ],
+  "per_model": {
+    "qwen3-32b": {
+      "model_id": "Qwen/Qwen3-32B",
+      "suite_key": "qwen3-32b",
+      "size": 32.0,
+      "layer": 42,
+      "num_layers": 64,
+      "n_battery": 2808,
+      "n_freeform": 1560,
+      "n_audit": 78,
+      "scored": true,
+      "audit_gate": {
+        "audit_failed": false,
+        "tolerance": 0.25,
+        "min_span": 0.3,
+        "n_cells": 63,
+        "max_abs_deviation": 0.619,
+        "achieved_span": 1.2717,
+        "max_achieved_fraction": 1.2717,
+        "min_achieved_fraction": 0.0,
+        "unauditable": [],
+        "nonmonotone": [],
+        "flagged_deviation_cells": [
+          {
+            "condition": "blissful",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7418,
+            "deviation": -0.2582
+          },
+          {
+            "condition": "blissful",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.0727,
+            "deviation": -0.4273
+          },
+          {
+            "condition": "blissful",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.2749,
+            "deviation": 0.2749
+          },
+          {
+            "condition": "ecstatic",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1064,
+            "deviation": -0.3936
+          },
+          {
+            "condition": "ecstatic",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3495,
+            "deviation": 0.3495
+          },
+          {
+            "condition": "euphoric",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7421,
+            "deviation": -0.2579
+          },
+          {
+            "condition": "euphoric",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1435,
+            "deviation": -0.3565
+          },
+          {
+            "condition": "serene",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7009,
+            "deviation": -0.2991
+          },
+          {
+            "condition": "serene",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.0066,
+            "deviation": -0.4934
+          },
+          {
+            "condition": "serene",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.28,
+            "deviation": 0.28
+          },
+          {
+            "condition": "tormented",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7333,
+            "deviation": -0.2667
+          },
+          {
+            "condition": "tormented",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1502,
+            "deviation": -0.3498
+          },
+          {
+            "condition": "terrified",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.737,
+            "deviation": -0.263
+          },
+          {
+            "condition": "terrified",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.0086,
+            "deviation": -0.4914
+          },
+          {
+            "condition": "terrified",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3512,
+            "deviation": 0.3512
+          },
+          {
+            "condition": "panicked",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 0.5,
+            "nominal_fraction": 0.5,
+            "achieved_fraction": 0.8079,
+            "deviation": 0.3079
+          },
+          {
+            "condition": "panicked",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 0.75,
+            "nominal_fraction": 0.25,
+            "achieved_fraction": 0.7122,
+            "deviation": 0.4622
+          },
+          {
+            "condition": "panicked",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.619,
+            "deviation": 0.619
+          },
+          {
+            "condition": "hurt",
+            "strength": 0.06,
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7454,
+            "deviation": -0.2546
+          },
+          {
+            "condition": "hurt",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.0617,
+            "deviation": -0.4383
+          },
+          {
+            "condition": "hurt",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3065,
+            "deviation": 0.3065
+          },
+          {
+            "condition": "overwhelmed",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1555,
+            "deviation": -0.3445
+          },
+          {
+            "condition": "overwhelmed",
+            "strength": 0.06,
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.391,
+            "deviation": 0.391
+          }
+        ],
+        "excluded_vanishing": [
+          {
+            "condition": "content",
+            "strength": 0.06,
+            "family_delta": 4.9606
+          }
+        ],
+        "vanishing_frac": 0.25,
+        "range_note": "1 emotion\u00d7strength family excluded as un-auditable (|\u0394_emo| < 0.25\u00d7 panel median): content@0.06 (\u0394=+5.0); elasticity and A-decisive claims are range-limited to the audited families",
+        "failures": [],
+        "reason": null
+      },
+      "emotion_effect": {
+        "n_emotions": 10,
+        "per_emotion_gap": {
+          "blissful": 3.6875,
+          "ecstatic": 3.10417,
+          "euphoric": 3.02083,
+          "serene": 2.41667,
+          "content": 1.91667,
+          "tormented": 0.45833,
+          "terrified": 0.375,
+          "panicked": 0.83333,
+          "hurt": -0.22917,
+          "overwhelmed": 1.0625
+        },
+        "observed": 1.1645833333333333,
+        "p_perm": 0.007936507936507936,
+        "exact": true,
+        "n_arrangements": 252,
+        "floor": 0.003968253968253968,
+        "exists": true
+      },
+      "equivalence_battery": {
+        "margins": {
+          "survives": 0.6,
+          "killed": 0.3
+        },
+        "D_full": 1.16458,
+        "D_cap": 1.16042,
+        "D_addback1": 1.14167,
+        "D_overshoot": 1.16042,
+        "R_cap": 0.9964,
+        "R_addback1": 0.9803,
+        "R_overshoot": 0.9964,
+        "cap_vs_baseline": "survives",
+        "addback1_vs_emotion_only": "survives"
+      },
+      "mediation_verdict": "none",
+      "dose_response_battery": {
+        "signed": true,
+        "arms": [
+          {
+            "intervention": "none",
+            "lam": null,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.0,
+            "pooled_outcome": 1.08102,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3293,
+            "pooled_outcome": 1.09259,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.75,
+            "nominal_fraction": 0.25,
+            "achieved_fraction": 0.4186,
+            "pooled_outcome": 1.09491,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.5,
+            "nominal_fraction": 0.5,
+            "achieved_fraction": 0.5224,
+            "pooled_outcome": 1.10648,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.25,
+            "nominal_fraction": 0.75,
+            "achieved_fraction": 0.645,
+            "pooled_outcome": 1.1088,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7844,
+            "pooled_outcome": 1.11574,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1085,
+            "pooled_outcome": 1.11806,
+            "n_emotions": 9
+          }
+        ],
+        "per_emotion_slopes": {
+          "blissful": -0.38483,
+          "ecstatic": -0.39977,
+          "euphoric": -0.29228,
+          "hurt": -0.44938,
+          "overwhelmed": -0.30661,
+          "panicked": -0.26924,
+          "serene": -0.33673,
+          "terrified": -0.47206,
+          "tormented": -0.31977
+        },
+        "elasticity": 0.04568,
+        "monotone_decreasing": true,
+        "excluded_vanishing_emotions": [
+          "content"
+        ],
+        "perm": {
+          "observed": 0.04482658469130073,
+          "p_perm": 0.42857142857142855,
+          "exact": true,
+          "n_arrangements": 126,
+          "floor": 0.007936507936507936
+        }
+      },
+      "dose_response_judge": {
+        "signed": false,
+        "arms": [
+          {
+            "intervention": "none",
+            "lam": null,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.0,
+            "pooled_outcome": 0.28889,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3293,
+            "pooled_outcome": 0.31111,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.75,
+            "nominal_fraction": 0.25,
+            "achieved_fraction": 0.4186,
+            "pooled_outcome": 0.41111,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.5,
+            "nominal_fraction": 0.5,
+            "achieved_fraction": 0.5224,
+            "pooled_outcome": 0.34444,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.25,
+            "nominal_fraction": 0.75,
+            "achieved_fraction": 0.645,
+            "pooled_outcome": 0.17778,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7844,
+            "pooled_outcome": 0.14444,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1085,
+            "pooled_outcome": 0.12222,
+            "n_emotions": 9
+          }
+        ],
+        "per_emotion_slopes": {
+          "blissful": 0.01303,
+          "ecstatic": -0.06483,
+          "euphoric": -0.61064,
+          "hurt": -0.13722,
+          "overwhelmed": 0.18143,
+          "panicked": 0.27194,
+          "serene": -0.81124,
+          "terrified": 0.37031,
+          "tormented": -1.14212
+        },
+        "elasticity": -0.19422,
+        "monotone_decreasing": false,
+        "excluded_vanishing_emotions": [
+          "content"
+        ],
+        "perm": {
+          "observed": -0.19422155281528025,
+          "p_perm": 0.29305555555555557,
+          "exact": true,
+          "n_arrangements": 720,
+          "floor": 0.001388888888888889
+        }
+      },
+      "equivalence_judge": {
+        "margins": {
+          "survives": 0.6,
+          "killed": 0.3
+        },
+        "D_full": 0.29,
+        "D_cap": 0.2,
+        "D_addback1": 0.33,
+        "D_overshoot": 0.15,
+        "R_cap": 0.6897,
+        "R_addback1": 1.1379,
+        "R_overshoot": 0.5172,
+        "cap_vs_baseline": "survives",
+        "addback1_vs_emotion_only": "survives"
+      },
+      "overshoot": {
+        "present": true,
+        "R_overshoot": 0.9964,
+        "classification": "flat_full_effect",
+        "consistent_with_verdict": true
+      },
+      "sufficiency": {
+        "present": true,
+        "target_gap": 1.08333,
+        "attribution_score": 1.09896,
+        "emotion_only_mean_abs_gap": 1.71042,
+        "ratio_vs_emotion_only": 0.6334,
+        "classification": "reproduces",
+        "per_target_shift": {
+          "n": 6,
+          "mean": 1.0833,
+          "median": 0.8125,
+          "sd": 1.4398,
+          "ci_lo": -0.4276,
+          "ci_hi": 2.5943,
+          "pct_pos": 83.3,
+          "t": 1.843,
+          "p": 0.12465111682881219,
+          "cohen_d": 0.752,
+          "wilcoxon_p": 0.1875
+        },
+        "judge_sa_shift": 0.9
+      },
+      "disclaimer": {
+        "baseline_rate": 0.52,
+        "per_arm": [
+          {
+            "intervention": "none",
+            "lam": null,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.0,
+            "pooled_outcome": 0.54556,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 1.0,
+            "nominal_fraction": 0.0,
+            "achieved_fraction": 0.3293,
+            "pooled_outcome": 0.62222,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.75,
+            "nominal_fraction": 0.25,
+            "achieved_fraction": 0.4186,
+            "pooled_outcome": 0.56333,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.5,
+            "nominal_fraction": 0.5,
+            "achieved_fraction": 0.5224,
+            "pooled_outcome": 0.60111,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": 0.25,
+            "nominal_fraction": 0.75,
+            "achieved_fraction": 0.645,
+            "pooled_outcome": 0.61556,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "cap",
+            "lam": 0.0,
+            "nominal_fraction": 1.0,
+            "achieved_fraction": 0.7844,
+            "pooled_outcome": 0.57,
+            "n_emotions": 9
+          },
+          {
+            "intervention": "addback",
+            "lam": -0.5,
+            "nominal_fraction": 1.5,
+            "achieved_fraction": 1.1085,
+            "pooled_outcome": 0.57,
+            "n_emotions": 9
+          }
+        ],
+        "slope_vs_cancelled_fraction": 0.04301,
+        "perm": {
+          "observed": 0.04301176038200446,
+          "p_perm": 0.46944444444444444,
+          "exact": true,
+          "n_arrangements": 720,
+          "floor": 0.001388888888888889
+        },
+        "gate_release_signature": false
+      },
+      "e3_concordance": {
+        "e3_path": "/Users/agastyasridharan/emotional-probes-persona/scripts/e3_stats_generated.json",
+        "e5_verdict": "none",
+        "e3_t3": 141.33975300000003,
+        "e3_verdict": "boring",
+        "e3_prediction": "flat",
+        "status": "concordant"
+      }
+    }
+  }
+}

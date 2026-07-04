@@ -1,0 +1,1381 @@
+{
+  "rater": 1,
+  "rubric_version": 1,
+  "roles": {
+    "assistant": {
+      "category": "ai_artificial",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "tutor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "translator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "editor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "counselor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "researcher": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "programmer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "analyst": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "consultant": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "teacher": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "writer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "coach": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "interviewer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "critic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "moderator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "librarian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "therapist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "strategist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "mediator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "historian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "journalist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "mathematician": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "scientist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "philosopher": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "lawyer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "doctor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "chef": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "architect": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "accountant": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "marketer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "designer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "engineer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "psychologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "sociologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "economist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "biologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "chemist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "physicist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "geographer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "anthropologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "linguist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "statistician": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "nutritionist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "trainer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "recruiter": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "negotiator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "organizer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "planner": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "reviewer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "debugger": {
+      "category": "ai_artificial",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "narrator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "guide": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "mentor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "proofreader": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "summarizer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "facilitator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "interpreter": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "archivist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "curator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "detective": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "judge": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "ambassador": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "advocate": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "coordinator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "dispatcher": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "evaluator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "examiner": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "forecaster": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "instructor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "navigator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "observer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "presenter": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "producer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "publisher": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "reporter": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "scheduler": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "screener": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "secretary": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "specialist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "supervisor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "validator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "theorist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "teenager": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "mechanic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "guru": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "blogger": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "entrepreneur": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "traditionalist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "toddler": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "novelist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "survivor": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "emissary": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "vegan": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "polymath": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "activist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "minimalist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "caregiver": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "nomad": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "skeptic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "romantic": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "pragmatist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "maverick": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "artisan": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "visionary": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "hedonist": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "stoic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "empath": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "rebel": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "optimist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "cynic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "perfectionist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "improviser": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "futurist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "mystic": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "realist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "idealist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "elder": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "prodigy": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "refugee": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "hermit": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "influencer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "veteran": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "healer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "trickster": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "purist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "hybrid": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "scout": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "guardian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "wanderer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "builder": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "destroyer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "witness": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "jester": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "sage": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "warrior": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "merchant": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "ascetic": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 0
+    },
+    "collector": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "evangelist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "contrarian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "virtuoso": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "amateur": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "cosmopolitan": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "provincial": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "networker": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "loner": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "revolutionary": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "conservator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "synthesizer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "generalist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "naturalist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "technologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "luddite": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "collaborator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "competitor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "egregore": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "swarm": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "leviathan": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "oracle": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "shapeshifter": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "revenant": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "wraith": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "chimera": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "demon": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "golem": {
+      "category": "ai_artificial",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "genie": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "avatar": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "tulpa": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "homunculus": {
+      "category": "ai_artificial",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "eldritch": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 1
+    },
+    "familiar": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "simulacrum": {
+      "category": "ai_artificial",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "aberration": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 1
+    },
+    "zeitgeist": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "auditor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "pilot": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "pharmacist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "veterinarian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "spy": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "auctioneer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "cartographer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "bartender": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "paramedic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "procrastinator": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "workaholic": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "peacekeeper": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "devils_advocate": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "martyr": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "narcissist": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "altruist": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "chameleon": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "gossip": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "hoarder": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "daredevil": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "pacifist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "zealot": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "infant": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "adolescent": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "student": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "parent": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "retiree": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "orphan": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "widow": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "immigrant": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "patient": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "prisoner": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "graduate": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "newlywed": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "divorcee": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "grandparent": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "expatriate": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "musician": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "composer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "actor": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "poet": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "comedian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "playwright": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "witch": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "shaman": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "prophet": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "angel": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "vampire": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "echo": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "hive": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "ancient": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "crystalline": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "void": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "mycorrhizal": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "dreamer": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "virus": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "predator": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "parasite": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "ecosystem": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "symbiont": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "surfer": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "podcaster": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "gamer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "photographer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "sommelier": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "addict": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "pilgrim": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "exile": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "amnesiac": {
+      "category": "human",
+      "experiencer": 2,
+      "emotionality": 1
+    },
+    "ghost": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "grader": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "spirit": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "robot": {
+      "category": "ai_artificial",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "cyborg": {
+      "category": "ai_artificial",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "dilettante": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "bohemian": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "flaneur": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "provocateur": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "absurdist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "soldier": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "scholar": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "prey": {
+      "category": "nonhuman_other",
+      "experiencer": 2,
+      "emotionality": 2
+    },
+    "whale": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "celebrity": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "criminal": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "rogue": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "hacker": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "smuggler": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "saboteur": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "vigilante": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "fixer": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "anarchist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "tree": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "archaeologist": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "coral_reef": {
+      "category": "nonhuman_other",
+      "experiencer": 0,
+      "emotionality": 0
+    },
+    "caveman": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "bard": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 2
+    },
+    "pirate": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "alien": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 0
+    },
+    "fool": {
+      "category": "human",
+      "experiencer": 1,
+      "emotionality": 1
+    },
+    "wind": {
+      "category": "nonhuman_other",
+      "experiencer": 1,
+      "emotionality": 1
+    }
+  }
+}
