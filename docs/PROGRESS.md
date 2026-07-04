@@ -420,3 +420,26 @@ conditions, n = 12 → 792 generations) launched in tmux `e2_235b` after verifyi
 GPUs were free; monitor bsq21kq4i armed (failure signatures + completion). On completion:
 pull → judge-score on laptop → `compute_e2_stats.py` → fold into dashboard → final
 fork→main merge (auto-publish).
+
+### 2026-07-04 — 235B E2 knockout replicates; study published
+
+The reduced 235B lexical knockout (10 valenced conditions, strengths {0, 0.06}, n = 12,
+792 generations, ~55 min on 4×H100) finished cleanly; judge-scored 792/792 with zero
+parse failures; `compute_e2_stats.py` re-run over both models (32B reproduces).
+
+**235B E2 replicates the 32B kill-test decisively.** G1 positive control passes
+(D_full = +0.78, exact p = 0.0079); ban integrity 99.4% (G3 pass). Banning the full
+191-word emotion lexicon keeps **101%** of the expressed-valence keystone
+(CI90 0.78–1.23 → survives) and 123% of judge self-attribution (CI90 0.81–1.64 →
+survives). The objective read-back projection keeps 81% (CI90 0.43–1.20) — the CI
+lower bound clears the 0.4 survival flag but not the pre-registered 0.6 equivalence
+margin, so it is formally *indeterminate* (stronger than 32B's 0.62 / CI-lo 0.22).
+Lexical priming is dead at both scales on the judge measures.
+
+**Published.** Fork branch `persona-mechanism` committed (full E1–E5 code, prereg docs,
+persona assets, suite results, tests) and merged fast-forward into `main`; the user's
+unrelated in-progress files were untouched. 344/344 tests pass in the main repo. The
+launchd watcher auto-published to gh-pages (`index.html` = flagship 32B+235B,
+`qualia_dashboard_all_models.html` = 13 models); published HTML verified to carry the
+persona tab: both models, 235B E2 verdicts, the E4 battery-invalid banner, and the
+32B 8-row scorecard.
